@@ -42,11 +42,13 @@
     <div
       class="flex-col flex items-center justify-center text-xs font-medium text-gray-400 bg-gray-50 w-full px-8 py-4"
     >
-      <p>Self-custodial login by Web3Auth</p>
+      <p>Self-custodial login by <a href="https://web3auth.io" target="_blank">Web3Auth</a></p>
       <div class="flex items-center gap-1">
-        <a>Terms of Service |</a>
-        <a>Privacy Policy |</a>
-        <a>Version 1.27.3</a>
+        <a href="https://web3auth.io/docs/legal/terms-and-conditions" target="_blank"
+          >Terms of Service |</a
+        >
+        <a href="https://web3auth.io/docs/legal/privacy-policy" target="_blank">Privacy Policy |</a>
+        <a>Version 0.2.0</a>
       </div>
     </div>
   </div>
