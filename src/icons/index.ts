@@ -4,7 +4,8 @@ import {
   ChevronRightIcon,
   ChevronLeftIcon,
   ChevronUpSolidIcon,
-  ArrowRightIcon
+  ArrowRightIcon,
+  ChevronLeftSolidIcon
 } from '@toruslabs/vue-icons/arrows'
 import {
   GoogleIcon,
@@ -27,9 +28,11 @@ import {
   XCircleSolidIcon,
   XIcon,
   PlusCircleSolidIcon,
-  MinusCircleSolidIcon
+  MinusCircleSolidIcon,
+  CheckCircleSolidIcon
 } from '@toruslabs/vue-icons/notifications'
 import { ShieldExclamationSolidIcon } from '@toruslabs/vue-icons/security'
+import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
 
 export default {
   ChevronDownSolidIcon,
@@ -59,5 +62,8 @@ export default {
   LinkedinIcon,
   WechatIcon,
   KakaoIcon,
-  MailIcon
+  MailIcon,
+  MenuAltTwoSolidIcon,
+  ChevronLeftSolidIcon,
+  CheckCircleSolidIcon
 } as unknown as IconSets

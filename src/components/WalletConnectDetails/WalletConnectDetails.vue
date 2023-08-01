@@ -6,10 +6,12 @@
       @on-click="handleHeadingBtnClick"
     />
     <div>
-      <h1 class="text-2xl text-gray-800 font-semibold mt-8 text-center">
+      <h1 class="text-xl sm:text-2xl text-gray-800 font-semibold mt-8 text-center">
         Intuitive and seamless connections to Web3 apps
       </h1>
-      <div class="flex items-stretch justify-between gap-6 w-full py-8 border-b border-gray-300">
+      <div
+        class="flex flex-col md:flex-row items-stretch justify-between gap-6 w-full py-8 border-b border-gray-300"
+      >
         <Card class="flex flex-col flex-1 p-6 !rounded-2xl">
           <img src="@/assets/images/wc-1.svg" class="h-12 w-12" />
           <h4 class="leading-tight text-gray-900 text-lg font-semibold mt-5">
@@ -37,10 +39,18 @@
             Own an SDK that embeds your wallet in a seamless integrated flow.
           </p>
         </Card>
+        <Button
+          variant="secondary"
+          size="sm"
+          class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex md:!hidden"
+          block
+        >
+          How interoperability works <Icon name="arrow-right-icon" />
+        </Button>
       </div>
 
       <div class="flex items-center justify-between gap-6 w-full">
-        <div class="flex flex-col flex-1 pl-0 p-6 border-r border-gray-200">
+        <div class="flex flex-col flex-1 pl-0 p-6">
           <Icon name="paper-airplane-solid-icon" class="!w-8 !h-8 text-gray-400" />
           <h4 class="text-xl text-gray-900 font-semibold mt-4">
             Experience Connecting with Opensea
