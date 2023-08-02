@@ -13,7 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@toruslabs/vue-components": "^4.2.3",
+    "@toruslabs/vue-components": "^4.2.5",
     "@toruslabs/vue-icons": "^4.1.1",
     "@vueuse/core": "^10.2.1",
     "@web3auth/base": "^6.1.6",

@@ -26,7 +26,7 @@ const props = withDefaults(
 const emits = defineEmits(['onClick'])
 
 const getStepLogo = () => {
-  return `src/assets/images/${props.item.img}.svg`
+  return new URL(`../../assets/images/${props.item.img}.svg`, import.meta.url).href
 }
 </script>
 

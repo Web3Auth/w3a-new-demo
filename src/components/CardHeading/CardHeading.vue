@@ -1,11 +1,11 @@
 <template>
   <div class="flex items-center justify-between pb-6 border-b border-b-gray-300">
-    <h1 class="text-2xl text-gray-800 font-medium">{{ heading }}</h1>
+    <h1 class="text-lg sm:text-2xl text-gray-800 font-medium">{{ heading }}</h1>
     <Button
       variant="secondary"
       size="sm"
       @on-click="emits('onClick')"
-      class="flex items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800"
+      class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 btn"
     >
       {{ btnLabel }} <Icon name="arrow-right-icon" />
     </Button>
@@ -28,4 +28,8 @@ withDefaults(
 const emits = defineEmits(['onClick'])
 </script>
 
-<style scoped></style>
+<style scoped>
+.btn {
+  @apply hidden md:flex;
+}
+</style>

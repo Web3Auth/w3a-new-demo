@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[380px] mt-12 shadow-xl rounded-2xl border border-gray-200 overflow-hidden bg-white"
+    class="w-full sm:w-[380px] shadow-xl rounded-2xl border border-gray-200 overflow-hidden bg-white"
   >
     <div class="p-8">
       <img src="@/assets/images/login-logo.svg" />
