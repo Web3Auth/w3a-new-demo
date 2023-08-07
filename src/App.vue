@@ -100,7 +100,7 @@ const emailLoginHint = ref('')
 const userDetails = ref<any | null>(null)
 const mbViewSteps = ref(false)
 
-const walletConnectPlugin = ref<TorusWalletConnectorPlugin | null>(null)
+const torusWalletPlugin = ref<TorusWalletConnectorPlugin | null>(null)
 let provider = ref<SafeEventEmitterProvider | null>(null)
 let web3authNoModal = ref<Web3AuthNoModal | null>(null)
 
@@ -164,7 +164,7 @@ onMounted(async () => {
 
     web3authNoModal.value = web3auth
     provider.value = web3auth.provider
-    walletConnectPlugin.value = torusPlugin
+    torusWalletPlugin.value = torusPlugin
 
     if (web3auth.provider && web3auth.connected) {
       isLoggedIn.value = true
@@ -231,11 +231,11 @@ const logout = async () => {
 }
 
 const initiateTopUpPlugin = async () => {
-  if (!walletConnectPlugin.value) {
+  if (!torusWalletPlugin.value) {
     console.log('torus plugin not initialized yet')
     return
   }
-  walletConnectPlugin.value.initiateTopup('moonpay', {
+  torusWalletPlugin.value.initiateTopup('moonpay', {
     selectedAddress: '0x8cFa648eBfD5736127BbaBd1d3cAe221B45AB9AF',
     selectedCurrency: 'USD',
     fiatValue: 100,
@@ -245,11 +245,11 @@ const initiateTopUpPlugin = async () => {
 }
 
 const openWalletConnect = async () => {
-  if (!walletConnectPlugin.value) {
+  if (!torusWalletPlugin.value) {
     console.log('torus plugin not initialized yet')
     return
   }
-  await walletConnectPlugin.value.showWalletConnectScanner()
+  await torusWalletPlugin.value.showWalletConnectScanner()
 }
 </script>
 
