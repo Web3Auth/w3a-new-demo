@@ -1,6 +1,4 @@
-# w3a-wallet-topup
-
-This template should help get you started developing with Vue 3 in Vite.
+# New Web3Auth Demo
 
 ## Recommended IDE Setup
 
