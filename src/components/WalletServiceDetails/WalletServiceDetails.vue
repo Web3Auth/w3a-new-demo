@@ -38,11 +38,12 @@
           variant="secondary"
           size="xs"
           class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
+          @on-click="emits('openWalletServiceUi')"
         >
           Open UI
         </Button>
       </div>
-      <div class="flex flex-col flex-1 mt-6 sm:mt-0 sm:pr-6">
+      <!-- <div class="flex flex-col flex-1 mt-6 sm:mt-0 sm:pr-6">
         <Icon name="shield-exclamation-solid-icon" class="!w-8 !h-8 text-gray-400" />
         <h4 class="text-xl text-gray-900 font-semibold mt-4">Sign Personal Message</h4>
         <p class="text-sm font-normal text-gray-500 mb-4">
@@ -55,7 +56,7 @@
         >
           Open UI
         </Button>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -67,6 +68,8 @@ import CardHeading from '../CardHeading'
 const handleHeadingBtnClick = () => {
   console.log('called btn label')
 }
+
+const emits = defineEmits(['openWalletServiceUi'])
 </script>
 
 <style scoped>

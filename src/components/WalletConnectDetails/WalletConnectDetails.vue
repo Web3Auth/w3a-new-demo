@@ -53,7 +53,7 @@
         <div class="flex flex-col flex-1 pl-0 p-6">
           <Icon name="paper-airplane-solid-icon" class="!w-8 !h-8 text-gray-400" />
           <h4 class="text-xl text-gray-900 font-semibold mt-4">
-            Experience Connecting with Opensea
+            Experience Connecting with Uniswap
           </h4>
           <p class="text-sm font-normal text-gray-500 mb-4">
             Preview what onramp would feel like for your application or wallet

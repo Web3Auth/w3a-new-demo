@@ -72,7 +72,7 @@ const StepItems = STEP_DETAILS
 
 const emits = defineEmits(['onRedirect', 'onLogOut', 'onMenuClick'])
 
-const isLoggedIn = inject<boolean>('isLoggedIn')
+const isLoggedIn = inject('account')
 
 const isMenuOpen = ref(false)
 

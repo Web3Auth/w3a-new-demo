@@ -145,10 +145,10 @@
 import { inject, onMounted, ref, type Ref } from 'vue'
 
 import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
-import type { Web3AuthNoModal } from '@web3auth/no-modal'
 import publicKeyToAddress from 'ethereum-public-key-to-address'
 
 import CardHeading from '../CardHeading'
+import type Torus from '@web3auth/embed'
 
 const openConsole = ref(false)
 const isCopied = ref(false)
@@ -160,11 +160,11 @@ const handleHeadingBtnClick = () => {
 }
 
 const userInfo: any = ref(null)
-const web3auth = inject<Ref<Web3AuthNoModal | null>>('web3authDetails')
+const torus = inject<Ref<Torus>>('torus')
 
 onMounted(async () => {
-  if (!web3auth?.value) return
-  userInfo.value = await web3auth.value.getUserInfo()
+  if (!torus?.value) return
+  userInfo.value = await torus?.value.getUserInfo()
 })
 
 const handleConsoleBtn = async () => {
@@ -172,8 +172,8 @@ const handleConsoleBtn = async () => {
     openConsole.value = true
     return
   }
-  if (!web3auth?.value) return
-  userInfo.value = await web3auth?.value?.getUserInfo()
+  if (!torus?.value) return
+  userInfo.value = await torus?.value.getUserInfo()
   openConsole.value = true
 }
 
