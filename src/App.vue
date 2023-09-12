@@ -46,11 +46,8 @@
       >
         <LoginDetails v-if="currentStep === -1" @on-view-steps="mbViewSteps = true" />
         <OpenloginDetails v-if="currentStep === 0" />
-        <WalletServiceDetails
-          v-if="currentStep === 1"
-          @open-wallet-service-ui="openWalletServiceUI"
-        />
-        <TopupDetails v-if="currentStep === 2" @initiate-top-up-plugin="initiateTopUpPlugin" />
+        <WalletServiceDetails v-if="currentStep === 1" @open-wallet-service-ui="openWalletUi" />
+        <TopupDetails v-if="currentStep === 2" @initiate-top-up-plugin="openCheckout" />
         <WalletConnectDetails v-if="currentStep === 3" @open-wallet-connect="openWalletConnect" />
       </div>
       <!-- Small Screen -->
@@ -60,11 +57,8 @@
       >
         <LoginDetails v-if="currentStep === -1" @on-view-steps="mbViewSteps = true" />
         <OpenloginDetails v-if="currentStep === 0" />
-        <WalletServiceDetails
-          v-if="currentStep === 1"
-          @open-wallet-service-ui="openWalletServiceUI"
-        />
-        <TopupDetails v-if="currentStep === 2" @initiate-top-up-plugin="initiateTopUpPlugin" />
+        <WalletServiceDetails v-if="currentStep === 1" @open-wallet-service-ui="openWalletUi" />
+        <TopupDetails v-if="currentStep === 2" @initiate-top-up-plugin="openCheckout" />
         <WalletConnectDetails v-if="currentStep === 3" @open-wallet-connect="openWalletConnect" />
       </div>
     </main>
@@ -73,7 +67,6 @@
 
 <script setup lang="ts">
 import { onMounted, provide, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import Torus from '@web3auth/embed'
 
 import { Button, Icon } from '@toruslabs/vue-components'
@@ -90,8 +83,6 @@ import WalletConnectDetails from '@/components/WalletConnectDetails'
 
 import { setTheme } from './utils/common'
 import { SUPPORTED_NETWORKS, CHAINS } from './constants/common'
-
-const router = useRouter()
 
 const currentStep = ref(-1)
 const loginProvider = ref('')
@@ -151,6 +142,12 @@ const handleSteps = (idx: number) => {
   if (idx === 3) {
     openWalletConnect()
   }
+  if (idx === 2) {
+    openCheckout()
+  }
+  if (idx === 1) {
+    openWalletUi()
+  }
   mbViewSteps.value = false
 }
 
@@ -159,14 +156,16 @@ const handleEmailValue = (e: Event) => {
   emailLoginHint.value = value
 }
 
-const openWalletServiceUI = () => {
-  router.push({ name: 'Home', query: { isEmbed: 'true' } })
-}
-
-const initiateTopUpPlugin = async () => {}
-
 const openWalletConnect = async () => {
   await torus.value?.showWalletConnectScanner()
+}
+
+const openWalletUi = async () => {
+  await torus.value?.showWalletUi()
+}
+
+const openCheckout = async () => {
+  await torus.value?.showCheckout()
 }
 </script>
 
