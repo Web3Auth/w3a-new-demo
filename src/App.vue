@@ -103,7 +103,7 @@ onMounted(async () => {
     isLoading.value = true
     torus.value = new Torus()
     await torus.value.init({
-      showTorusButton: true,
+      showTorusButton: false,
       network: SUPPORTED_NETWORKS[CHAINS.MAINNET],
       buildEnv: 'development',
       enableLogging: true
@@ -166,6 +166,12 @@ const openWalletUi = async () => {
 
 const openCheckout = async () => {
   await torus.value?.showCheckout()
+}
+
+const signMessage = async () => {
+  const message = 'Hello World'
+  const signature = await torus.value?.signMessage({ message, from: account.value })
+  console.log('Signature', signature)
 }
 </script>
 
