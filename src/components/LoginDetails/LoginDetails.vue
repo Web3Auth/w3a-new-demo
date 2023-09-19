@@ -56,7 +56,11 @@
       </div> -->
       <Card class="mt-4 min-[800px]:mt-10 w-full p-4 sm:p-6 !rounded-2xl">
         <div class="flex items-center w-full gap-3 sm:gap-5 mb-4 sm:mb-6">
-          <Avatar size="xl" :rounded="false" class="text-2xl min-w-[80px] min-h-[80px]">
+          <Avatar
+            size="xl"
+            :rounded="false"
+            class="text-2xl w-[80px] h-[60px] sm:min-w-[80px] sm:min-h-[80px]"
+          >
             <img
               v-if="userInfo?.profileImage"
               :src="userInfo?.profileImage"
@@ -67,7 +71,9 @@
             </span>
           </Avatar>
           <div class="flex flex-col w-full justify-between">
-            <h1 class="text-2xl text-gray-600 font-bold mb-2">{{ userInfo?.name || '' }}</h1>
+            <h1 class="text-base sm:text-2xl text-gray-600 font-bold mb-2">
+              {{ userInfo?.name || '' }}
+            </h1>
             <div class="flex flex-row items-center w-full gap-2">
               <p
                 class="flex items-center justify-between w-full border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
