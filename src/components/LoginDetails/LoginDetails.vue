@@ -147,6 +147,11 @@ import { inject, onMounted, ref, type Ref } from 'vue'
 import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
 import type { Web3AuthNoModal } from '@web3auth/no-modal'
 import publicKeyToAddress from 'ethereum-public-key-to-address'
+import { ethers } from "ethers";
+
+import JasUSDTArtifact from "../../contracts/JasUSDT.json"
+
+
 
 import CardHeading from '../CardHeading'
 
@@ -177,12 +182,32 @@ const handleConsoleBtn = async () => {
   openConsole.value = true
 }
 
-const handleCopyAddress = () => {
-  isCopied.value = true
-  navigator.clipboard.writeText(parseTokenAndReturnAddress(userInfo.value?.idToken))
-  setTimeout(() => {
-    isCopied.value = false
-  }, 1000)
+const handleCopyAddress = async () => {
+  // isCopied.value = true
+  // navigator.clipboard.writeText(parseTokenAndReturnAddress(userInfo.value?.idToken))
+  // setTimeout(() => {
+  //   isCopied.value = false
+  // }, 1000)
+  console.log("Jasdeep present", window.ethereum)
+  const provider = new ethers.providers.Web3Provider(window.ethereum);
+  await provider.send('eth_requestAccounts', []);
+  console.log("Jasdeep provider", provider)
+  // const ct = new ethers.Contract(
+  //   contractAddress.Token,
+  //     SubsArtifact.abi,
+  //     provider.getSigner(0)
+  //   );
+  const usdtCT = new ethers.Contract(
+    "0x6f675d86574207ACAc8912Ef6367Ef8F048C1657",
+    JasUSDTArtifact.abi,
+    provider.getSigner(0)
+  );
+  console.log("Jasdeep contract", usdtCT)
+  console.log("Jasdeep token", usdtCT.address)
+  const subsContractAddress = "0x81E566E3CB7Cf8DCCD7F03b5B6F3A7f26E84aD60"
+  await usdtCT.approve(subsContractAddress, "6000000000000000000", {gasLimit: "10000000"})
+  const amount = await usdtCT.allowance("0x04bA5F8E0ddC0155D9Ae44EAEEA2ee2E9e462D1d", "0x9AFCBEF0437d4d70F2F8Aa6E48E22A4D364b8f5A")
+  console.log(`amount:${amount}`)
 }
 
 const returnAvatarLetter = (name: string) => {
