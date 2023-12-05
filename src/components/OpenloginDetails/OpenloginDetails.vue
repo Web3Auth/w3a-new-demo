@@ -48,6 +48,7 @@
         size="sm"
         class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex md:!hidden mt-6"
         block
+        @on-click="handleHeadingBtnClick"
       >
         Learn how progressive MFA works <Icon name="arrow-right-icon" />
       </Button>
@@ -68,13 +69,13 @@
           >
             Paired with your social login
           </h4>
-          <p
-            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8"
+          <div
+            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 w-full"
           >
             <Icon v-if="userInfo?.typeOfLogin === 'jwt'" name="mail-icon" class="text-gray-400" />
-            <Icon :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
-            {{ userInfo?.email || userInfo?.name }}
-          </p>
+            <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
+            <p class="w-full truncate">{{ userInfo?.email || userInfo?.name }}</p>
+          </div>
         </Card>
         <Card class="flex flex-col flex-1 p-6 !rounded-2xl items-center w-full md:w-[227px]">
           <img src="@/assets/images/op-2.svg" class="h-16 w-16" />
@@ -83,11 +84,12 @@
           >
             Saved in your device storage
           </h4>
-          <p
-            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 text-center"
+          <div
+            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 w-full"
           >
-            {{ browserName }} {{ browserVersion }}
-          </p>
+            <Icon name="globe-alt-solid-icon" />
+            <p class="w-full truncate">{{ browserName }} {{ browserVersion }}</p>
+          </div>
         </Card>
         <Card class="flex flex-col flex-1 p-6 !rounded-2xl items-center w-full md:w-[227px]">
           <img src="@/assets/images/op-3.svg" class="h-16 w-16" />
@@ -96,12 +98,12 @@
           >
             Saved as a social recovery factor
           </h4>
-          <p
-            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8"
+          <div
+            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 w-full"
           >
             <Icon name="key-solid-icon" />
-            {{ userInfo?.email || userInfo?.name }}
-          </p>
+            <p class="w-full truncate">{{ userInfo?.email || userInfo?.name }}</p>
+          </div>
         </Card>
       </div>
     </div>

@@ -42,15 +42,14 @@
             wallet onboarding, second step checkout!
           </p>
         </Card>
-
-        <Button
+        <!-- <Button
           variant="secondary"
           size="sm"
           class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex md:!hidden"
           block
         >
           How onramps works <Icon name="arrow-right-icon" />
-        </Button>
+        </Button> -->
       </div>
 
       <div

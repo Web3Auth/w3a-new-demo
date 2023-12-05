@@ -75,16 +75,27 @@
               {{ userInfo?.name || '' }}
             </h1>
             <div class="flex flex-row items-center w-full gap-2">
-              <p
+              <div
                 class="flex items-center justify-between w-full border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
               >
                 {{ getTruncateString(account || '') }}
-                <Icon
-                  :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
-                  :class="['cursor-pointer', isCopied ? 'text-green-600' : 'text-gray-400']"
-                  @click="handleCopyAddress"
-                />
-              </p>
+                <div class="relative">
+                  <div
+                    v-if="isCopied"
+                    class="absolute bottom-[150%] left-1/2 -translate-x-1/2 bg-app-white py-2 px-4 rounded-lg text-black text-sm text-center w-max shadow-md"
+                  >
+                    Copied
+                    <div
+                      class="absolute border-8 border-b-0 border-r-transparent border-t-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+                    ></div>
+                  </div>
+                  <Icon
+                    :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
+                    :class="['cursor-pointer', isCopied ? 'text-green-600' : 'text-gray-400']"
+                    @click="handleCopyAddress"
+                  />
+                </div>
+              </div>
               <p
                 class="hidden sm:flex items-center gap-2 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
               >
@@ -93,7 +104,7 @@
                   name="mail-icon"
                   class="text-gray-400"
                 />
-                <Icon :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
+                <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
                 {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
               </p>
             </div>
@@ -103,7 +114,7 @@
           class="flex sm:hidden mb-4 items-center gap-2 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
         >
           <Icon v-if="userInfo?.typeOfLogin === 'jwt'" name="mail-icon" class="text-gray-400" />
-          <Icon :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
+          <Icon else :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
           {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
         </p>
         <Button
@@ -127,7 +138,7 @@
           </div>
           <div class="flex flex-col items-start gap-2">
             <p class="text-lg text-gray-400 font-normal">Device</p>
-            <p class="text-base sm:text-lg text-gray-600 font-medium">
+            <p class="text-sm sm:text-sm text-gray-600 font-medium">
               {{ browserName }} on {{ osName }}
             </p>
           </div>
@@ -138,7 +149,7 @@
           </div>
           <div class="flex flex-col items-start gap-2">
             <p class="text-lg text-gray-400 font-normal">Location</p>
-            <p class="text-base sm:text-lg text-gray-600 font-medium">{{ countryName }}</p>
+            <p class="text-sm sm:text-sm text-gray-600 font-medium">{{ countryName }}</p>
           </div>
         </div>
       </div>
