@@ -2,6 +2,7 @@
   <div class="flex items-center justify-between pb-6 border-b border-b-gray-300">
     <h1 class="text-lg sm:text-2xl text-gray-800 font-medium">{{ heading }}</h1>
     <Button
+      v-if="showBtn"
       variant="secondary"
       size="sm"
       @on-click="emits('onClick')"
@@ -19,10 +20,12 @@ withDefaults(
   defineProps<{
     heading: string
     btnLabel: string
+    showBtn?: boolean
   }>(),
   {
     heading: 'Welcome, You’ve logged in!',
-    btnLabel: 'See how we scale for you'
+    btnLabel: 'See how we scale for you',
+    showBtn: true
   }
 )
 const emits = defineEmits(['onClick'])

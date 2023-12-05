@@ -71,7 +71,9 @@
           <p
             class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8"
           >
-            <Icon name="google-icon" /> janedoe12321@gmail.com
+            <Icon v-if="userInfo?.typeOfLogin === 'jwt'" name="mail-icon" class="text-gray-400" />
+            <Icon :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
+            {{ userInfo?.email || userInfo?.name }}
           </p>
         </Card>
         <Card class="flex flex-col flex-1 p-6 !rounded-2xl items-center w-full md:w-[227px]">
@@ -82,9 +84,9 @@
             Saved in your device storage
           </h4>
           <p
-            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8"
+            class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 text-center"
           >
-            Chrome 103.0.0.0 (macOS)
+            {{ browserName }} {{ browserVersion }}
           </p>
         </Card>
         <Card class="flex flex-col flex-1 p-6 !rounded-2xl items-center w-full md:w-[227px]">
@@ -92,13 +94,13 @@
           <h4
             class="leading-tight text-gray-900 text-base lg:text-lg font-semibold mt-5 text-center"
           >
-            Saved a social recovery factor
+            Can be saved as a social recovery factor
           </h4>
           <p
             class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8"
           >
             <Icon name="twitter-icon" />
-            janedoe12321@gmail.com
+            {{ userInfo?.email || userInfo?.name }}
           </p>
         </Card>
       </div>
@@ -107,11 +109,27 @@
 </template>
 
 <script setup lang="ts">
+import { inject, onMounted, ref, type Ref } from 'vue'
+
+import type { UserInfo } from '@web3auth/ws-embed'
+
 import { Button, Card, Icon } from '@toruslabs/vue-components'
+
 import CardHeading from '../CardHeading'
+import { getBrowserName, getBrowserVersion } from '@/utils/common'
+
+const browserName: any = ref(null)
+const browserVersion: any = ref(null)
+
+const userInfo = inject<Ref<UserInfo & { typeOfLogin: string }>>('userInfo')
+
+onMounted(async () => {
+  browserName.value = await getBrowserName()
+  browserVersion.value = await getBrowserVersion()
+})
 
 const handleHeadingBtnClick = () => {
-  console.log('called btn label')
+  window.open('https://web3auth.io/docs/pnp/features/mfa', '_blank')
 }
 </script>
 

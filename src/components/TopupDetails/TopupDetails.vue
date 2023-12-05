@@ -3,7 +3,7 @@
     <CardHeading
       heading="Onramp Users with Credit Card"
       btn-label="How onramp works"
-      @on-click="handleHeadingBtnClick"
+      :show-btn="false"
     />
     <div>
       <h1 class="text-xl sm:text-2xl text-gray-800 font-semibold text-mt-height text-center">
@@ -71,20 +71,6 @@
             Open UI
           </Button>
         </div>
-        <div class="flex mt-4 sm:mt-0 flex-col flex-1 sm:pr-6">
-          <Icon name="minus-circle-solid-icon" class="!w-8 !h-8 text-gray-400" />
-          <h4 class="text-xl text-gray-900 font-semibold mt-4">Experience Offramp</h4>
-          <p class="text-sm font-normal text-gray-500 mb-4">
-            Preview what offramp would feel like for your application or wallet
-          </p>
-          <Button
-            variant="secondary"
-            size="xs"
-            class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
-          >
-            Open UI
-          </Button>
-        </div>
       </div>
     </div>
   </div>
@@ -94,9 +80,9 @@
 import { Card, Icon, Button } from '@toruslabs/vue-components'
 import CardHeading from '../CardHeading'
 
-const handleHeadingBtnClick = () => {
-  console.log('called btn label')
-}
+// const handleHeadingBtnClick = () => {
+//   console.log('called btn label')
+// }
 
 const emits = defineEmits(['initiateTopUpPlugin'])
 </script>

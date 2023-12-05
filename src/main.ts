@@ -1,4 +1,4 @@
-import '@toruslabs/vue-components/dist/style.css'
+import '@toruslabs/vue-components/style.css'
 import './assets/main.css'
 import { createIcons } from '@toruslabs/vue-components'
 

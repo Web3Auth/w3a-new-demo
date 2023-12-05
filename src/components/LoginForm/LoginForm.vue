@@ -2,7 +2,7 @@
   <div
     class="w-full sm:w-[380px] shadow-xl rounded-2xl border border-gray-200 overflow-hidden bg-white"
   >
-    <div class="p-8">
+    <div class="p-8 pb-6">
       <img src="@/assets/images/login-logo.svg" />
       <h4 class="text-xl font-bold mt-4">Sign in</h4>
       <p class="text-sm font-semibold text-gray-500 mt-2 mb-6">
@@ -20,7 +20,7 @@
         primary-btn="input"
         :input-props="{
           placeholder: 'name@example.com',
-          onInput: (e) => emits('handleEmailPasswordLess', e),
+          onInput: (e: Event) => emits('handleEmailPasswordLess', e),
           modelValue: emailLoginHint
         }"
         :classes="{ expandBtn: '!text-indigo-600' }"
@@ -39,17 +39,12 @@
         We do not store any data related to your social logins.
       </p>
     </div>
-    <div
-      class="flex-col flex items-center justify-center text-xs font-medium text-gray-400 bg-gray-50 w-full px-8 py-4"
-    >
-      <p>Self-custodial login by <a href="https://web3auth.io" target="_blank">Web3Auth</a></p>
-      <div class="flex items-center gap-1">
-        <a href="https://web3auth.io/docs/legal/terms-and-conditions" target="_blank"
-          >Terms of Service |</a
-        >
-        <a href="https://web3auth.io/docs/legal/privacy-policy" target="_blank">Privacy Policy |</a>
-        <a>Version 0.2.0</a>
-      </div>
+    <div class="flex items-center justify-center mb-4">
+      <img
+        src="https://images.web3auth.io/ws-trademark-light.svg"
+        alt="web3auth logo"
+        class="block"
+      />
     </div>
   </div>
 </template>

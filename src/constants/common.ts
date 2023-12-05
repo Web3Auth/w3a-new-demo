@@ -84,10 +84,29 @@ export const STEP_DETAILS = [
   {
     img: 'wc-logo',
     heading1: 'Connect your wallet ',
-    heading2: 'to Opensea',
+    heading2: 'to UniSwap',
     subHeading: 'And other apps'
   }
 ]
 
 export const CLIENT_ID =
   'BEglQSgt4cUWcj6SKRdu5QkOXTsePmMcusG5EAoyjyOYKlVRjIF1iCNnMOTfpzCiunHRrMui8TIwQPXdkQ8Yxuk'
+
+export const MAINNET_CHAIN_ID = '0x1'
+
+export const CHAINS = {
+  MAINNET: 'mainnet'
+}
+
+export const SUPPORTED_NETWORKS = {
+  [CHAINS.MAINNET]: {
+    blockExplorerUrl: 'https://etherscan.io',
+    chainId: MAINNET_CHAIN_ID,
+    displayName: 'Main Ethereum Network',
+    logo: 'eth.svg',
+    rpcTarget: 'https://rpc.ankr.com/eth',
+    ticker: 'ETH',
+    tickerName: 'Ethereum',
+    type: CHAINS.MAINNET
+  }
+}
