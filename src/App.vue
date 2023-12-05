@@ -205,15 +205,15 @@ const logout = async () => {
 
 const handleSteps = (idx: number) => {
   currentStep.value = idx
-  if (idx === 3) {
-    openWalletConnect()
-  }
-  if (idx === 2) {
-    openCheckout()
-  }
-  if (idx === 1) {
-    openWalletUi()
-  }
+  // if (idx === 3) {
+  //   openWalletConnect()
+  // }
+  // if (idx === 2) {
+  //   openCheckout()
+  // }
+  // if (idx === 1) {
+  //   openWalletUi()
+  // }
   mbViewSteps.value = false
 }
 
