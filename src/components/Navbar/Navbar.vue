@@ -55,9 +55,9 @@
           <h1 class="text-sm font-bold">{{ item?.heading1 || '' }} {{ item?.heading2 || '' }}</h1>
         </li>
       </ul>
-      <Button variant="secondary" pill block class="mt-4" @on-click="handleMenuClick(-1)">
+      <!-- <Button variant="secondary" pill block class="mt-4" @on-click="handleMenuClick(-1)">
         View login time
-      </Button>
+      </Button> -->
       <Button pill block class="mt-4" @on-click="emits('onLogOut')">Log out</Button>
     </div>
   </div>

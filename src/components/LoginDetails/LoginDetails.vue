@@ -3,7 +3,7 @@
     <CardHeading
       heading="Welcome, You’ve logged in!"
       btn-label="See how we scale for you"
-      @on-click="handleHeadingBtnClick"
+      :show-btn="false"
     />
     <div class="w-full min-[800px]:w-[80%] mx-auto mt-8 flex flex-col items-center justify-center">
       <!-- <h2 class="text-base text-gray-700">Time taken to login</h2>
@@ -67,7 +67,7 @@
               class="w-full h-full"
             />
             <span v-else>
-              {{ returnAvatarLetter(userInfo?.name) }}
+              {{ returnAvatarLetter(userInfo?.name || '') }}
             </span>
           </Avatar>
           <div class="flex flex-col w-full justify-between">
@@ -78,7 +78,7 @@
               <p
                 class="flex items-center justify-between w-full border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
               >
-                {{ getTruncateAddress(userInfo?.idToken) }}
+                {{ getTruncateString(account || '') }}
                 <Icon
                   :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
                   :class="['cursor-pointer', isCopied ? 'text-green-600' : 'text-gray-400']"
@@ -86,7 +86,7 @@
                 />
               </p>
               <p
-                class="hidden sm:flex items-center gap-4 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
+                class="hidden sm:flex items-center gap-2 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
               >
                 <Icon
                   v-if="userInfo?.typeOfLogin === 'jwt'"
@@ -100,7 +100,7 @@
           </div>
         </div>
         <p
-          class="flex sm:hidden mb-4 items-center gap-4 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
+          class="flex sm:hidden mb-4 items-center gap-2 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
         >
           <Icon v-if="userInfo?.typeOfLogin === 'jwt'" name="mail-icon" class="text-gray-400" />
           <Icon :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
@@ -165,7 +165,7 @@
         <div
           class="rounded-2xl p-4 bg-gray-100 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
         >
-          <blockquote class="text-xs break-words leading-relaxed">{{ userInfo }}</blockquote>
+          <pre class="text-sm break-words leading-relaxed">{{ userInfo }}</pre>
         </div>
         <Button block pill @on-click="openConsole = false">Close</Button>
       </div>
@@ -176,49 +176,47 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from 'vue'
 
+import WsEmbed, { type UserInfo } from '@web3auth/ws-embed'
+
 import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
-import publicKeyToAddress from 'ethereum-public-key-to-address'
-import { getCountryName, getBrowserName, getOSName } from '@/utils/common'
+import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
 
 import CardHeading from '../CardHeading'
-import type Torus from '@web3auth/embed'
 
 const openConsole = ref(false)
 const isCopied = ref(false)
-
-const emits = defineEmits(['onViewSteps'])
-
-const handleHeadingBtnClick = () => {
-  console.log('called btn label')
-}
-
-const userInfo: any = ref(null)
 const countryName: any = ref(null)
 const browserName: any = ref(null)
 const osName: any = ref(null)
-const torus = inject<Ref<Torus>>('torus')
+
+const wsEmbed = inject<Ref<WsEmbed>>('wsEmbed')
+const userInfo = inject<Ref<UserInfo & { typeOfLogin: string }>>('userInfo')
+const account = inject<Ref<string>>('account')
+
+const emits = defineEmits(['onViewSteps'])
 
 onMounted(async () => {
-  if (!torus?.value) return
-  userInfo.value = await torus?.value.getUserInfo()
   countryName.value = await getCountryName()
   browserName.value = await getBrowserName()
   osName.value = await getOSName()
 })
 
+// const handleHeadingBtnClick = () => {
+//   console.log('called btn label')
+// }
+
 const handleConsoleBtn = async () => {
-  if (userInfo.value) {
+  if (userInfo?.value) {
     openConsole.value = true
     return
   }
-  if (!torus?.value) return
-  userInfo.value = await torus?.value.getUserInfo()
+  if (!wsEmbed?.value) return
   openConsole.value = true
 }
 
 const handleCopyAddress = () => {
   isCopied.value = true
-  navigator.clipboard.writeText(parseTokenAndReturnAddress(userInfo.value?.idToken))
+  navigator.clipboard.writeText(account?.value || '')
   setTimeout(() => {
     isCopied.value = false
   }, 1000)
@@ -234,26 +232,6 @@ const returnAvatarLetter = (name: string) => {
       .charAt(0)
       .toUpperCase()}`
   }
-}
-
-const parseTokenAndReturnAddress = (token: string) => {
-  if (!token) return null
-  const base64Url = token.split('.')[1]
-  const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
-  const jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
-      .join('')
-  )
-  console.log(JSON.parse(jsonPayload).wallets[0].public_key)
-  return publicKeyToAddress(JSON.parse(jsonPayload)?.wallets[0]?.public_key || '')
-}
-
-const getTruncateAddress = (token: string) => {
-  const address = parseTokenAndReturnAddress(token) || ''
-  console.log(address, 'ADD')
-  return `${address.substr(0, 10)}....${address.substr(address.length - 6)}`
 }
 </script>
 

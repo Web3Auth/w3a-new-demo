@@ -77,7 +77,7 @@ import { Card, Icon, Button } from '@toruslabs/vue-components'
 import CardHeading from '../CardHeading'
 
 const handleHeadingBtnClick = () => {
-  console.log('called btn label')
+  window.open('https://web3auth.io/docs/pnp/features/interoperability', '_blank')
 }
 
 const emits = defineEmits(['openWalletConnect'])

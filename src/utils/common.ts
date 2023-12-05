@@ -46,7 +46,7 @@ export const getBrowserName = () => {
     // @ts-ignore works only on brave browser
     if (navigator.brave.isBrave()) return 'Brave'
   } catch (error) {
-    console.log(error)
+    console.error(error)
   }
   if (/Opera|OPR/i.test(userAgent)) return 'Opera'
   if (/Chrome/i.test(userAgent)) return 'Google Chrome'
@@ -54,6 +54,23 @@ export const getBrowserName = () => {
   if (/Firefox/i.test(userAgent)) return 'Firefox'
   if (/Edge/i.test(userAgent)) return 'Microsoft Edge'
   return 'Special Browser'
+}
+
+export function getBrowserVersion() {
+  const userAgent: string = navigator?.userAgent || ''
+  let version = ''
+
+  if (userAgent.includes('Chrome')) {
+    version = userAgent.match(/Chrome\/(\S+)/)?.[1] || ''
+  } else if (userAgent.includes('Firefox')) {
+    version = userAgent.match(/Firefox\/(\S+)/)?.[1] || ''
+  } else if (userAgent.includes('Safari')) {
+    version = userAgent.match(/Version\/(\S+)/)?.[1] || ''
+  } else if (userAgent.includes('Edge')) {
+    version = userAgent.match(/Edge\/(\S+)/)?.[1] || ''
+  }
+
+  return version
 }
 
 export const getOSName = () => {
@@ -64,3 +81,22 @@ export const getOSName = () => {
   if (appVersion.indexOf('Linux') !== -1) return 'Linux'
   return 'Special OS'
 }
+
+export const getTruncateString = (val: string) => {
+  const address = val || ''
+  return `${address.slice(0, 10)}....${address.slice(address.length - 6)}`
+}
+
+// const parseTokenAndReturnAddress = (token: string) => {
+//   if (!token) return null
+//   const base64Url = token.split('.')[1]
+//   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+//   const jsonPayload = decodeURIComponent(
+//     atob(base64)
+//       .split('')
+//       .map((c) => `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`)
+//       .join('')
+//   )
+//   console.log(JSON.parse(jsonPayload).wallets[0].public_key)
+//   return publicKeyToAddress(JSON.parse(jsonPayload)?.wallets[0]?.public_key || '')
+// }

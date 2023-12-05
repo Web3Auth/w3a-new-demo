@@ -3,7 +3,7 @@
     <CardHeading
       heading="Customizable Wallet UI built for you"
       btn-label="How customization works"
-      @on-click="handleHeadingBtnClick"
+      :show-btn="false"
     />
     <div class="text-py-height border-b border-gray-300">
       <img src="@/assets/images/WhitelabelUI.svg" class="w-full mb-4" />
@@ -26,7 +26,7 @@
       </Button>
     </div>
     <div
-      class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 w-full text-pt-height"
+      class="flex flex-col sm:flex-row sm:items-center justify-between gap-8 w-full text-pt-height"
     >
       <div class="flex flex-col flex-1 pr-6 sm:border-r border-gray-200">
         <Icon name="color-swatch-solid-icon" class="!w-8 !h-8 text-gray-400" />
@@ -43,33 +43,55 @@
           Open UI
         </Button>
       </div>
-      <!-- <div class="flex flex-col flex-1 mt-6 sm:mt-0 sm:pr-6">
+      <div class="flex flex-col flex-1 mt-6 sm:mt-0 sm:pr-6">
         <Icon name="shield-exclamation-solid-icon" class="!w-8 !h-8 text-gray-400" />
         <h4 class="text-xl text-gray-900 font-semibold mt-4">Sign Personal Message</h4>
-        <p class="text-sm font-normal text-gray-500 mb-4">
+        <p class="text-sm font-normal text-gray-500 mb-8">
           Secure, fast transaction signing‍ on any platform.
         </p>
         <Button
           variant="secondary"
           size="xs"
-          class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
+          :class="[
+            'flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit',
+            { 'cursor-copy': Boolean(signedMessage) }
+          ]"
+          @on-click="!Boolean(signedMessage) && emits('openWalletSignMessage')"
         >
-          Open UI
+          {{ Boolean(signedMessage) ? getTruncateString(signedMessage || '') : 'Sign Message' }}
+          <Icon
+            v-if="Boolean(signedMessage)"
+            :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
+            :class="['cursor-pointer', isCopied ? 'text-green-600' : 'text-gray-400']"
+            @click="handleCopyAddress"
+          />
         </Button>
-      </div> -->
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { inject, ref, type Ref } from 'vue'
 import { Icon, Button } from '@toruslabs/vue-components'
+
 import CardHeading from '../CardHeading'
 
-const handleHeadingBtnClick = () => {
-  console.log('called btn label')
-}
+import { getTruncateString } from '@/utils/common'
 
-const emits = defineEmits(['openWalletServiceUi'])
+const emits = defineEmits(['openWalletServiceUi', 'openWalletSignMessage'])
+
+const isCopied = ref(false)
+
+const signedMessage = inject<Ref<string>>('signedMessage')
+
+const handleCopyAddress = () => {
+  isCopied.value = true
+  navigator.clipboard.writeText(signedMessage?.value || '')
+  setTimeout(() => {
+    isCopied.value = false
+  }, 1000)
+}
 </script>
 
 <style scoped>
