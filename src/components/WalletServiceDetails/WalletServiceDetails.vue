@@ -16,14 +16,14 @@
         <li>Basic whitelabel-able transaction screens</li>
         <li>Customizable to your brand</li>
       </ul>
-      <Button
+      <!-- <Button
         variant="secondary"
         size="sm"
         class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex md:!hidden mt-6"
         block
       >
         How customization works <Icon name="arrow-right-icon" />
-      </Button>
+      </Button> -->
     </div>
     <div
       class="flex flex-col sm:flex-row sm:items-center justify-between gap-8 w-full text-pt-height"
