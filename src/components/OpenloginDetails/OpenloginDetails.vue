@@ -94,12 +94,12 @@
           <h4
             class="leading-tight text-gray-900 text-base lg:text-lg font-semibold mt-5 text-center"
           >
-            Can be saved as a social recovery factor
+            Saved as a social recovery factor
           </h4>
           <p
             class="border border-gray-50 bg-gray-100 text-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8"
           >
-            <Icon name="twitter-icon" />
+            <Icon name="key-solid-icon" />
             {{ userInfo?.email || userInfo?.name }}
           </p>
         </Card>

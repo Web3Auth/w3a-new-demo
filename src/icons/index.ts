@@ -31,7 +31,7 @@ import {
   MinusCircleSolidIcon,
   CheckCircleSolidIcon
 } from '@toruslabs/vue-icons/notifications'
-import { ShieldExclamationSolidIcon } from '@toruslabs/vue-icons/security'
+import { ShieldExclamationSolidIcon, KeySolidIcon } from '@toruslabs/vue-icons/security'
 import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
 
 export default {
@@ -65,5 +65,6 @@ export default {
   MailIcon,
   MenuAltTwoSolidIcon,
   ChevronLeftSolidIcon,
-  CheckCircleSolidIcon
+  CheckCircleSolidIcon,
+  KeySolidIcon
 } as unknown as IconSets
