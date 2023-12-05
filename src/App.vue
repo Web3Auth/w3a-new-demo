@@ -151,10 +151,11 @@ onMounted(async () => {
         return
       }
 
-      // if (wsEmbed?.communicationProvider.isLoggedIn) {
-      //   login()
-      // }
+      if (wsEmbed?.communicationProvider.isLoggedIn) {
+        login()
+      }
     })
+
     ethersProvider = new BrowserProvider(wsEmbed.provider, 'any')
     web3 = new Web3()
     web3.setProvider(wsEmbed.provider)
@@ -174,15 +175,16 @@ const getCurrentChain = async () => {
   switchChainTo.value = chainId.value !== '0x5' ? '0x5' : '0x1'
 }
 
-const login = async (loginObj: SocialLoginObj) => {
+const login = async (loginObj?: SocialLoginObj) => {
   try {
     // Note: can pass loginProvider and login_hint as params if you want to preselect a provider and login identifier eg. email
     // const loginaccs = await torus?.login({ loginProvider: "google", login_hint: "sample@gmail.com" });
     // Passing empty will trigger showing the login modal showing all login provider options
     isLoading.value = true
-    const obj = { loginProvider: loginObj.icon as any, login_hint: emailLoginHint.value }
+    const obj = { loginProvider: loginObj?.icon as any, login_hint: emailLoginHint.value }
     const loginaccs = await wsEmbed?.login(obj)
     account.value = (loginaccs || [])[0] || ''
+    localStorage.setItem('accountLocal', account.value)
     userInfo.value = (await wsEmbed?.getUserInfo()) as UserInfo & { typeOfLogin: string }
     isLoading.value = false
     getCurrentChain()

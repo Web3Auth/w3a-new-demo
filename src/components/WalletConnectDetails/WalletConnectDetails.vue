@@ -44,6 +44,7 @@
           size="sm"
           class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex md:!hidden"
           block
+          @on-click="handleHeadingBtnClick"
         >
           How interoperability works <Icon name="arrow-right-icon" />
         </Button>
