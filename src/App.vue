@@ -204,6 +204,9 @@ onMounted(async () => {
       }),
       loginSettings: {
         mfaLevel: 'none'
+      },
+      adapterSettings: {
+        uxMode: 'popup'
       }
     })
     web3auth.configureAdapter(openloginAdapter)
