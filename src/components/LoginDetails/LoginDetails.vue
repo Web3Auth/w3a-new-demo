@@ -78,7 +78,7 @@
               <div
                 class="flex items-center justify-between w-full border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
               >
-                {{ getTruncateString(account || '') }}
+                {{ getTruncateString(parseTokenAndReturnAddress(userInfo?.idToken)) }}
                 <div class="relative">
                   <div
                     v-if="isCopied"
@@ -187,10 +187,17 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from 'vue'
 
-import WsEmbed, { type UserInfo } from '@web3auth/ws-embed'
+import type { Web3AuthNoModal } from '@web3auth/no-modal'
 
 import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
-import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
+
+import {
+  getCountryName,
+  getBrowserName,
+  getOSName,
+  getTruncateString,
+  parseTokenAndReturnAddress
+} from '@/utils/common'
 
 import CardHeading from '../CardHeading'
 
@@ -199,14 +206,15 @@ const isCopied = ref(false)
 const countryName: any = ref(null)
 const browserName: any = ref(null)
 const osName: any = ref(null)
+const userInfo: any = ref(null)
 
-const wsEmbed = inject<Ref<WsEmbed>>('wsEmbed')
-const userInfo = inject<Ref<UserInfo & { typeOfLogin: string }>>('userInfo')
-const account = inject<Ref<string>>('account')
+const web3auth = inject<Ref<Web3AuthNoModal | null>>('web3auth')
 
 const emits = defineEmits(['onViewSteps'])
 
 onMounted(async () => {
+  if (!web3auth?.value) return
+  userInfo.value = await web3auth?.value.getUserInfo()
   countryName.value = await getCountryName()
   browserName.value = await getBrowserName()
   osName.value = await getOSName()
@@ -217,17 +225,18 @@ onMounted(async () => {
 // }
 
 const handleConsoleBtn = async () => {
-  if (userInfo?.value) {
+  if (userInfo.value) {
     openConsole.value = true
     return
   }
-  if (!wsEmbed?.value) return
+  if (!web3auth?.value) return
+  userInfo.value = await web3auth?.value.getUserInfo()
   openConsole.value = true
 }
 
 const handleCopyAddress = () => {
   isCopied.value = true
-  navigator.clipboard.writeText(account?.value || '')
+  navigator.clipboard.writeText(parseTokenAndReturnAddress(userInfo.value?.idToken))
   setTimeout(() => {
     isCopied.value = false
   }, 1000)

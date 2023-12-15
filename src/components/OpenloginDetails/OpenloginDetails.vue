@@ -113,19 +113,23 @@
 <script setup lang="ts">
 import { inject, onMounted, ref, type Ref } from 'vue'
 
-import type { UserInfo } from '@web3auth/ws-embed'
+import type { Web3AuthNoModal } from '@web3auth/no-modal'
 
 import { Button, Card, Icon } from '@toruslabs/vue-components'
 
-import CardHeading from '../CardHeading'
 import { getBrowserName, getBrowserVersion } from '@/utils/common'
+
+import CardHeading from '../CardHeading'
 
 const browserName: any = ref(null)
 const browserVersion: any = ref(null)
+const userInfo: any = ref(null)
 
-const userInfo = inject<Ref<UserInfo & { typeOfLogin: string }>>('userInfo')
+const web3auth = inject<Ref<Web3AuthNoModal | null>>('web3auth')
 
 onMounted(async () => {
+  if (!web3auth?.value) return
+  userInfo.value = await web3auth?.value.getUserInfo()
   browserName.value = await getBrowserName()
   browserVersion.value = await getBrowserVersion()
 })
