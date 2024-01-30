@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { STEP_DETAILS } from '@/constants/common'
-import { useWeb3Auth } from '@/store/web3authStore';
+import { useWeb3Auth } from '@/store/web3authStore'
 import { Button, Icon } from '@toruslabs/vue-components'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -30,6 +30,7 @@ const handleMenuClick = (index: number) => {
 }
 
 const logout = async () => {
+  console.log('logout')
   try {
     await web3Auth.logoutWeb3Auth()
   } catch (error) {
@@ -54,22 +55,10 @@ const logout = async () => {
         @click="emits('onRedirect')"
         class="cursor-pointer"
       />
-      <Button
-        pill
-        class="!hidden xl:!flex"
-        @on-click="web3Auth.isLoggedIn ? logout : handleDocsLink()"
-      >
-        {{ web3Auth.isLoggedIn ? 'Logout' : 'Documentation' }}
+      <Button v-if="web3Auth.isLoggedIn" pill class="!hidden xl:!flex" @on-click="logout">
+        Logout
       </Button>
-      <Button
-        v-if="!web3Auth.isLoggedIn"
-        pill
-        class="!flex xl:!hidden"
-        @on-click="handleDocsLink()"
-        size="xs"
-      >
-        Documentation
-      </Button>
+      <Button v-if="!web3Auth.isLoggedIn" pill @on-click="handleDocsLink()"> Documentation </Button>
       <Icon
         v-if="web3Auth.isLoggedIn"
         name="menu-alt-two-solid-icon"
@@ -100,7 +89,7 @@ const logout = async () => {
       <!-- <Button variant="secondary" pill block class="mt-4" @on-click="handleMenuClick(-1)">
         View login time
       </Button> -->
-      <Button pill block class="mt-4" @on-click="logout">Log out</Button>
+      <Button pill block class="mt-4" @on-click="logout">Logout</Button>
     </div>
   </div>
 </template>

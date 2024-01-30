@@ -87,6 +87,7 @@ export const useWeb3Auth = defineStore('web3auth', () => {
   }
 
   async function logoutWeb3Auth() {
+    isLoggedIn.value = false
     return web3Auth.value?.logout()
   }
 
