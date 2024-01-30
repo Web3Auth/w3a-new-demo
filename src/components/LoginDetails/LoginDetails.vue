@@ -1,3 +1,58 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
+import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
+import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
+
+import CardHeading from '../CardHeading'
+import { useWeb3Auth } from '@/store/web3authStore'
+
+const web3Auth = useWeb3Auth()
+
+const openConsole = ref(false)
+const isCopied = ref(false)
+const countryName: any = ref(null)
+const browserName: any = ref(null)
+const osName: any = ref(null)
+const userInfo: any = ref(null)
+const account: any = ref(null)
+
+onMounted(async () => {
+  countryName.value = await getCountryName()
+  browserName.value = await getBrowserName()
+  osName.value = await getOSName()
+
+  account.value = web3Auth.accounts[0].address
+  userInfo.value = web3Auth.userInfo
+})
+
+const handleConsoleBtn = async () => {
+  if (userInfo.value) {
+    openConsole.value = true
+    return
+  }
+}
+
+const handleCopyAddress = () => {
+  isCopied.value = true
+  navigator.clipboard.writeText(account?.value || '')
+  setTimeout(() => {
+    isCopied.value = false
+  }, 1000)
+}
+
+const returnAvatarLetter = (name: string) => {
+  if (!name) return 'W3A'
+  if (name.includes('@')) {
+    return `${name.charAt(0).toUpperCase()}${name.charAt(1).toUpperCase()}`
+  } else {
+    return `${name.split(' ')[0].charAt(0).toUpperCase()}${name
+      .split(' ')[1]
+      .charAt(0)
+      .toUpperCase()}`
+  }
+}
+</script>
 <template>
   <div>
     <CardHeading
@@ -153,9 +208,9 @@
           </div>
         </div>
       </div>
-      <Button pill block class="mt-10 flex xl:!hidden" @on-click="emits('onViewSteps')"
+      <!-- <Button pill block class="mt-10 flex xl:!hidden" @on-click="emits('onViewSteps')"
         >View next steps</Button
-      >
+      > -->
     </div>
   </div>
   <Drawer
@@ -183,67 +238,5 @@
     </template>
   </Drawer>
 </template>
-
-<script setup lang="ts">
-import { inject, onMounted, ref, type Ref } from 'vue'
-
-import WsEmbed, { type UserInfo } from '@web3auth/ws-embed'
-
-import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
-import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
-
-import CardHeading from '../CardHeading'
-
-const openConsole = ref(false)
-const isCopied = ref(false)
-const countryName: any = ref(null)
-const browserName: any = ref(null)
-const osName: any = ref(null)
-
-const wsEmbed = inject<Ref<WsEmbed>>('wsEmbed')
-const userInfo = inject<Ref<UserInfo & { typeOfLogin: string }>>('userInfo')
-const account = inject<Ref<string>>('account')
-
-const emits = defineEmits(['onViewSteps'])
-
-onMounted(async () => {
-  countryName.value = await getCountryName()
-  browserName.value = await getBrowserName()
-  osName.value = await getOSName()
-})
-
-// const handleHeadingBtnClick = () => {
-//   console.log('called btn label')
-// }
-
-const handleConsoleBtn = async () => {
-  if (userInfo?.value) {
-    openConsole.value = true
-    return
-  }
-  if (!wsEmbed?.value) return
-  openConsole.value = true
-}
-
-const handleCopyAddress = () => {
-  isCopied.value = true
-  navigator.clipboard.writeText(account?.value || '')
-  setTimeout(() => {
-    isCopied.value = false
-  }, 1000)
-}
-
-const returnAvatarLetter = (name: string) => {
-  if (!name) return 'W3A'
-  if (name.includes('@')) {
-    return `${name.charAt(0).toUpperCase()}${name.charAt(1).toUpperCase()}`
-  } else {
-    return `${name.split(' ')[0].charAt(0).toUpperCase()}${name
-      .split(' ')[1]
-      .charAt(0)
-      .toUpperCase()}`
-  }
-}
-</script>
 
 <style scoped></style>

@@ -1,3 +1,39 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import { Icon, Button } from '@toruslabs/vue-components'
+
+import CardHeading from '../CardHeading'
+
+import { getTruncateString } from '@/utils/common'
+import { useWeb3Auth } from '@/store/web3authStore'
+
+const web3Auth = useWeb3Auth()
+
+const isCopied = ref(false)
+const signedMessage = ref<string>('')
+
+const handleCopyAddress = () => {
+  isCopied.value = true
+  navigator.clipboard.writeText(signedMessage?.value || '')
+  setTimeout(() => {
+    isCopied.value = false
+  }, 1000)
+}
+
+function openWalletServiceUi() {
+  web3Auth.showWalletUi()
+}
+
+async function openWalletSignMessage() {
+  if (signedMessage.value) {
+    handleCopyAddress()
+    return
+  }
+
+  signedMessage.value = await web3Auth.signedMessage()
+}
+</script>
+
 <template>
   <div>
     <CardHeading
@@ -38,7 +74,7 @@
           variant="secondary"
           size="xs"
           class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
-          @on-click="emits('openWalletServiceUi')"
+          @on-click="openWalletServiceUi"
         >
           Open UI
         </Button>
@@ -56,43 +92,19 @@
             'flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit',
             { 'cursor-copy': Boolean(signedMessage) }
           ]"
-          @on-click="!Boolean(signedMessage) && emits('openWalletSignMessage')"
+          @on-click="openWalletSignMessage"
         >
           {{ Boolean(signedMessage) ? getTruncateString(signedMessage || '') : 'Sign Message' }}
           <Icon
             v-if="Boolean(signedMessage)"
             :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
             :class="['cursor-pointer', isCopied ? 'text-green-600' : 'text-gray-400']"
-            @click="handleCopyAddress"
           />
         </Button>
       </div>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { inject, ref, type Ref } from 'vue'
-import { Icon, Button } from '@toruslabs/vue-components'
-
-import CardHeading from '../CardHeading'
-
-import { getTruncateString } from '@/utils/common'
-
-const emits = defineEmits(['openWalletServiceUi', 'openWalletSignMessage'])
-
-const isCopied = ref(false)
-
-const signedMessage = inject<Ref<string>>('signedMessage')
-
-const handleCopyAddress = () => {
-  isCopied.value = true
-  navigator.clipboard.writeText(signedMessage?.value || '')
-  setTimeout(() => {
-    isCopied.value = false
-  }, 1000)
-}
-</script>
 
 <style scoped>
 .text-mb-height {

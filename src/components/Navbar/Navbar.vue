@@ -1,9 +1,51 @@
+<script setup lang="ts">
+import { STEP_DETAILS } from '@/constants/common'
+import { Button, Icon } from '@toruslabs/vue-components'
+import { ref } from 'vue'
+import { useWeb3Auth } from '../../store/web3authStore'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+// Web3Auth
+const web3Auth = useWeb3Auth()
+
+const StepItems = STEP_DETAILS
+
+const emits = defineEmits(['onRedirect', 'onMenuClick'])
+
+const isMenuOpen = ref(false)
+
+const handleDocsLink = () => {
+  window.open('https://web3auth.io/docs', '_blank')
+}
+
+const getStepLogo = (url: string) => {
+  return new URL(`../../assets/images/${url}.svg`, import.meta.url).href
+}
+
+const handleMenuClick = (index: number) => {
+  isMenuOpen.value = false
+  emits('onMenuClick', index)
+}
+
+const logout = async () => {
+  try {
+    await web3Auth.logoutWeb3Auth()
+  } catch (error) {
+    console.log((error as Error).message)
+  } finally {
+    router.push({ name: 'Login' })
+  }
+}
+</script>
+
 <template>
   <div class="w-full relative">
     <div
       :class="[
         'p-6 flex items-center justify-between sm:bg-transparent w-full',
-        { 'bg-white': isLoggedIn }
+        { 'bg-white': web3Auth.isLoggedIn }
       ]"
     >
       <img
@@ -15,12 +57,12 @@
       <Button
         pill
         class="!hidden xl:!flex"
-        @on-click="isLoggedIn ? emits('onLogOut') : handleDocsLink()"
+        @on-click="web3Auth.isLoggedIn ? logout : handleDocsLink()"
       >
-        {{ isLoggedIn ? 'Logout' : 'Documentation' }}
+        {{ web3Auth.isLoggedIn ? 'Logout' : 'Documentation' }}
       </Button>
       <Button
-        v-if="!isLoggedIn"
+        v-if="!web3Auth.isLoggedIn"
         pill
         class="!flex xl:!hidden"
         @on-click="handleDocsLink()"
@@ -29,7 +71,7 @@
         Documentation
       </Button>
       <Icon
-        v-if="isLoggedIn"
+        v-if="web3Auth.isLoggedIn"
         name="menu-alt-two-solid-icon"
         size="30"
         class="flex xl:hidden cursor-pointer"
@@ -37,7 +79,7 @@
       />
     </div>
     <div
-      v-show="isMenuOpen && isLoggedIn"
+      v-show="isMenuOpen && web3Auth.isLoggedIn"
       class="block xl:hidden absolute bg-white px-10 py-7 w-full rounded-b-2xl shadow-2xl z-10"
     >
       <Button variant="text" class="!text-black !justify-start" @on-click="isMenuOpen = false">
@@ -58,36 +100,7 @@
       <!-- <Button variant="secondary" pill block class="mt-4" @on-click="handleMenuClick(-1)">
         View login time
       </Button> -->
-      <Button pill block class="mt-4" @on-click="emits('onLogOut')">Log out</Button>
+      <Button pill block class="mt-4" @on-click="logout">Log out</Button>
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { STEP_DETAILS } from '@/constants/common'
-import { Button, Icon } from '@toruslabs/vue-components'
-import { inject, ref } from 'vue'
-
-const StepItems = STEP_DETAILS
-
-const emits = defineEmits(['onRedirect', 'onLogOut', 'onMenuClick'])
-
-const isLoggedIn = inject('account')
-
-const isMenuOpen = ref(false)
-
-const handleDocsLink = () => {
-  window.open('https://web3auth.io/docs', '_blank')
-}
-
-const getStepLogo = (url: string) => {
-  return new URL(`../../assets/images/${url}.svg`, import.meta.url).href
-}
-
-const handleMenuClick = (index: number) => {
-  isMenuOpen.value = false
-  emits('onMenuClick', index)
-}
-</script>
-
-<style scoped></style>
