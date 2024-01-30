@@ -18,17 +18,21 @@
         input-btn-label="Continue With Email"
         :grid-cols="3"
         primary-btn="input"
+        :input-expand-btn-props="{
+          pill: true,
+          size: 'xs'
+        }"
         :input-props="{
           placeholder: 'name@example.com',
           onInput: (e: Event) => emits('handleEmailPasswordLess', e),
           modelValue: emailLoginHint
         }"
-        :classes="{ expandBtn: '!text-indigo-600' }"
         :input-btn-props="{
           class: '!bg-indigo-600 disabled:!bg-indigo-400',
           onClick: () => emits('onEmailLogin'),
           disabled: !emailLoginHint
         }"
+        :classes="{ expandBtn: '!text-indigo-600' }"
         @on-social-login-click="(loginObj, index) => emits('onSocialLoginClick', loginObj, index)"
       >
         <template #formBody>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-[380px] lg:w-[480px] bg-white shadow-xl rounded-2xl p-6 flex flex-col items-center container-height h-auto overflow-auto"
+    class="bg-white shadow-xl rounded-2xl p-6 flex flex-col items-center container-height h-auto overflow-auto"
   >
     <p class="text-xl font-bold flex self-start">Next Steps</p>
     <StepsButton
