@@ -3,15 +3,16 @@ import { getDefaultAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { shallowRef } from 'vue'
 import { BrowserProvider } from 'ethers'
 import { WalletServicesConnectorPlugin } from '@web3auth/wallet-services-plugin'
-import { plugin } from 'postcss'
+import { WALLET_ADAPTERS } from '@web3auth/base'
+import type { OpenloginAdapter } from '@web3auth/openlogin-adapter'
 
 export const web3authStore = defineStore('web3auth', () => {
-  const web3Auth = ref<Web3Auth | null>(null)
-  const provider = ref<BrowserProvider | null>(null)
-  const walletServicesPlugin = ref<WalletServicesConnectorPlugin | null>(null)
+  const web3Auth = shallowRef<Web3Auth | null>(null)
+  const provider = shallowRef<BrowserProvider | null>(null)
+  const walletServicesPlugin = shallowRef<WalletServicesConnectorPlugin | null>(null)
 
   async function initializeWeb3Auth() {
     const chainConfig = {
@@ -43,6 +44,10 @@ export const web3authStore = defineStore('web3auth', () => {
     const adapters = await getDefaultAdapters({ options: web3AuthOptions })
 
     adapters.forEach((adapter) => {
+      if (adapter.name === WALLET_ADAPTERS.OPENLOGIN) {
+        const openloginAdapter = adapter as OpenloginAdapter
+        openloginAdapter.setAdapterSettings({ buildEnv: 'testing' })
+      }
       web3Auth.value?.configureAdapter(adapter)
     })
 
@@ -60,19 +65,23 @@ export const web3authStore = defineStore('web3auth', () => {
 
   async function connectToWeb3Auth() {
     console.log('logging', web3Auth.value)
-    // web3Auth.value?.connected
-    await web3Auth.value?.connect()
-    walletServicesPlugin.value?.showWalletUi()
+    const provider = await web3Auth.value?.connect()
+    console.log(provider, 'available')
   }
 
   async function logoutWeb3Auth() {
     return web3Auth.value?.logout()
   }
 
+  async function showWalletServicesUI() {
+    return walletServicesPlugin.value?.showWalletUi()
+  }
+
   return {
     web3Auth,
     initializeWeb3Auth,
     connectToWeb3Auth,
-    logoutWeb3Auth
+    logoutWeb3Auth,
+    showWalletServicesUI
   }
 })
