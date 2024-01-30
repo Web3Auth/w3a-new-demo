@@ -3,15 +3,16 @@ import { getDefaultAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
 import { defineStore } from 'pinia'
-import { ref, type Ref } from 'vue'
-import { BrowserProvider } from 'ethers'
+import { ref, shallowRef, type Ref } from 'vue'
+import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { WalletServicesConnectorPlugin } from '@web3auth/wallet-services-plugin'
-import type { JsonRpcSigner } from 'ethers'
+import { WALLET_ADAPTERS } from '@web3auth/base'
+import type { OpenloginAdapter } from '@web3auth/openlogin-adapter'
 
-export const useWeb3Auth = defineStore('web3auth', () => {
-  let web3Auth: Web3Auth | null = null
-  let provider: BrowserProvider
-  let walletServicesPlugin: WalletServicesConnectorPlugin | null = null
+export const web3authStore = defineStore('web3auth', () => {
+  const web3Auth = shallowRef<Web3Auth | null>(null)
+  const provider = shallowRef<BrowserProvider | null>(null)
+  const walletServicesPlugin = shallowRef<WalletServicesConnectorPlugin | null>(null)
 
   const isLoggedIn = ref(false)
   const accounts: Ref<JsonRpcSigner[]> = ref([])
@@ -42,55 +43,58 @@ export const useWeb3Auth = defineStore('web3auth', () => {
       web3AuthNetwork: 'sapphire_mainnet'
     }
 
-    web3Auth = new Web3Auth(web3AuthOptions)
+    web3Auth.value = new Web3Auth(web3AuthOptions)
 
     const adapters = await getDefaultAdapters({ options: web3AuthOptions })
 
     adapters.forEach((adapter) => {
-      web3Auth?.configureAdapter(adapter)
+      if (adapter.name === WALLET_ADAPTERS.OPENLOGIN) {
+        const openloginAdapter = adapter as OpenloginAdapter
+        openloginAdapter.setAdapterSettings({ buildEnv: 'testing' })
+      }
+      web3Auth.value?.configureAdapter(adapter)
     })
 
-    walletServicesPlugin = new WalletServicesConnectorPlugin({
+    walletServicesPlugin.value = new WalletServicesConnectorPlugin({
       wsEmbedOpts: {},
       walletInitOptions: { whiteLabel: { showWidgetButton: true } }
     })
 
-    await web3Auth.addPlugin(walletServicesPlugin)
+    await web3Auth.value.addPlugin(walletServicesPlugin.value)
 
-    web3Auth.on('connected', () => {
+    web3Auth.value.on('connected', () => {
       console.log('check: connected')
     })
 
-    await web3Auth.initModal()
+    await web3Auth.value.initModal()
 
-    provider = new BrowserProvider(web3Auth.provider!)
+    provider.value = new BrowserProvider(web3Auth.value.provider!)
   }
 
   async function connectToWeb3Auth() {
-    await web3Auth?.connect()
-    console.log('walletServicesPlugin', walletServicesPlugin)
-
-    if (web3Auth?.connected) {
+    console.log('logging', web3Auth.value)
+    const web3Authprovider = await web3Auth.value?.connect()
+    console.log(web3Authprovider, 'available')
+    if (web3Auth.value?.connected) {
       isLoggedIn.value = true
-      accounts.value = await provider.listAccounts()
-      userInfo.value = await web3Auth.getUserInfo()
+      accounts.value = provider.value ? await provider.value?.listAccounts() : []
+      userInfo.value = await web3Auth.value.getUserInfo()
     }
   }
 
   async function logoutWeb3Auth() {
-    return web3Auth?.logout()
-  }
-
-  function showWalletUi() {
-    console.log('walletServicesPlugin', walletServicesPlugin)
-    walletServicesPlugin?.showWalletUi()
+    return web3Auth.value?.logout()
   }
 
   async function signedMessage() {
     const message = 'Example `personal_sign` message'
     const from = accounts.value[0].address
-    const signedMessage = await provider?.send('personal_sign', [message, from])
+    const signedMessage = await provider.value?.send('personal_sign', [message, from])
     return signedMessage
+  }
+
+  async function showWalletUi() {
+    return walletServicesPlugin.value?.showWalletUi()
   }
 
   return {
