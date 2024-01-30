@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { Card, Icon, Button } from '@toruslabs/vue-components'
+import CardHeading from '../CardHeading'
+import { useWeb3Auth } from '@/store/web3authStore'
+
+const web3Auth = useWeb3Auth()
+
+const initiateTopUpPlugin = () => {
+  web3Auth.initiateTopUpPlugin()
+}
+</script>
+
 <template>
   <div>
     <CardHeading
@@ -65,7 +77,7 @@
             variant="secondary"
             size="xs"
             class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
-            @on-click="emits('initiateTopUpPlugin')"
+            @on-click="initiateTopUpPlugin"
           >
             Open UI
           </Button>
@@ -74,17 +86,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Card, Icon, Button } from '@toruslabs/vue-components'
-import CardHeading from '../CardHeading'
-
-// const handleHeadingBtnClick = () => {
-//   console.log('called btn label')
-// }
-
-const emits = defineEmits(['initiateTopUpPlugin'])
-</script>
 
 <style scoped>
 .text-mt-height {

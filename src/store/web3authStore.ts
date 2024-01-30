@@ -8,11 +8,15 @@ import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { WalletServicesConnectorPlugin } from '@web3auth/wallet-services-plugin'
 import { WALLET_ADAPTERS } from '@web3auth/base'
 import type { OpenloginAdapter } from '@web3auth/openlogin-adapter'
+import { useRouter } from 'vue-router'
+import { ROUTES } from '@/constants/common'
 
-export const web3authStore = defineStore('web3auth', () => {
+export const useWeb3Auth = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3Auth | null>(null)
   const provider = shallowRef<BrowserProvider | null>(null)
   const walletServicesPlugin = shallowRef<WalletServicesConnectorPlugin | null>(null)
+
+  const router = useRouter()
 
   const isLoggedIn = ref(false)
   const accounts: Ref<JsonRpcSigner[]> = ref([])
@@ -62,7 +66,7 @@ export const web3authStore = defineStore('web3auth', () => {
 
     await web3Auth.value.addPlugin(walletServicesPlugin.value)
 
-    web3Auth.value.on('connected', () => {
+    web3Auth.value.on('connected', async () => {
       console.log('check: connected')
     })
 
@@ -72,13 +76,13 @@ export const web3authStore = defineStore('web3auth', () => {
   }
 
   async function connectToWeb3Auth() {
-    console.log('logging', web3Auth.value)
     const web3Authprovider = await web3Auth.value?.connect()
     console.log(web3Authprovider, 'available')
     if (web3Auth.value?.connected) {
       isLoggedIn.value = true
       accounts.value = provider.value ? await provider.value?.listAccounts() : []
       userInfo.value = await web3Auth.value.getUserInfo()
+      router.push({ name: ROUTES.WELCOME })
     }
   }
 
@@ -97,6 +101,14 @@ export const web3authStore = defineStore('web3auth', () => {
     return walletServicesPlugin.value?.showWalletUi()
   }
 
+  function initiateTopUpPlugin() {
+    return walletServicesPlugin.value?.showCheckout()
+  }
+
+  function initiateWalletConnect() {
+    return walletServicesPlugin.value?.showWalletConnectScanner()
+  }
+
   return {
     web3Auth,
     isLoggedIn,
@@ -106,6 +118,8 @@ export const web3authStore = defineStore('web3auth', () => {
     connectToWeb3Auth,
     logoutWeb3Auth,
     showWalletUi,
-    signedMessage
+    signedMessage,
+    initiateTopUpPlugin,
+    initiateWalletConnect
   }
 })
