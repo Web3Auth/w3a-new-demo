@@ -24,7 +24,7 @@ export const precisionDisplay = (value: string, precision = 3) => {
 }
 
 export const getCountryName = async () => {
-  const response: any = await fetch('https://lrc.admin.openlogin.com/api/v2/user/location')
+  const response = await fetch('https://lrc.admin.openlogin.com/api/v2/user/location')
   const { data } = await response.json()
   const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
   return regionNames.of(data.country)

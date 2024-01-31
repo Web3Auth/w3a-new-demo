@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onBeforeMount, ref } from 'vue'
 
 import { Button, Card, Icon } from '@toruslabs/vue-components'
 
@@ -9,14 +9,13 @@ import { useWeb3authStore } from '@/store/web3authStore'
 
 const web3Auth = useWeb3authStore()
 
-const browserName: any = ref(null)
-const browserVersion: any = ref(null)
-const userInfo: any = ref(null)
+const browserName = ref<string>('')
+const browserVersion = ref<string>('')
+const userInfo = computed(() => web3Auth.userInfo)
 
-onMounted(async () => {
-  browserName.value = await getBrowserName()
-  browserVersion.value = await getBrowserVersion()
-  userInfo.value = web3Auth.userInfo
+onBeforeMount(() => {
+  browserName.value = getBrowserName()
+  browserVersion.value = getBrowserVersion()
 })
 
 const handleHeadingBtnClick = () => {

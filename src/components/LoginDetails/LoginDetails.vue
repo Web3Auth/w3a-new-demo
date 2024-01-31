@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 
 import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
 import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
@@ -14,19 +14,18 @@ const router = useRouter()
 
 const openConsole = ref(false)
 const isCopied = ref(false)
-const countryName: any = ref(null)
-const browserName: any = ref(null)
-const osName: any = ref(null)
-const userInfo: any = ref(null)
-const account: any = ref(null)
+const countryName = ref('')
+const browserName = ref('')
+const osName = ref('')
+const userInfo = computed(() => web3Auth.userInfo)
+const account = ref('')
 
 onMounted(async () => {
-  countryName.value = await getCountryName()
+  countryName.value = (await getCountryName()) || ''
   browserName.value = getBrowserName()
   osName.value = getOSName()
 
   account.value = web3Auth.accounts[0].address
-  userInfo.value = web3Auth.userInfo
 })
 
 const handleConsoleBtn = async () => {
