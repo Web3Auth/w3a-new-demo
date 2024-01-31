@@ -2,7 +2,7 @@
 import { STEP_DETAILS } from '@/constants/common'
 import { useWeb3authStore } from '@/store/web3authStore'
 import { Button, Icon } from '@toruslabs/vue-components'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -39,6 +39,7 @@ const logout = async () => {
     router.push({ name: 'Login' })
   }
 }
+const isLoggedIn = computed(() => web3Auth.isLoggedIn)
 </script>
 
 <template>
@@ -46,7 +47,7 @@ const logout = async () => {
     <div
       :class="[
         'p-6 flex items-center justify-between sm:bg-transparent w-full',
-        { 'bg-white': web3Auth.isLoggedIn }
+        { 'bg-white': isLoggedIn }
       ]"
     >
       <img
@@ -55,12 +56,10 @@ const logout = async () => {
         @click="emits('onRedirect')"
         class="cursor-pointer"
       />
-      <Button v-if="web3Auth.isLoggedIn" pill class="!hidden xl:!flex" @on-click="logout">
-        Logout
-      </Button>
-      <Button v-if="!web3Auth.isLoggedIn" pill @on-click="handleDocsLink()"> Documentation </Button>
+      <Button v-if="isLoggedIn" pill class="!hidden xl:!flex" @on-click="logout"> Logout </Button>
+      <Button v-if="!isLoggedIn" pill @on-click="handleDocsLink()"> Documentation </Button>
       <Icon
-        v-if="web3Auth.isLoggedIn"
+        v-if="isLoggedIn"
         name="menu-alt-two-solid-icon"
         size="30"
         class="flex xl:hidden cursor-pointer"
@@ -68,7 +67,7 @@ const logout = async () => {
       />
     </div>
     <div
-      v-show="isMenuOpen && web3Auth.isLoggedIn"
+      v-show="isMenuOpen && isLoggedIn"
       class="block xl:hidden absolute bg-white px-10 py-7 w-full rounded-b-2xl shadow-2xl z-10"
     >
       <Button variant="text" class="!text-black !justify-start" @on-click="isMenuOpen = false">
