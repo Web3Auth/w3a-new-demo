@@ -95,7 +95,8 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   async function logoutWeb3Auth() {
-    return web3Auth.value?.logout()
+    await web3Auth.value?.logout()
+    triggerRef(web3Auth)
   }
 
   async function signedMessage() {
