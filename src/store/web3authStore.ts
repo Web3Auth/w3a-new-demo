@@ -3,13 +3,13 @@ import { getDefaultAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
 import { defineStore } from 'pinia'
-import { shallowRef } from 'vue'
+import { computed, shallowRef, triggerRef } from 'vue'
 import { BrowserProvider } from 'ethers'
 import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
 import { WALLET_ADAPTERS } from '@web3auth/base'
 import type { OpenloginAdapter } from '@web3auth/openlogin-adapter'
 
-export const web3authStore = defineStore('web3auth', () => {
+export const useWeb3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3Auth | null>(null)
   const provider = shallowRef<BrowserProvider | null>(null)
   const walletServicesPlugin = shallowRef<WalletServicesPlugin | null>(null)
@@ -61,12 +61,16 @@ export const web3authStore = defineStore('web3auth', () => {
     await web3Auth.value.initModal()
 
     provider.value = new BrowserProvider(web3Auth.value?.provider!)
+    console.log('logging', web3Auth.value?.connectedAdapterName)
+    triggerRef(web3Auth)
   }
 
   async function connectToWeb3Auth() {
     console.log('logging', web3Auth.value)
     const provider = await web3Auth.value?.connect()
     console.log(provider, 'available')
+    // because it's shallow ref, have to trigger again
+    triggerRef(web3Auth)
   }
 
   async function logoutWeb3Auth() {
@@ -77,8 +81,12 @@ export const web3authStore = defineStore('web3auth', () => {
     return walletServicesPlugin.value?.showWalletUi()
   }
 
+  const isLoggedIn = computed(() => {
+    return web3Auth.value?.connected
+  })
+
   return {
-    web3Auth,
+    isLoggedIn,
     initializeWeb3Auth,
     connectToWeb3Auth,
     logoutWeb3Auth,
