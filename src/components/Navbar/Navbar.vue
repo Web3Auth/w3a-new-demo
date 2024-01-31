@@ -57,7 +57,7 @@ const isLoggedIn = computed(() => web3Auth.isLoggedIn)
         class="cursor-pointer"
       />
       <Button v-if="isLoggedIn" pill class="!hidden xl:!flex" @on-click="logout"> Logout </Button>
-      <Button v-if="!isLoggedIn" pill @on-click="handleDocsLink()"> Documentation </Button>
+      <Button v-else pill @on-click="handleDocsLink"> Documentation </Button>
       <Icon
         v-if="isLoggedIn"
         name="menu-alt-two-solid-icon"

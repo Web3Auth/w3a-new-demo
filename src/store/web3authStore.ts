@@ -1,13 +1,12 @@
 import { POLYGON_MUMBAI_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
-import { getDefaultAdapters } from '@web3auth/default-evm-adapter'
+import { getDefaultExternalAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
 import { defineStore } from 'pinia'
-import { ref, shallowRef, type Ref, triggerRef, computed } from 'vue'
+import { ref, shallowRef, triggerRef, computed } from 'vue'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
-import { WALLET_ADAPTERS } from '@web3auth/base'
-import type { OpenloginAdapter, OpenloginUserInfo } from '@web3auth/openlogin-adapter'
+import { OpenloginAdapter, type OpenloginUserInfo } from '@web3auth/openlogin-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
 
@@ -48,13 +47,15 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
     web3Auth.value = new Web3Auth(web3AuthOptions)
 
-    const adapters = await getDefaultAdapters({ options: web3AuthOptions })
+    // TODO: remove this in prod
+    const openloginAdapter = new OpenloginAdapter({
+      adapterSettings: { buildEnv: 'testing' }
+    })
+    web3Auth.value.configureAdapter(openloginAdapter)
+
+    const adapters = await getDefaultExternalAdapters({ options: web3AuthOptions })
 
     adapters.forEach((adapter) => {
-      if (adapter.name === WALLET_ADAPTERS.OPENLOGIN) {
-        const openloginAdapter = adapter as OpenloginAdapter
-        openloginAdapter.setAdapterSettings({ buildEnv: 'testing' })
-      }
       web3Auth.value?.configureAdapter(adapter)
     })
 
@@ -96,6 +97,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
   async function logoutWeb3Auth() {
     await web3Auth.value?.logout()
+    // todo: connected is not changing after social login logout
     triggerRef(web3Auth)
   }
 
