@@ -5,9 +5,9 @@ import { Icon, Button } from '@toruslabs/vue-components'
 import CardHeading from '../CardHeading'
 
 import { getTruncateString } from '@/utils/common'
-import { useWeb3Auth } from '@/store/web3authStore'
+import { useWeb3authStore } from '@/store/web3authStore'
 
-const web3Auth = useWeb3Auth()
+const web3Auth = useWeb3authStore()
 
 const isCopied = ref(false)
 const signedMessage = ref<string>('')

@@ -1,3 +1,5 @@
+import Bowser from 'bowser'
+
 export const setTheme = (isDarkMode = false) => {
   const htmlElement = document.querySelector('html') as HTMLElement
 
@@ -21,11 +23,6 @@ export const precisionDisplay = (value: string, precision = 3) => {
   return Number.parseFloat(value).toPrecision(precision).toString()
 }
 
-export const getUserCountry = async () => {
-  const response: any = await fetch('https://lrc.admin.openlogin.com/api/v2/user/location')
-  return response.json()
-}
-
 export const getCountryName = async () => {
   const response: any = await fetch('https://lrc.admin.openlogin.com/api/v2/user/location')
   const { data } = await response.json()
@@ -34,10 +31,8 @@ export const getCountryName = async () => {
 }
 
 export const getDeviceType = () => {
-  const { userAgent } = navigator
-  if (/mobile/i.test(userAgent)) return 'Mobile'
-  if (/iPad|Android|Touch/i.test(userAgent)) return 'Tablet'
-  return 'Desktop'
+  const browser = Bowser.getParser(window.navigator.userAgent)
+  return browser.getPlatformType()
 }
 
 export const getBrowserName = () => {
@@ -48,38 +43,18 @@ export const getBrowserName = () => {
   } catch (error) {
     console.error(error)
   }
-  if (/Opera|OPR/i.test(userAgent)) return 'Opera'
-  if (/Chrome/i.test(userAgent)) return 'Google Chrome'
-  if (/Safari/i.test(userAgent)) return 'Safari'
-  if (/Firefox/i.test(userAgent)) return 'Firefox'
-  if (/Edge/i.test(userAgent)) return 'Microsoft Edge'
-  return 'Special Browser'
+  const browser = Bowser.getParser(userAgent)
+  return browser.getBrowserName()
 }
 
 export function getBrowserVersion() {
-  const userAgent: string = navigator?.userAgent || ''
-  let version = ''
-
-  if (userAgent.includes('Chrome')) {
-    version = userAgent.match(/Chrome\/(\S+)/)?.[1] || ''
-  } else if (userAgent.includes('Firefox')) {
-    version = userAgent.match(/Firefox\/(\S+)/)?.[1] || ''
-  } else if (userAgent.includes('Safari')) {
-    version = userAgent.match(/Version\/(\S+)/)?.[1] || ''
-  } else if (userAgent.includes('Edge')) {
-    version = userAgent.match(/Edge\/(\S+)/)?.[1] || ''
-  }
-
-  return version
+  const browser = Bowser.getParser(window.navigator.userAgent)
+  return browser.getBrowserVersion()
 }
 
 export const getOSName = () => {
-  const { appVersion } = navigator
-  if (appVersion.indexOf('Win') !== -1) return 'Windows'
-  if (appVersion.indexOf('Mac') !== -1) return 'macOS'
-  if (appVersion.indexOf('X11') !== -1) return 'UNIX'
-  if (appVersion.indexOf('Linux') !== -1) return 'Linux'
-  return 'Special OS'
+  const browser = Bowser.getParser(window.navigator.userAgent)
+  return browser.getOSName()
 }
 
 export const getTruncateString = (val: string) => {

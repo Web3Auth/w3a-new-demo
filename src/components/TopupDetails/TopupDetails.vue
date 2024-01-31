@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { Card, Icon, Button } from '@toruslabs/vue-components'
 import CardHeading from '../CardHeading'
-import { useWeb3Auth } from '@/store/web3authStore'
+import { useWeb3authStore } from '@/store/web3authStore'
 
-const web3Auth = useWeb3Auth()
+const web3Auth = useWeb3authStore()
 
 const initiateTopUpPlugin = () => {
   web3Auth.initiateTopUpPlugin()

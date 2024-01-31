@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { STEP_DETAILS } from '@/constants/common'
-import { useWeb3Auth } from '@/store/web3authStore'
+import { useWeb3authStore } from '@/store/web3authStore'
 import { Button, Icon } from '@toruslabs/vue-components'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
@@ -8,7 +8,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 // Web3Auth
-const web3Auth = useWeb3Auth()
+const web3Auth = useWeb3authStore()
 
 const StepItems = STEP_DETAILS
 

@@ -10,14 +10,15 @@
 <script setup lang="ts">
 import Steps from '@/components/Steps'
 import { ROUTES } from '@/constants/common'
-import { useWeb3Auth } from '@/store/web3authStore'
-import { onBeforeMount } from 'vue'
+import { useWeb3authStore } from '@/store/web3authStore'
+import { onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
-const web3Auth = useWeb3Auth()
+const web3Auth = useWeb3authStore()
 const router = useRouter()
 
-onBeforeMount(() => {
+// we wait for login to finish
+onMounted(() => {
   if (!web3Auth.isLoggedIn) {
     router.push({ name: ROUTES.LOGIN })
   }
