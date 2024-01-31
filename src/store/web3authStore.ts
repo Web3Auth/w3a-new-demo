@@ -5,14 +5,14 @@ import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
 import { defineStore } from 'pinia'
 import { shallowRef } from 'vue'
 import { BrowserProvider } from 'ethers'
-import { WalletServicesConnectorPlugin } from '@web3auth/wallet-services-plugin'
+import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
 import { WALLET_ADAPTERS } from '@web3auth/base'
 import type { OpenloginAdapter } from '@web3auth/openlogin-adapter'
 
 export const web3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3Auth | null>(null)
   const provider = shallowRef<BrowserProvider | null>(null)
-  const walletServicesPlugin = shallowRef<WalletServicesConnectorPlugin | null>(null)
+  const walletServicesPlugin = shallowRef<WalletServicesPlugin | null>(null)
 
   async function initializeWeb3Auth() {
     const chainConfig = {
@@ -51,7 +51,7 @@ export const web3authStore = defineStore('web3auth', () => {
       web3Auth.value?.configureAdapter(adapter)
     })
 
-    walletServicesPlugin.value = new WalletServicesConnectorPlugin({
+    walletServicesPlugin.value = new WalletServicesPlugin({
       wsEmbedOpts: {},
       walletInitOptions: { whiteLabel: { showWidgetButton: true } }
     })
