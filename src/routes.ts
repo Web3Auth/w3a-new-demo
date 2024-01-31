@@ -22,22 +22,22 @@ const router = createRouter({
           component: () => import('./views/Welcome.vue')
         },
         {
-          path: '/mpc',
+          path: 'mpc',
           name: 'Mpc',
           component: () => import('./views/Mpc.vue')
         },
         {
-          path: '/wallet-ui',
+          path: 'wallet-ui',
           name: 'WalletUi',
           component: () => import('./views/WalletUi.vue')
         },
         {
-          path: '/on-ramp',
+          path: 'on-ramp',
           name: 'OnRamp',
           component: () => import('./views/OnRamp.vue')
         },
         {
-          path: '/wallet-connect',
+          path: 'wallet-connect',
           name: 'WalletConnect',
           component: () => import('./views/WalletConnect.vue')
         }

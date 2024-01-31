@@ -10,7 +10,6 @@ import icons from './icons'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-console.log('check: env', process.env)
 
 const app = createApp(App)
 
