@@ -125,9 +125,9 @@ const browserVersion: any = ref(null)
 
 const userInfo = inject<Ref<UserInfo & { typeOfLogin: string }>>('userInfo')
 
-onMounted(async () => {
-  browserName.value = await getBrowserName()
-  browserVersion.value = await getBrowserVersion()
+onMounted(() => {
+  browserName.value = getBrowserName()
+  browserVersion.value = getBrowserVersion()
 })
 
 const handleHeadingBtnClick = () => {

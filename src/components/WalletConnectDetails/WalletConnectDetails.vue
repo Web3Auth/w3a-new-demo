@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import { Card, Icon, Button } from '@toruslabs/vue-components'
+import CardHeading from '../CardHeading'
+import { useWeb3authStore } from '@/store/web3authStore'
+
+const web3Auth = useWeb3authStore()
+
+const handleHeadingBtnClick = () => {
+  window.open('https://web3auth.io/docs/pnp/features/interoperability', '_blank')
+}
+
+const openWalletConnect = () => {
+  web3Auth.initiateWalletConnect()
+}
+</script>
 <template>
   <div>
     <CardHeading
@@ -63,7 +78,7 @@
             variant="secondary"
             size="xs"
             class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
-            @on-click="emits('openWalletConnect')"
+            @on-click="openWalletConnect"
           >
             Open UI
           </Button>
@@ -72,16 +87,5 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Card, Icon, Button } from '@toruslabs/vue-components'
-import CardHeading from '../CardHeading'
-
-const handleHeadingBtnClick = () => {
-  window.open('https://web3auth.io/docs/pnp/features/interoperability', '_blank')
-}
-
-const emits = defineEmits(['openWalletConnect'])
-</script>
 
 <style scoped></style>
