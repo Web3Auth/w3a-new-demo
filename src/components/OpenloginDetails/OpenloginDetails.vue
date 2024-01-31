@@ -1,3 +1,29 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+
+import { Button, Card, Icon } from '@toruslabs/vue-components'
+
+import CardHeading from '../CardHeading'
+import { getBrowserName, getBrowserVersion } from '@/utils/common'
+import { useWeb3authStore } from '@/store/web3authStore'
+
+const web3Auth = useWeb3authStore()
+
+const browserName: any = ref(null)
+const browserVersion: any = ref(null)
+const userInfo: any = ref(null)
+
+onMounted(async () => {
+  browserName.value = await getBrowserName()
+  browserVersion.value = await getBrowserVersion()
+  userInfo.value = web3Auth.userInfo
+})
+
+const handleHeadingBtnClick = () => {
+  window.open('https://web3auth.io/docs/pnp/features/mfa', '_blank')
+}
+</script>
+
 <template>
   <div>
     <CardHeading
@@ -109,31 +135,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { inject, onMounted, ref, type Ref } from 'vue'
-
-import type { UserInfo } from '@web3auth/ws-embed'
-
-import { Button, Card, Icon } from '@toruslabs/vue-components'
-
-import CardHeading from '../CardHeading'
-import { getBrowserName, getBrowserVersion } from '@/utils/common'
-
-const browserName: any = ref(null)
-const browserVersion: any = ref(null)
-
-const userInfo = inject<Ref<UserInfo & { typeOfLogin: string }>>('userInfo')
-
-onMounted(() => {
-  browserName.value = getBrowserName()
-  browserVersion.value = getBrowserVersion()
-})
-
-const handleHeadingBtnClick = () => {
-  window.open('https://web3auth.io/docs/pnp/features/mfa', '_blank')
-}
-</script>
 
 <style scoped>
 .container-height {

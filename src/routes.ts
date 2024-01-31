@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { ROUTES } from './constants/common'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
-      name: 'Login',
+      name: ROUTES.LOGIN,
       component: () => import('./views/Login.vue')
     },
     {
@@ -18,28 +19,33 @@ const router = createRouter({
         },
         {
           path: 'welcome',
-          name: 'Welcome',
+          name: ROUTES.WELCOME,
           component: () => import('./views/Welcome.vue')
         },
         {
           path: 'mpc',
-          name: 'Mpc',
+          name: ROUTES.MPC,
           component: () => import('./views/Mpc.vue')
         },
         {
           path: 'wallet-ui',
-          name: 'WalletUi',
+          name: ROUTES.WALLET_UI,
           component: () => import('./views/WalletUi.vue')
         },
         {
           path: 'on-ramp',
-          name: 'OnRamp',
+          name: ROUTES.ON_RAMP,
           component: () => import('./views/OnRamp.vue')
         },
         {
           path: 'wallet-connect',
-          name: 'WalletConnect',
+          name: ROUTES.WALLET_CONNECT,
           component: () => import('./views/WalletConnect.vue')
+        },
+        {
+          path: 'steps',
+          name: ROUTES.STEPS,
+          component: () => import('./views/Steps.vue')
         }
       ]
     }

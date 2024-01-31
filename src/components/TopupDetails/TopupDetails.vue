@@ -67,7 +67,7 @@ const initiateTopUpPlugin = () => {
       <div
         class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 w-full text-pt-height"
       >
-        <div class="flex flex-col flex-1 pr-6 sm:border-r border-gray-200">
+        <div class="flex flex-col flex-1 pr-6 border-gray-200">
           <Icon name="plus-circle-solid-icon" class="!w-8 !h-8 text-gray-400" />
           <h4 class="text-xl text-gray-900 font-semibold mt-4">Experience Onramp</h4>
           <p class="text-sm font-normal text-gray-500 mb-4">

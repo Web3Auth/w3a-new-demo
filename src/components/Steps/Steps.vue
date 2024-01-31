@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="w-[380px] lg:w-[480px] bg-white shadow-xl rounded-2xl p-6 flex flex-col items-center container-height h-auto overflow-auto"
-  >
+  <div class="w-full xl:w-[480px] flex-col items-center container-height h-auto overflow-auto">
     <p class="text-xl font-bold flex self-start">Next Steps</p>
     <StepsButton v-for="(item, idx) in StepItems" :key="idx" :item="item" />
   </div>
