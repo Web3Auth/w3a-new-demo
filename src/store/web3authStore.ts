@@ -7,7 +7,7 @@ import { ref, shallowRef, type Ref, triggerRef, computed } from 'vue'
 import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
 import { WALLET_ADAPTERS } from '@web3auth/base'
-import type { OpenloginAdapter } from '@web3auth/openlogin-adapter'
+import type { OpenloginAdapter, OpenloginUserInfo } from '@web3auth/openlogin-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
 
@@ -18,8 +18,8 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
   const router = useRouter()
 
-  const accounts: Ref<JsonRpcSigner[]> = ref([])
-  const userInfo: Ref<any> = ref(null)
+  const accounts = ref<JsonRpcSigner[]>([])
+  const userInfo = ref<Partial<OpenloginUserInfo> | null>(null)
 
   async function initializeWeb3Auth() {
     const chainConfig = {

@@ -1,15 +1,17 @@
 <template>
   <div class="flex items-center justify-between pb-6 border-b border-b-gray-300">
     <h1 class="text-lg sm:text-2xl text-gray-800 font-medium">{{ heading }}</h1>
-    <Button
-      v-if="showBtn"
-      variant="secondary"
-      size="sm"
-      @on-click="emits('onClick')"
-      class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 btn"
-    >
-      {{ btnLabel }} <Icon name="arrow-right-icon" />
-    </Button>
+    <div class="hidden md:flex">
+      <Button
+        v-if="showBtn"
+        variant="secondary"
+        size="sm"
+        @on-click="emits('onClick')"
+        class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800"
+      >
+        {{ btnLabel }} <Icon name="arrow-right-icon" />
+      </Button>
+    </div>
   </div>
 </template>
 
@@ -31,8 +33,4 @@ withDefaults(
 const emits = defineEmits(['onClick'])
 </script>
 
-<style scoped>
-.btn {
-  @apply hidden md:flex;
-}
-</style>
+<style scoped></style>

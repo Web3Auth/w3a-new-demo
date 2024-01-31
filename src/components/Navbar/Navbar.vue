@@ -24,9 +24,9 @@ const getStepLogo = (url: string) => {
   return new URL(`../../assets/images/${url}.svg`, import.meta.url).href
 }
 
-const handleMenuClick = (index: number) => {
+const handleMenuClick = (route: string) => {
   isMenuOpen.value = false
-  emits('onMenuClick', index)
+  router.push({ name: route })
 }
 
 const logout = async () => {
@@ -68,7 +68,7 @@ const isLoggedIn = computed(() => web3Auth.isLoggedIn)
     </div>
     <div
       v-show="isMenuOpen && isLoggedIn"
-      class="block xl:hidden absolute bg-white px-10 py-7 w-full rounded-b-2xl shadow-2xl z-10"
+      class="block xl:hidden absolute bg-app-white px-10 py-7 w-full rounded-b-2xl shadow-2xl z-10"
     >
       <Button variant="text" class="!text-black !justify-start" @on-click="isMenuOpen = false">
         <Icon name="chevron-left-solid-icon" class="-ml-2" /> Back
@@ -78,8 +78,8 @@ const isLoggedIn = computed(() => web3Auth.isLoggedIn)
         <li
           v-for="(item, idx) in StepItems"
           :key="idx"
-          class="flex items-center gap-4"
-          @click="handleMenuClick(idx)"
+          class="flex items-center gap-4 cursor-pointer"
+          @click="handleMenuClick(item.route)"
         >
           <img :src="getStepLogo(item?.img)" class="w-7 h-7" />
           <h1 class="text-sm font-bold">{{ item?.heading1 || '' }} {{ item?.heading2 || '' }}</h1>

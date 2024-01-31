@@ -13,6 +13,7 @@ const openWalletConnect = () => {
   web3Auth.initiateWalletConnect()
 }
 </script>
+
 <template>
   <div>
     <CardHeading
