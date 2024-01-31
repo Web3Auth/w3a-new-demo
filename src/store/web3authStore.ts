@@ -74,6 +74,11 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     provider.value = new BrowserProvider(web3Auth.value?.provider!)
     console.log('logging', web3Auth.value?.connectedAdapterName)
     triggerRef(web3Auth)
+    if (web3Auth.value?.connected) {
+      accounts.value = provider.value ? await provider.value?.listAccounts() : []
+      userInfo.value = await web3Auth.value.getUserInfo()
+      router.push({ name: ROUTES.WELCOME })
+    }
   }
 
   async function connectToWeb3Auth() {
