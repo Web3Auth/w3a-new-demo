@@ -21,6 +21,10 @@ onBeforeMount(() => {
 const handleHeadingBtnClick = () => {
   window.open('https://web3auth.io/docs/pnp/features/mfa', '_blank')
 }
+
+const enableMfa = () => {
+  web3Auth.enableMfa()
+}
 </script>
 
 <template>
@@ -30,7 +34,7 @@ const handleHeadingBtnClick = () => {
       btn-label="Learn how progressive MFA works"
       @on-click="handleHeadingBtnClick"
     />
-    <div>
+    <div v-if="userInfo?.isMfaEnabled">
       <h1 class="text-xl md:text-2xl text-gray-800 font-semibold container-height">
         Here’s a summary of what you set up
       </h1>
@@ -131,6 +135,9 @@ const handleHeadingBtnClick = () => {
           </div>
         </Card>
       </div>
+    </div>
+    <div v-else>
+      <Button @click="enableMfa">Enable MFA</Button>
     </div>
   </div>
 </template>

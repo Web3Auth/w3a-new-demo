@@ -64,7 +64,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
     walletServicesPlugin.value = new WalletServicesPlugin({
       wsEmbedOpts: {},
-      walletInitOptions: { whiteLabel: { showWidgetButton: true } }
+      walletInitOptions: { whiteLabel: { showWidgetButton: false } }
     })
 
     await web3Auth.value.addPlugin(walletServicesPlugin.value)
@@ -135,6 +135,14 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     return walletServicesPlugin.value?.showWalletConnectScanner()
   }
 
+  async function enableMfa() {
+    if (web3Auth.value?.connectedAdapterName === 'openlogin') {
+      return (
+        web3Auth.value?.walletAdapters['openlogin'] as OpenloginAdapter
+      ).openloginInstance?.enableMFA({})
+    }
+  }
+
   const isLoggedIn = computed(() => {
     return web3Auth.value?.connected
   })
@@ -150,6 +158,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     showWalletUi,
     signedMessage,
     initiateTopUpPlugin,
-    initiateWalletConnect
+    initiateWalletConnect,
+    enableMfa
   }
 })
