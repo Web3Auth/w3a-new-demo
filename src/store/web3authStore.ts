@@ -9,6 +9,9 @@ import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
 import { OpenloginAdapter, type OpenloginUserInfo } from '@web3auth/openlogin-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
+import { LOGIN_PROCESS_TIME } from '@/utils/common'
+
+const LOGIN_START_TIME = 'startTime'
 
 export const useWeb3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3Auth | null>(null)
@@ -67,6 +70,15 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     await web3Auth.value.addPlugin(walletServicesPlugin.value)
 
     web3Auth.value.on('connected', async () => {
+      // Get login process time
+      const loginStartTime = localStorage.getItem(LOGIN_START_TIME)
+      if (loginStartTime) {
+        const loginTime = (loginStartTime ? Date.now() - parseInt(loginStartTime) : 0) / 1000
+
+        localStorage.removeItem(LOGIN_START_TIME)
+        localStorage.setItem(LOGIN_PROCESS_TIME, loginTime.toString())
+      }
+
       console.log('check: connected')
     })
 
@@ -83,6 +95,8 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   async function connectToWeb3Auth() {
+    const startTime = Date.now()
+    localStorage.setItem(LOGIN_START_TIME, startTime.toString())
     console.log('logging', web3Auth.value)
     const localProvider = await web3Auth.value?.connect()
     console.log(localProvider, 'available')
@@ -109,6 +123,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   async function showWalletUi() {
+    console.log('walletServicesPlugin', walletServicesPlugin.value)
     return walletServicesPlugin.value?.showWalletUi()
   }
 

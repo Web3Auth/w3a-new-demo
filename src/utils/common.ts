@@ -75,3 +75,5 @@ export const getTruncateString = (val: string) => {
 //   console.log(JSON.parse(jsonPayload).wallets[0].public_key)
 //   return publicKeyToAddress(JSON.parse(jsonPayload)?.wallets[0]?.public_key || '')
 // }
+
+export const LOGIN_PROCESS_TIME = 'login_process_time'

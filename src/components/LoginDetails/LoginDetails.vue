@@ -2,7 +2,13 @@
 import { computed, onMounted, ref } from 'vue'
 
 import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
-import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
+import {
+  getCountryName,
+  getBrowserName,
+  getOSName,
+  getTruncateString,
+  LOGIN_PROCESS_TIME
+} from '@/utils/common'
 
 import CardHeading from '../CardHeading'
 import { useWeb3authStore } from '@/store/web3authStore'
@@ -19,6 +25,7 @@ const browserName = ref('')
 const osName = ref('')
 const userInfo = computed(() => web3Auth.userInfo)
 const account = ref('')
+const loginTimeTaken = ref(0)
 
 onMounted(async () => {
   countryName.value = (await getCountryName()) || ''
@@ -26,6 +33,8 @@ onMounted(async () => {
   osName.value = getOSName()
 
   account.value = web3Auth.accounts[0].address
+
+  loginTimeTaken.value = parseFloat(localStorage.getItem(LOGIN_PROCESS_TIME) || '0')
 })
 
 const handleConsoleBtn = async () => {
@@ -75,7 +84,28 @@ const returnAvatarLetter = (name: string) => {
       >
         See how we scale for you <Icon name="arrow-right-icon" />
       </Button> -->
-      <Card class="mt-4 min-[800px]:mt-10 w-full p-4 sm:p-6 !rounded-2xl">
+      <div class="mb-6 text-center">
+        <div class="font-semibold text-app-gray-700 mb-3">Time taken to login</div>
+        <div class="font-bold text-app-primary-600 text-7xl">{{ loginTimeTaken }}s</div>
+      </div>
+      <div class="grid grid-cols-3 w-full gap-8">
+        <Card class="p-4 !rounded-2xl">
+          <img src="@/assets/images/median-logo.svg" class="mb-3 h-12 w-12" />
+          <div class="text-app-gray-400 text-lg">Median</div>
+          <div class="text-app-gray-600 text-2xl font-bold">1.006s</div>
+        </Card>
+        <Card class="p-4 !rounded-2xl">
+          <img src="@/assets/images/fifty-percent-logo.svg" class="mb-3 h-12 w-12" />
+          <div class="text-app-gray-400 text-lg">50th Percentile</div>
+          <div class="text-app-gray-600 text-2xl font-bold">0.91s</div>
+        </Card>
+        <Card class="p-4 !rounded-2xl">
+          <img src="@/assets/images/high-logo.svg" class="mb-4 h-12 w-12" />
+          <div class="text-app-gray-400 text-lg">95th Percentile</div>
+          <div class="text-app-gray-600 text-2xl font-bold">1.780s</div>
+        </Card>
+      </div>
+      <Card class="mt-4 w-full p-4 sm:p-6 !rounded-2xl">
         <div class="flex items-center w-full gap-3 sm:gap-5 mb-4 sm:mb-6">
           <Avatar
             size="xl"
@@ -149,7 +179,7 @@ const returnAvatarLetter = (name: string) => {
         </Button>
       </Card>
       <div
-        class="rounded-xl border border-gray-200 py-4 px-6 flex flex-col sm:flex-row items-start sm:items-center w-full mt-7"
+        class="rounded-xl border border-gray-200 py-4 px-6 flex flex-col sm:flex-row items-start sm:items-center w-full mt-4"
       >
         <div
           class="flex items-center gap-5 flex-1 max-sm:pb-6 max-sm:border-b sm:border-r border-gray-200"
