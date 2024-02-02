@@ -6,8 +6,7 @@ import {
   getCountryName,
   getBrowserName,
   getOSName,
-  getTruncateString,
-  LOGIN_PROCESS_TIME
+  getTruncateString
 } from '@/utils/common'
 
 import CardHeading from '../CardHeading'
@@ -25,7 +24,6 @@ const browserName = ref('')
 const osName = ref('')
 const userInfo = computed(() => web3Auth.userInfo)
 const account = ref('')
-const loginTimeTaken = ref(0)
 
 onMounted(async () => {
   countryName.value = (await getCountryName()) || ''
@@ -33,8 +31,6 @@ onMounted(async () => {
   osName.value = getOSName()
 
   account.value = web3Auth.accounts[0].address
-
-  loginTimeTaken.value = parseFloat(localStorage.getItem(LOGIN_PROCESS_TIME) || '0')
 })
 
 const handleConsoleBtn = async () => {
@@ -84,7 +80,7 @@ const returnAvatarLetter = (name: string) => {
       >
         See how we scale for you <Icon name="arrow-right-icon" />
       </Button> -->
-      <div class="mb-6 text-center">
+      <!-- <div class="mb-6 text-center">
         <div class="font-semibold text-app-gray-700 mb-3">Time taken to login</div>
         <div class="font-bold text-app-primary-600 text-7xl">{{ loginTimeTaken }}s</div>
       </div>
@@ -104,7 +100,7 @@ const returnAvatarLetter = (name: string) => {
           <div class="text-app-gray-400 text-lg">95th Percentile</div>
           <div class="text-app-gray-600 text-2xl font-bold">1.780s</div>
         </Card>
-      </div>
+      </div> -->
       <Card class="mt-4 w-full p-4 sm:p-6 !rounded-2xl">
         <div class="flex items-center w-full gap-3 sm:gap-5 mb-4 sm:mb-6">
           <Avatar

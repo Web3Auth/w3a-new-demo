@@ -12,6 +12,7 @@ const web3Auth = useWeb3authStore()
 const browserName = ref<string>('')
 const browserVersion = ref<string>('')
 const userInfo = computed(() => web3Auth.userInfo)
+const isMfaEnabled = computed(() => web3Auth.userInfo?.isMfaEnabled)
 
 onBeforeMount(() => {
   browserName.value = getBrowserName()
@@ -25,6 +26,44 @@ const handleHeadingBtnClick = () => {
 const enableMfa = () => {
   web3Auth.enableMfa()
 }
+
+const copyWriting = computed(() => {
+  return isMfaEnabled.value
+    ? {
+        title: 'Here’s a summary of what you set up',
+        details: [
+          {
+            index: 1,
+            text: 'Your key is split into shares'
+          },
+          {
+            index: 2,
+            text: 'Each key share is paired and stored with an authentication factor'
+          },
+          {
+            index: 3,
+            text: 'You need to verify at least 2 of these authentication factors to access your key'
+          }
+        ]
+      }
+    : {
+        title: 'Here’s a summary of what you will set up',
+        details: [
+          {
+            index: 1,
+            text: 'Your key will splitted into shares'
+          },
+          {
+            index: 2,
+            text: 'Each key share will be paired and stored with an authentication factor'
+          },
+          {
+            index: 3,
+            text: 'You need to verify at least 2 of these authentication factors to access your key'
+          }
+        ]
+      }
+})
 </script>
 
 <template>
@@ -34,41 +73,15 @@ const enableMfa = () => {
       btn-label="Learn how progressive MFA works"
       @on-click="handleHeadingBtnClick"
     />
-    <div v-if="userInfo?.isMfaEnabled">
+    <div>
       <h1 class="text-xl md:text-2xl text-gray-800 font-semibold container-height">
-        Here’s a summary of what you set up
+        {{ copyWriting.title }}
       </h1>
 
-      <div class="mt-8">
-        <div class="flex items-center gap-4">
-          <div
-            class="w-6 h-6 flex items-center justify-center bg-blue-50 text-base font-medium rounded-full p-1"
-          >
-            1
-          </div>
-          <p class="text-base text-gray-900 font-normal">Your key is split into shares</p>
-        </div>
-        <div class="w-[1px] h-5 bg-gray-300 ml-2 sm:ml-3 my-1" />
-        <div class="flex items-center gap-4">
-          <div
-            class="w-6 h-6 flex items-center justify-center bg-blue-50 text-base font-medium rounded-full"
-          >
-            2
-          </div>
-          <p class="text-base text-gray-900 font-normal">
-            Each key share is paired and stored with an authentication factor
-          </p>
-        </div>
-        <div class="w-[1px] h-8 sm:h-5 bg-gray-300 ml-2 sm:ml-3 sm:my-1" />
-        <div class="flex items-center gap-4">
-          <div
-            class="w-6 h-6 flex items-center justify-center bg-blue-50 text-base font-medium rounded-full"
-          >
-            3
-          </div>
-          <p class="text-base text-gray-900 font-normal">
-            You need to verify at least 2 of these authentication factors to access your key
-          </p>
+      <div class="mt-8 space-y-5">
+        <div class="ml-2" v-for="details in copyWriting.details" :key="details.index">
+          <span class="mr-5 font-medium">{{ details.index }}</span
+          ><span>{{ details.text }}</span>
         </div>
       </div>
 
@@ -83,12 +96,14 @@ const enableMfa = () => {
       </Button>
 
       <h1
+        v-if="isMfaEnabled"
         class="text-xl md:text-2xl text-gray-800 font-semibold mt-8 border-t border-gray-300 md:border-t-0 pt-6 md:pt-0"
       >
         Your Authentication Factors
       </h1>
 
       <div
+        v-if="isMfaEnabled"
         class="flex flex-col md:flex-row items-center md:items-stretch justify-between gap-6 w-full pt-8"
       >
         <Card class="flex flex-col flex-1 p-6 !rounded-2xl items-center w-full md:w-[227px]">
@@ -135,10 +150,21 @@ const enableMfa = () => {
           </div>
         </Card>
       </div>
+      <div class="mt-8" v-else>
+        <Button
+          variant="secondary"
+          size="xs"
+          :class="[
+            'flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit'
+          ]"
+          @on-click="enableMfa"
+          >Enable MFA <Icon name="arrow-right-icon" />
+        </Button>
+      </div>
     </div>
-    <div v-else>
+    <!-- <div v-else>
       <Button @click="enableMfa">Enable MFA</Button>
-    </div>
+    </div> -->
   </div>
 </template>
 
