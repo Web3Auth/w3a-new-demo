@@ -17,7 +17,7 @@ const openWalletConnect = () => {
 <template>
   <div>
     <CardHeading
-      heading="Connect your wallet to Opensea"
+      heading="Connect your wallet to OpenSea"
       btn-label="How interoperability works"
       @on-click="handleHeadingBtnClick"
     />
@@ -70,7 +70,7 @@ const openWalletConnect = () => {
         <div class="flex flex-col flex-1 pl-0 p-6">
           <Icon name="paper-airplane-solid-icon" class="!w-8 !h-8 text-gray-400" />
           <h4 class="text-xl text-gray-900 font-semibold mt-4">
-            Experience Connecting with Uniswap
+            Experience Connecting with OpenSea
           </h4>
           <p class="text-sm font-normal text-gray-500 mb-4">
             Preview what onramp would feel like for your application or wallet

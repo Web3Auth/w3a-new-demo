@@ -33,7 +33,7 @@ export const STEP_DETAILS = [
   {
     img: 'wc-logo',
     heading1: 'Connect your wallet ',
-    heading2: 'to UniSwap',
+    heading2: 'to OpenSea',
     subHeading: 'And other apps',
     route: ROUTES.WALLET_CONNECT
   }

@@ -39,8 +39,9 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       privateKeyProvider: privateKeyProvider,
       uiConfig: {
         uxMode: 'redirect',
-        logoDark: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
-        logoLight: 'https://cryptologos.cc/logos/ethereum-eth-logo.png'
+        // logoDark: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
+        // logoLight: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
+        mode: 'light'
       },
       web3AuthNetwork: 'sapphire_mainnet'
     }
@@ -61,7 +62,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
     walletServicesPlugin.value = new WalletServicesPlugin({
       wsEmbedOpts: {},
-      walletInitOptions: { whiteLabel: { showWidgetButton: false } }
+      walletInitOptions: { whiteLabel: { mode: 'light' } }
     })
 
     await web3Auth.value.addPlugin(walletServicesPlugin.value)

@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { Button } from '@toruslabs/vue-components'
 import { useWeb3authStore } from '../store/web3authStore'
+import { onMounted } from 'vue'
 
 const web3Auth = useWeb3authStore()
 
 function login() {
   web3Auth.connectToWeb3Auth()
 }
+
+onMounted(() => {
+  login()
+})
 </script>
 
 <template>
