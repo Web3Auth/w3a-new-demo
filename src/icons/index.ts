@@ -31,7 +31,11 @@ import {
   MinusCircleSolidIcon,
   CheckCircleSolidIcon
 } from '@toruslabs/vue-icons/notifications'
-import { ShieldExclamationSolidIcon, KeySolidIcon } from '@toruslabs/vue-icons/security'
+import {
+  ShieldExclamationSolidIcon,
+  KeySolidIcon,
+  LockClosedSolidIcon
+} from '@toruslabs/vue-icons/security'
 import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
 import { GlobeAltSolidIcon } from '@toruslabs/vue-icons/maps'
 
@@ -68,5 +72,6 @@ export default {
   ChevronLeftSolidIcon,
   CheckCircleSolidIcon,
   KeySolidIcon,
-  GlobeAltSolidIcon
+  GlobeAltSolidIcon,
+  LockClosedSolidIcon
 } as unknown as IconSets

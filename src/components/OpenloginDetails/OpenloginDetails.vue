@@ -26,44 +26,6 @@ const handleHeadingBtnClick = () => {
 const enableMfa = () => {
   web3Auth.enableMfa()
 }
-
-const copyWriting = computed(() => {
-  return isMfaEnabled.value
-    ? {
-        title: 'Here’s a summary of what you set up',
-        details: [
-          {
-            index: 1,
-            text: 'Your key is split into shares'
-          },
-          {
-            index: 2,
-            text: 'Each key share is paired and stored with an authentication factor'
-          },
-          {
-            index: 3,
-            text: 'You need to verify at least 2 of these authentication factors to access your key'
-          }
-        ]
-      }
-    : {
-        title: 'Here’s a summary of what you will set up',
-        details: [
-          {
-            index: 1,
-            text: 'Your key will splitted into shares'
-          },
-          {
-            index: 2,
-            text: 'Each key share will be paired and stored with an authentication factor'
-          },
-          {
-            index: 3,
-            text: 'You need to verify at least 2 of these authentication factors to access your key'
-          }
-        ]
-      }
-})
 </script>
 
 <template>
@@ -75,13 +37,37 @@ const copyWriting = computed(() => {
     />
     <div>
       <h1 class="text-xl md:text-2xl text-gray-800 font-semibold container-height">
-        {{ copyWriting.title }}
+        {{ isMfaEnabled ? 'Here’s a summary of what you set up' : 'What you will set up' }}
       </h1>
 
-      <div class="mt-8 space-y-5">
-        <div class="ml-2" v-for="details in copyWriting.details" :key="details.index">
-          <span class="mr-5 font-medium">{{ details.index }}</span
-          ><span>{{ details.text }}</span>
+      <div class="mt-8 ml-2 text-base">
+        <div class="flex items-center">
+          <div
+            class="mr-5 flex items-center justify-center bg-app-primary-50 rounded-full w-6 h-6 font-medium"
+          >
+            1
+          </div>
+          <div>Your key is split into shares</div>
+        </div>
+        <div class="border-r border-app-gray-300 h-5 w-[13px] my-2"></div>
+        <div class="flex items-center">
+          <div
+            class="mr-5 flex items-center justify-center bg-app-primary-50 rounded-full w-6 h-6 font-medium"
+          >
+            2
+          </div>
+          <div>Each key share is paired and stored with an authentication factor</div>
+        </div>
+        <div class="border-r border-app-gray-300 h-5 w-[13px] my-2"></div>
+        <div class="flex items-center">
+          <div
+            class="mr-5 flex items-center justify-center bg-app-primary-50 rounded-full w-6 h-6 font-medium"
+          >
+            3
+          </div>
+          <div>
+            You need to verify at least 2 of these authentication factors to access your key
+          </div>
         </div>
       </div>
 
@@ -101,6 +87,7 @@ const copyWriting = computed(() => {
       >
         Your Authentication Factors
       </h1>
+      <hr v-else class="my-8" />
 
       <div
         v-if="isMfaEnabled"
@@ -150,7 +137,14 @@ const copyWriting = computed(() => {
           </div>
         </Card>
       </div>
-      <div class="mt-8" v-else>
+      <div v-else>
+        <Icon name="lock-closed-solid-icon" size="28" class="text-app-gray-400 mb-4" />
+        <h2 class="text-xl text-gray-800 font-semibold mb-2">
+          Experience what it's like to configure MFA.
+        </h2>
+        <div class="text-app-gray-500 mb-4">
+          Configuring MFA is quick and easy, and it provides invaluable protection for your account.
+        </div>
         <Button
           variant="secondary"
           size="xs"
@@ -158,7 +152,7 @@ const copyWriting = computed(() => {
             'flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit'
           ]"
           @on-click="enableMfa"
-          >Enable MFA <Icon name="arrow-right-icon" />
+          >Set up MFA
         </Button>
       </div>
     </div>
