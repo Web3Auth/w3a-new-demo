@@ -41,7 +41,7 @@ async function openWalletSignMessage() {
       btn-label="How customization works"
       :show-btn="false"
     />
-    <div class="text-py-height border-b border-gray-300">
+    <div class="text-py-height border-b border-app-gray-300">
       <img src="@/assets/images/WhitelabelUI.svg" class="w-full mb-4" />
       <p class="text-lg font-normal text-mb-height">
         With Web3Auth’s customisable Wallet UI, smoothly integrated branding that fits your use-case
@@ -55,7 +55,7 @@ async function openWalletSignMessage() {
       <!-- <Button
         variant="secondary"
         size="sm"
-        class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex md:!hidden mt-6"
+        class="items-center gap-2 !border-app-gray-300 text-sm font-medium !text-app-gray-800 flex md:!hidden mt-6"
         block
       >
         How customization works <Icon name="arrow-right-icon" />
@@ -64,32 +64,32 @@ async function openWalletSignMessage() {
     <div
       class="flex flex-col sm:flex-row sm:items-center justify-between gap-8 w-full text-pt-height"
     >
-      <div class="flex flex-col flex-1 pr-6 sm:border-r border-gray-200">
-        <Icon name="color-swatch-solid-icon" class="!w-8 !h-8 text-gray-400" />
-        <h4 class="text-xl text-gray-900 font-semibold mt-4">Experience UI</h4>
-        <p class="text-sm font-normal text-gray-500 mb-4">
+      <div class="flex flex-col flex-1 pr-6 sm:border-r border-app-gray-200">
+        <Icon name="color-swatch-solid-icon" class="!w-8 !h-8 text-app-gray-400" />
+        <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Experience UI</h4>
+        <p class="text-sm font-normal text-app-gray-500 mb-4">
           Preview what your applications will look like with our whitelabel solution
         </p>
         <Button
           variant="secondary"
           size="xs"
-          class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
+          class="flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800 !w-fit"
           @on-click="openWalletServiceUi"
         >
           Open UI
         </Button>
       </div>
       <div class="flex flex-col flex-1 mt-6 sm:mt-0 sm:pr-6">
-        <Icon name="shield-exclamation-solid-icon" class="!w-8 !h-8 text-gray-400" />
-        <h4 class="text-xl text-gray-900 font-semibold mt-4">Sign Personal Message</h4>
-        <p class="text-sm font-normal text-gray-500 mb-8">
+        <Icon name="shield-exclamation-solid-icon" class="!w-8 !h-8 text-app-gray-400" />
+        <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Sign Personal Message</h4>
+        <p class="text-sm font-normal text-app-gray-500 mb-8">
           Secure, fast transaction signing‍ on any platform.
         </p>
         <Button
           variant="secondary"
           size="xs"
           :class="[
-            'flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit',
+            'flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800 !w-fit',
             { 'cursor-copy': Boolean(signedMessage) }
           ]"
           @on-click="openWalletSignMessage"
@@ -98,7 +98,7 @@ async function openWalletSignMessage() {
           <Icon
             v-if="Boolean(signedMessage)"
             :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
-            :class="['cursor-pointer', isCopied ? 'text-green-600' : 'text-gray-400']"
+            :class="['cursor-pointer', isCopied ? 'text-app-success' : 'text-app-gray-400']"
           />
         </Button>
       </div>

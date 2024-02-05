@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@mertasan/tailwindcss-variables": "^2.7.0",
     "@toruslabs/ethereum-controllers": "^5.3.6",
     "@toruslabs/vue-components": "^7.2.0",
     "@toruslabs/vue-icons": "^7.2.0",

@@ -2,15 +2,15 @@
   <router-link v-slot="{ isActive }" :to="{ name: item.route }" class="w-full">
     <button
       :class="[
-        'cursor-pointer text-left w-full flex items-center rounded-2xl border border-gray-300 p-6 bg-white',
-        { 'border-indigo-600': isActive }
+        'cursor-pointer text-left w-full flex items-center rounded-2xl border border-app-gray-300 p-6 bg-app-white',
+        { '!border-app-primary-600': isActive }
       ]"
     >
       <img :src="getStepLogo()" />
-      <div class="ml-10">
-        <p class="text-lg font-bold text-gray-900">{{ item.heading1 }}</p>
-        <p class="text-lg font-bold text-gray-900 -mt-1">{{ item.heading2 }}</p>
-        <p class="text-xs font-normal text-gray-600 mt-2">{{ item.subHeading }}</p>
+      <div class="ml-6 sm:ml-10">
+        <p class="text-lg font-bold text-app-gray-900">{{ item.heading1 }}</p>
+        <p class="text-lg font-bold text-app-gray-900 -mt-1">{{ item.heading2 }}</p>
+        <p class="text-xs font-normal text-app-gray-600 mt-2">{{ item.subHeading }}</p>
       </div>
     </button>
   </router-link>
