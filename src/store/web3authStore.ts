@@ -9,6 +9,7 @@ import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
 import { OpenloginAdapter, type OpenloginUserInfo } from '@web3auth/openlogin-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
+import { WALLET_ADAPTERS } from '@web3auth/base'
 
 export const useWeb3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3Auth | null>(null)
@@ -60,10 +61,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       web3Auth.value?.configureAdapter(adapter)
     })
 
-    walletServicesPlugin.value = new WalletServicesPlugin({
-      wsEmbedOpts: {},
-      walletInitOptions: { whiteLabel: { mode: 'light' } }
-    })
+    walletServicesPlugin.value = new WalletServicesPlugin()
 
     web3Auth.value.addPlugin(walletServicesPlugin.value)
 
@@ -123,9 +121,9 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   async function enableMfa() {
-    if (web3Auth.value?.connectedAdapterName === 'openlogin') {
+    if (web3Auth.value?.connectedAdapterName === WALLET_ADAPTERS.OPENLOGIN) {
       return (
-        web3Auth.value?.walletAdapters['openlogin'] as OpenloginAdapter
+        web3Auth.value?.walletAdapters[WALLET_ADAPTERS.OPENLOGIN] as OpenloginAdapter
       ).openloginInstance?.enableMFA({})
     }
   }
