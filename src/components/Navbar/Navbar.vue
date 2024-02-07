@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { STEP_DETAILS } from '@/constants/common'
+import { ROUTES, STEP_DETAILS } from '@/constants/common'
 import { useWeb3authStore } from '@/store/web3authStore'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Icon } from '@toruslabs/vue-components/Icon'
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
 
 // Web3Auth
 const web3Auth = useWeb3authStore()
@@ -41,6 +42,7 @@ const logout = async () => {
   }
 }
 const isLoggedIn = computed(() => web3Auth.isLoggedIn)
+const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
 </script>
 
 <template>
@@ -57,8 +59,8 @@ const isLoggedIn = computed(() => web3Auth.isLoggedIn)
         @click="emits('onRedirect')"
         class="cursor-pointer"
       />
-      <Button v-if="isLoggedIn" pill class="!hidden xl:!flex" @on-click="logout"> Logout </Button>
-      <Button v-else pill @on-click="handleDocsLink"> Documentation </Button>
+      <Button v-if="isLoginPage" pill @on-click="handleDocsLink"> Documentation </Button>
+      <Button v-else pill class="!hidden xl:!flex" @on-click="logout"> Logout </Button>
       <Icon
         v-if="isLoggedIn"
         name="menu-alt-two-solid-icon"

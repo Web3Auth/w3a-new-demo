@@ -40,8 +40,8 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       privateKeyProvider: privateKeyProvider,
       uiConfig: {
         uxMode: 'redirect',
-        // logoDark: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
-        // logoLight: 'https://cryptologos.cc/logos/ethereum-eth-logo.png',
+        logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
+        logoLight: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
         mode: 'light'
       },
       web3AuthNetwork: 'sapphire_mainnet'
