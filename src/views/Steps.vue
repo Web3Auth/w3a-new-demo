@@ -3,5 +3,5 @@ import Steps from '@/components/Steps'
 </script>
 
 <template>
-  <Steps class="flex" />
+  <Steps class="block" />
 </template>

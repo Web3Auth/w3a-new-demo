@@ -18,38 +18,38 @@ const initiateTopUpPlugin = () => {
       :show-btn="false"
     />
     <div>
-      <h1 class="text-xl sm:text-2xl text-gray-800 font-semibold text-mt-height text-center">
+      <h1 class="text-xl sm:text-2xl text-app-gray-800 font-semibold text-mt-height text-center">
         Over 100+ Onramps aggregated for user conversion
       </h1>
       <div
-        class="flex flex-col md:flex-row items-stretch justify-between gap-6 w-full text-py-height border-b border-gray-300"
+        class="flex flex-col md:flex-row items-stretch justify-between gap-6 w-full text-py-height border-b border-app-gray-300"
       >
-        <Card class="flex flex-col flex-1 p-6 !rounded-2xl">
+        <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none">
           <img src="@/assets/images/topup-1.svg" class="h-12 w-12" />
-          <h4 class="leading-tight text-gray-900 text-lg font-semibold mt-5">
+          <h4 class="leading-tight text-app-gray-900 text-lg font-semibold mt-5">
             Global coverage with local payment providers that work
           </h4>
-          <p class="text-sm text-gray-800 font-normal mt-2">
+          <p class="text-sm text-app-gray-800 font-normal mt-2">
             Suit your market and reduce bounce rates by leveraging on local providers for up to 100+
             countries that works.
           </p>
         </Card>
-        <Card class="flex flex-col flex-1 p-6 !rounded-2xl">
+        <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none">
           <img src="@/assets/images/topup-2.svg" class="h-12 w-12" />
-          <h4 class="leading-tight text-gray-900 text-lg font-semibold mt-5">
+          <h4 class="leading-tight text-app-gray-900 text-lg font-semibold mt-5">
             Use Credit card or your digital payment standard
           </h4>
-          <p class="text-sm text-gray-800 font-normal mt-2">
+          <p class="text-sm text-app-gray-800 font-normal mt-2">
             Multiple payment methods will ensure sufficient backup for your end-users e.g. Apple
             Pay, Google Pay
           </p>
         </Card>
-        <Card class="flex flex-col flex-1 p-6 !rounded-2xl">
+        <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none">
           <img src="@/assets/images/topup-3.svg" class="h-12 w-12" />
-          <h4 class="leading-tight text-gray-900 text-lg font-semibold mt-5">
+          <h4 class="leading-tight text-app-gray-900 text-lg font-semibold mt-5">
             Design to fit right in your application
           </h4>
-          <p class="text-sm text-gray-800 font-normal mt-2">
+          <p class="text-sm text-app-gray-800 font-normal mt-2">
             Simple to add it on with your key management provider. Ease your users with first step
             wallet onboarding, second step checkout!
           </p>
@@ -57,7 +57,7 @@ const initiateTopUpPlugin = () => {
         <!-- <Button
           variant="secondary"
           size="sm"
-          class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex md:!hidden"
+          class="items-center gap-2 !border-app-gray-300 text-sm font-medium !text-app-gray-800 flex md:!hidden"
           block
         >
           How onramps works <Icon name="arrow-right-icon" />
@@ -67,16 +67,16 @@ const initiateTopUpPlugin = () => {
       <div
         class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 w-full text-pt-height"
       >
-        <div class="flex flex-col flex-1 pr-6 border-gray-200">
-          <Icon name="plus-circle-solid-icon" class="!w-8 !h-8 text-gray-400" />
-          <h4 class="text-xl text-gray-900 font-semibold mt-4">Experience Onramp</h4>
-          <p class="text-sm font-normal text-gray-500 mb-4">
+        <div class="flex flex-col flex-1 pr-6 border-app-gray-200">
+          <Icon name="plus-circle-solid-icon" class="!w-8 !h-8 text-app-gray-400" />
+          <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Experience Onramp</h4>
+          <p class="text-sm font-normal text-app-gray-500 mb-4">
             Preview what onramp would feel like for your application or wallet
           </p>
           <Button
             variant="secondary"
             size="xs"
-            class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800 !w-fit"
+            class="flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800 !w-fit"
             @on-click="initiateTopUpPlugin"
           >
             Open UI

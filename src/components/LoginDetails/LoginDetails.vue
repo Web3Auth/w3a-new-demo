@@ -66,22 +66,10 @@ const returnAvatarLetter = (name: string) => {
       btn-label="See how we scale for you"
       :show-btn="false"
     />
-    <div class="w-full min-[800px]:w-[80%] mx-auto mt-8 flex flex-col items-center justify-center">
-      <!-- <Button
-        variant="secondary"
-        size="sm"
-        class="items-center gap-2 !border-gray-300 text-sm font-medium !text-gray-800 flex min-[800px]:!hidden mt-4"
-        block
-      >
-        See how we scale for you <Icon name="arrow-right-icon" />
-      </Button> -->
-      <Card class="mt-4 min-[800px]:mt-10 w-full p-4 sm:p-6 !rounded-2xl">
+    <div class="max-w-xl mx-auto">
+      <div class="px-4 py-6 border border-app-gray-300 rounded-2xl">
         <div class="flex items-center w-full gap-3 sm:gap-5 mb-4 sm:mb-6">
-          <Avatar
-            size="xl"
-            :rounded="false"
-            class="text-2xl w-[80px] h-[60px] sm:min-w-[80px] sm:min-h-[80px]"
-          >
+          <Avatar size="xl" :rounded="false" class="text-2xl flex-shrink-0 w-[80px] h-[80px]">
             <img
               v-if="userInfo?.profileImage"
               :src="userInfo?.profileImage"
@@ -92,12 +80,16 @@ const returnAvatarLetter = (name: string) => {
             </span>
           </Avatar>
           <div class="flex flex-col w-full justify-between">
-            <h1 class="text-base sm:text-2xl text-gray-600 font-bold mb-2">
+            <h1 class="text-2xl text-app-gray-600 font-bold mb-2">
               {{ userInfo?.name || '' }}
             </h1>
             <div class="flex flex-row items-center w-full gap-2">
-              <div
-                class="flex items-center justify-between w-full border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
+              <Button
+                size="sm"
+                class="gap-2 w-full md:w-fit"
+                :pill="true"
+                variant="tertiary"
+                @on-click="handleCopyAddress"
               >
                 {{ getTruncateString(account || '') }}
                 <div class="relative">
@@ -107,70 +99,69 @@ const returnAvatarLetter = (name: string) => {
                   >
                     Copied
                     <div
-                      class="absolute border-8 border-b-0 border-r-transparent border-t-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+                      class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
                     ></div>
                   </div>
                   <Icon
                     :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
-                    :class="['cursor-pointer', isCopied ? 'text-green-600' : 'text-gray-400']"
-                    @click="handleCopyAddress"
+                    :class="['cursor-pointer', isCopied ? 'text-app-success' : 'text-app-gray-400']"
                   />
                 </div>
-              </div>
-              <p
-                class="hidden sm:flex items-center gap-2 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
+              </Button>
+              <div
+                class="hidden sm:flex items-center gap-2 flex-1 px-3 py-2 bg-app-gray-200 text-app-gray-500 text-xs font-medium rounded-2xl"
               >
                 <Icon
                   v-if="userInfo?.typeOfLogin === 'jwt'"
                   name="mail-icon"
-                  class="text-gray-400"
+                  class="text-app-gray-400"
                 />
-                <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
+                <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`" class="text-app-gray-400" />
                 {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
-              </p>
+              </div>
             </div>
           </div>
         </div>
-        <p
-          class="flex sm:hidden mb-4 items-center gap-2 flex-1 border px-3 py-2 border-gray-200 bg-gray-100 text-xs text-gray-500 font-medium rounded-2xl"
+        <div
+          class="flex mb-4 sm:hidden items-center gap-2 flex-1 px-3 py-2 bg-app-gray-200 text-app-gray-500 text-xs font-medium rounded-2xl"
         >
-          <Icon v-if="userInfo?.typeOfLogin === 'jwt'" name="mail-icon" class="text-gray-400" />
-          <Icon else :name="`${userInfo?.typeOfLogin}-icon`" class="text-gray-400" />
+          <Icon v-if="userInfo?.typeOfLogin === 'jwt'" name="mail-icon" class="text-app-gray-400" />
+          <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`" class="text-app-gray-400" />
           {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
-        </p>
+        </div>
         <Button
           variant="secondary"
           size="xs"
-          class="flex items-center gap-2 !border-gray-300 !text-xs font-medium !text-gray-800"
+          class="flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800"
           block
           @on-click="handleConsoleBtn"
         >
           View User Info in Console <Icon name="arrow-right-icon" />
         </Button>
-      </Card>
+      </div>
       <div
-        class="rounded-xl border border-gray-200 py-4 px-6 flex flex-col sm:flex-row items-start sm:items-center w-full mt-7"
+        class="rounded-xl border border-app-gray-200 py-4 px-6 flex flex-col sm:flex-row items-start sm:items-center w-full mt-4"
       >
         <div
-          class="flex items-center gap-5 flex-1 max-sm:pb-6 max-sm:border-b sm:border-r border-gray-200"
+          class="flex items-center gap-5 flex-1 w-full max-sm:pb-6 max-sm:border-b sm:border-r border-app-gray-200"
         >
-          <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center">
+          <div class="w-14 h-14 rounded-full bg-app-gray-100 flex items-center justify-center">
             <img src="@/assets/images/desktop-computer.svg" class="h-6 w-6" />
           </div>
           <div class="flex flex-col items-start gap-2">
-            <p class="text-lg text-gray-400 font-normal">Device</p>
-            <p class="text-sm sm:text-sm text-gray-600 font-medium">
+            <p class="text-lg text-app-gray-400 font-normal">Device</p>
+            <p class="text-sm sm:text-sm text-app-gray-600 font-medium">
               {{ browserName }} on {{ osName }}
             </p>
           </div>
         </div>
         <div class="flex items-center gap-5 flex-1 max-sm:pt-6 sm:pl-6">
-          <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center">
+          <div class="w-14 h-14 rounded-full bg-app-gray-100 flex items-center justify-center">
             <img src="@/assets/images/globe.svg" class="h-6 w-6" />
           </div>
           <div class="flex flex-col items-start gap-2">
-            <p class="text-lg text-gray-400 font-normal">Location</p>
-            <p class="text-sm sm:text-sm text-gray-600 font-medium">{{ countryName }}</p>
+            <p class="text-lg text-app-gray-400 font-normal">Location</p>
+            <p class="text-sm sm:text-sm text-app-gray-600 font-medium">{{ countryName }}</p>
           </div>
         </div>
       </div>
@@ -193,9 +184,9 @@ const returnAvatarLetter = (name: string) => {
   >
     <template #sidebar>
       <div class="p-5 flex flex-col flex-1 h-full">
-        <h3 class="text-center text-base text-gray-600">User Info Console</h3>
+        <h3 class="text-center text-base text-app-gray-600">User Info Console</h3>
         <div
-          class="rounded-2xl p-4 bg-gray-100 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
+          class="rounded-2xl p-4 bg-app-gray-100 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
         >
           <pre class="text-sm break-words leading-relaxed">{{ userInfo }}</pre>
         </div>
