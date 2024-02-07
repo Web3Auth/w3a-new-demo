@@ -33,7 +33,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
     const web3AuthOptions: Web3AuthOptions = {
       enableLogging: true,
-      chainConfig: { ...chainConfig, chainNamespace: 'eip155' },
+      chainConfig,
       clientId:
         'BJ57yveG_XBLqZUpjtJCnJMrord0AaXpd_9OSy4HzkxpnpPn6Co73h-vR6GEI1VogtW4yMHq13GNPKmVpliFXY0',
       privateKeyProvider: privateKeyProvider,
@@ -64,7 +64,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       walletInitOptions: { whiteLabel: { showWidgetButton: true } }
     })
 
-    await web3Auth.value.addPlugin(walletServicesPlugin.value)
+    web3Auth.value.addPlugin(walletServicesPlugin.value)
 
     web3Auth.value.on('connected', async () => {
       console.log('check: connected')
