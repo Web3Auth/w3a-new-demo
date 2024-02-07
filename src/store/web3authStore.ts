@@ -49,12 +49,6 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
     web3Auth.value = new Web3Auth(web3AuthOptions)
 
-    // TODO: remove this in prod
-    const openloginAdapter = new OpenloginAdapter({
-      adapterSettings: { buildEnv: 'testing' }
-    })
-    web3Auth.value.configureAdapter(openloginAdapter)
-
     const adapters = await getDefaultExternalAdapters({ options: web3AuthOptions })
 
     adapters.forEach((adapter) => {
