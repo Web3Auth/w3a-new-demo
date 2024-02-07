@@ -36,7 +36,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       enableLogging: true,
       chainConfig,
       clientId:
-        'BJ57yveG_XBLqZUpjtJCnJMrord0AaXpd_9OSy4HzkxpnpPn6Co73h-vR6GEI1VogtW4yMHq13GNPKmVpliFXY0',
+        'BNI_pZZpoH4tqzbDDMKwfLOWujTif_kek4h9QEN271Gu0JheYDPEUHNKMl5Nnw5PGOjK-SOxp1RpUdG9TJufMZk',
       privateKeyProvider: privateKeyProvider,
       uiConfig: {
         uxMode: 'redirect',
