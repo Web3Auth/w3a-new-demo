@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Card, Icon, Button } from '@toruslabs/vue-components'
+import { Card } from '@toruslabs/vue-components/Card'
+import { Icon } from '@toruslabs/vue-components/Icon'
+import { Button } from '@toruslabs/vue-components/Button'
 import CardHeading from '../CardHeading'
 import { useWeb3authStore } from '@/store/web3authStore'
 

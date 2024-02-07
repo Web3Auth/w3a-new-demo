@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { STEP_DETAILS } from '@/constants/common'
 import { useWeb3authStore } from '@/store/web3authStore'
-import { Button, Icon } from '@toruslabs/vue-components'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Icon } from '@toruslabs/vue-components/Icon'
 import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 

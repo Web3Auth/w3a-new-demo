@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Loader } from '@toruslabs/vue-components'
+import { Loader } from '@toruslabs/vue-components/Loader'
 
 import Navbar from '@/components/Navbar'
 import { onBeforeMount, ref } from 'vue'

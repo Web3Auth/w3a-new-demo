@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { Button, Divider, Icon } from '@toruslabs/vue-components'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Divider } from '@toruslabs/vue-components/Divider'
+import { Icon } from '@toruslabs/vue-components/Icon'
 
 withDefaults(
   defineProps<{

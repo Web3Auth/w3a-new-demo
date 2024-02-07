@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button } from '@toruslabs/vue-components'
+import { Button } from '@toruslabs/vue-components/Button'
 import { useWeb3authStore } from '../store/web3authStore'
 import { onMounted } from 'vue'
 
