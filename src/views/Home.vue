@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { Icon, Card } from '@toruslabs/vue-components'
+import { Icon } from '@toruslabs/vue-components/Icon'
+import { Card } from '@toruslabs/vue-components/Card'
 import Steps from '@/components/Steps'
 import { ROUTES } from '@/constants/common'
 import { useWeb3authStore } from '@/store/web3authStore'
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const web3Auth = useWeb3authStore()
@@ -42,7 +43,10 @@ onMounted(() => {
       <Card class="hidden xl:block !rounded-2xl">
         <Steps class="bg-white p-6" />
       </Card>
-      <Card v-if="!isSteps" :class="[`flex-1 !rounded-2xl px-6 py-6 md:px-10 md:py-8`, isSteps ? 'hidden xl:flex' : '']">
+      <Card
+        v-if="!isSteps"
+        :class="[`flex-1 !rounded-2xl px-6 py-6 md:px-10 md:py-8`, isSteps ? 'hidden xl:flex' : '']"
+      >
         <router-view />
       </Card>
       <router-view v-if="isSteps" class="xl:hidden" />

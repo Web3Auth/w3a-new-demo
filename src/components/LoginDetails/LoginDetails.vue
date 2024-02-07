@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 
-import { Avatar, Card, Icon, Button, Drawer } from '@toruslabs/vue-components'
+import { Avatar } from '@toruslabs/vue-components/Avatar'
+import { Icon } from '@toruslabs/vue-components/Icon'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Drawer } from '@toruslabs/vue-components/Drawer'
 import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
 
 import CardHeading from '../CardHeading'

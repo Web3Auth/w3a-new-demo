@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Icon, Button } from '@toruslabs/vue-components'
+import { Icon } from '@toruslabs/vue-components/Icon'
+import { Button } from '@toruslabs/vue-components/Button'
 
 import CardHeading from '../CardHeading'
 

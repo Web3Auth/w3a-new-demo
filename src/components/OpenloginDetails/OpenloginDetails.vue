@@ -1,7 +1,10 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue'
 
-import { Button, Card, Divider, Icon } from '@toruslabs/vue-components'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Card } from '@toruslabs/vue-components/Card'
+import { Divider } from '@toruslabs/vue-components/Divider'
+import { Icon } from '@toruslabs/vue-components/Icon'
 
 import CardHeading from '../CardHeading'
 import { getBrowserName, getBrowserVersion } from '@/utils/common'
@@ -96,7 +99,9 @@ const enableMfa = () => {
         v-if="isMfaEnabled"
         class="flex flex-col md:grid grid-cols-3 items-center md:items-stretch justify-between gap-6 w-full pt-8"
       >
-        <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto">
+        <Card
+          class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto"
+        >
           <img src="@/assets/images/op-1.svg" class="h-16 w-16" />
           <h4
             class="leading-tight text-app-gray-900 text-base lg:text-lg font-semibold mt-5 text-center"
@@ -115,7 +120,9 @@ const enableMfa = () => {
             <p class="w-full truncate">{{ userInfo?.email || userInfo?.name }}</p>
           </div>
         </Card>
-        <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto">
+        <Card
+          class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto"
+        >
           <img src="@/assets/images/op-2.svg" class="h-16 w-16" />
           <h4
             class="leading-tight text-app-gray-900 text-base lg:text-lg font-semibold mt-5 text-center"
@@ -129,7 +136,9 @@ const enableMfa = () => {
             <p class="w-full truncate">{{ browserName }} {{ browserVersion }}</p>
           </div>
         </Card>
-        <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto">
+        <Card
+          class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto"
+        >
           <img src="@/assets/images/op-3.svg" class="h-16 w-16" />
           <h4
             class="leading-tight text-app-gray-900 text-base lg:text-lg font-semibold mt-5 text-center"
