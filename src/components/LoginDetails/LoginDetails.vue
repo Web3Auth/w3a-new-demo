@@ -191,7 +191,7 @@ const returnAvatarLetter = (name: string) => {
         <div
           class="rounded-2xl p-4 bg-app-gray-100 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
         >
-          <pre class="text-sm break-words leading-relaxed">{{ userInfo }}</pre>
+          <pre class="text-sm break-words leading-relaxed text-wrap">{{ userInfo }}</pre>
         </div>
         <Button block pill @on-click="openConsole = false">Close</Button>
       </div>
