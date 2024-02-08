@@ -2,7 +2,8 @@ import './globals'
 import '@toruslabs/vue-components/style.css'
 import './assets/main.css'
 import { createIcons } from '@toruslabs/vue-components'
-import VueGtag from 'vue-gtag'
+import VueGtag from 'vue-gtag-next'
+
 import { createPinia } from 'pinia'
 
 import router from './routes'
@@ -17,12 +18,8 @@ app
   .use(router)
   .use(createPinia())
   .use(createIcons(icons))
-  .use(
-    VueGtag,
-    {
-      config: { id: 'G-065WFNK5DW' }
-    },
-    router
-  )
+  .use(VueGtag, {
+    property: { id: 'G-065WFNK5DW' }
+  })
 
 app.mount('#app')

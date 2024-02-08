@@ -45,7 +45,10 @@ onMounted(() => {
       </Card>
       <Card
         v-if="!isSteps"
-        :class="[`flex-1 !rounded-2xl px-6 py-6 md:px-10 md:py-8`, isSteps ? 'hidden xl:flex' : '']"
+        :class="[
+          `flex-1 !rounded-2xl px-6 py-6 md:px-10 md:py-8 overflow-y-auto`,
+          isSteps ? 'hidden xl:flex' : ''
+        ]"
       >
         <router-view />
       </Card>
