@@ -24,7 +24,7 @@ onBeforeMount(async () => {
   <div v-if="isLoading" class="h-screen flex justify-center items-center">
     <Loader :use-spinner="true" />
   </div>
-  <div v-else class="h-screen flex flex-col">
+  <div v-else class="min-h-screen flex flex-col">
     <Navbar />
     <router-view />
   </div>
