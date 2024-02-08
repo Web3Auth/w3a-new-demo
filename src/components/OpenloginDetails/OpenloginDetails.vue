@@ -1,21 +1,53 @@
 <script setup lang="ts">
 import { computed, onBeforeMount, ref } from 'vue'
+import Bowser from 'bowser'
 
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { Divider } from '@toruslabs/vue-components/Divider'
 import { Icon } from '@toruslabs/vue-components/Icon'
+import { WALLET_ADAPTERS } from '@web3auth/base'
 
 import CardHeading from '../CardHeading'
 import { getBrowserName, getBrowserVersion } from '@/utils/common'
 import { useWeb3authStore } from '@/store/web3authStore'
+import type { OpenloginAdapter, OpenloginSessionData } from '@web3auth/openlogin-adapter'
 
 const web3Auth = useWeb3authStore()
+const FACTOR_MAP: Record<string, { title: string; icon?: string }> = {
+  device: { title: 'Saved in your device storage', icon: 'globe-alt-solid-icon' },
+  seedPhrase: { title: 'Saved as recovery phrase', icon: 'key-solid-icon' },
+  social: { title: 'Saved as a social recovery factor', icon: 'key-solid-icon' },
+  password: { title: 'Saved as a password', icon: 'key-solid-icon' }
+}
 
 const browserName = ref<string>('')
 const browserVersion = ref<string>('')
 const userInfo = computed(() => web3Auth.userInfo)
 const isMfaEnabled = computed(() => web3Auth.userInfo?.isMfaEnabled)
+const shareDetails = computed(() => {
+  const adapter = web3Auth.web3Auth?.walletAdapters[WALLET_ADAPTERS.OPENLOGIN] as OpenloginAdapter
+  const { shareDetails } = adapter.openloginInstance?.state as OpenloginSessionData & {
+    shareDetails: { shareType: string; details: string }[]
+  }
+  if (!shareDetails) return []
+
+  // Format shareDetails
+  return shareDetails.map((share) => {
+    let details = share.details
+    if (share.shareType === 'device') {
+      const browser = Bowser.getParser(share.details)
+      const browserDetails = browser.getBrowser()
+
+      details = `${browserDetails.name} ${browserDetails.version}`
+    }
+    return {
+      title: FACTOR_MAP[share.shareType].title,
+      details,
+      icon: FACTOR_MAP[share.shareType].icon
+    }
+  })
+})
 
 onBeforeMount(() => {
   browserName.value = getBrowserName()
@@ -112,44 +144,29 @@ const enableMfa = () => {
             class="border border-app-gray-50 bg-app-gray-100 text-app-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 w-full"
           >
             <Icon
-              v-if="userInfo?.typeOfLogin === 'jwt'"
+              v-if="['email_passwordless', 'jwt'].includes(userInfo?.typeOfLogin || '')"
               name="mail-icon"
-              class="text-app-gray-400"
             />
-            <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`" class="text-app-gray-400" />
+            <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`"/>
             <p class="w-full truncate">{{ userInfo?.email || userInfo?.name }}</p>
           </div>
         </Card>
         <Card
+          v-for="shareDetail in shareDetails"
+          :key="shareDetail.title"
           class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto"
         >
           <img src="@/assets/images/op-2.svg" class="h-16 w-16" />
           <h4
             class="leading-tight text-app-gray-900 text-base lg:text-lg font-semibold mt-5 text-center"
           >
-            Saved in your device storage
+            {{ shareDetail.title }}
           </h4>
           <div
             class="border border-app-gray-50 bg-app-gray-100 text-app-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 w-full"
           >
-            <Icon name="globe-alt-solid-icon" />
-            <p class="w-full truncate">{{ browserName }} {{ browserVersion }}</p>
-          </div>
-        </Card>
-        <Card
-          class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none items-center w-full max-w-[240px] mx-auto"
-        >
-          <img src="@/assets/images/op-3.svg" class="h-16 w-16" />
-          <h4
-            class="leading-tight text-app-gray-900 text-base lg:text-lg font-semibold mt-5 text-center"
-          >
-            Saved as a social recovery factor
-          </h4>
-          <div
-            class="border border-app-gray-50 bg-app-gray-100 text-app-gray-500 text-xs xl:text-sm font-normal rounded-xl flex items-center gap-2 py-2 px-4 mt-8 w-full"
-          >
-            <Icon name="key-solid-icon" />
-            <p class="w-full truncate">{{ userInfo?.email || userInfo?.name }}</p>
+            <Icon v-if="shareDetail.icon" :name="shareDetail.icon" />
+            <p class="w-full truncate">{{ shareDetail.details }}</p>
           </div>
         </Card>
       </div>
