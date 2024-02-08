@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { ROUTES } from './constants/common'
+import { trackRouter } from 'vue-gtag-next'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -51,5 +52,7 @@ const router = createRouter({
     }
   ]
 })
+
+trackRouter(router)
 
 export default router
