@@ -18,6 +18,7 @@ onBeforeMount(async () => {
     isLoading.value = false
   }
 })
+
 </script>
 
 <template>
