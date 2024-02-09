@@ -23,7 +23,7 @@
     "@web3auth/ethereum-provider": "^8.0.0-alpha.17",
     "@web3auth/modal": "^8.0.0-alpha.17",
     "@web3auth/openlogin-adapter": "^8.0.0-alpha.17",
-    "@web3auth/wallet-services-plugnin": "^8.0.0-alpha.17",
+    "@web3auth/wallet-services-plugin": "^8.0.0-alpha.17",
     "bowser": "^2.11.0",
     "ethers": "^6.10.0",
     "pinia": "^2.1.7",
