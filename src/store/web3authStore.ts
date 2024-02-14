@@ -42,7 +42,8 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         uxMode: 'redirect',
         logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
         logoLight: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
-        mode: 'light'
+        mode: 'light',
+        loginMethodsOrder: ['farcaster', 'google', 'twitter', 'github']
       },
       web3AuthNetwork: 'sapphire_mainnet'
     }
