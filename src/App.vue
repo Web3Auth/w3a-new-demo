@@ -4,9 +4,11 @@ import { Loader } from '@toruslabs/vue-components/Loader'
 import Navbar from '@/components/Navbar'
 import { onBeforeMount, ref } from 'vue'
 import { useWeb3authStore } from './store/web3authStore'
+import { useRouter } from 'vue-router'
 
 const web3Auth = useWeb3authStore()
 const isLoading = ref(false)
+const router = useRouter()
 
 onBeforeMount(async () => {
   isLoading.value = true
@@ -19,6 +21,9 @@ onBeforeMount(async () => {
   }
 })
 
+const handleLogoRedirect = () => {
+  router.push('/')
+}
 </script>
 
 <template>
@@ -26,7 +31,7 @@ onBeforeMount(async () => {
     <Loader :use-spinner="true" />
   </div>
   <div v-else class="min-h-screen flex flex-col">
-    <Navbar />
+    <Navbar @on-redirect="handleLogoRedirect" />
     <router-view />
   </div>
 </template>
