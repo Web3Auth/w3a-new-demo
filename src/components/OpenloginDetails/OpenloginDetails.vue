@@ -147,7 +147,7 @@ const enableMfa = () => {
               v-if="['email_passwordless', 'jwt'].includes(userInfo?.typeOfLogin || '')"
               name="mail-icon"
             />
-            <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`"/>
+            <Icon v-else :name="`${userInfo?.typeOfLogin}-icon`" />
             <p class="w-full truncate">{{ userInfo?.email || userInfo?.name }}</p>
           </div>
         </Card>
@@ -185,6 +185,7 @@ const enableMfa = () => {
             'flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800 !w-full sm:!w-fit'
           ]"
           @on-click="enableMfa"
+          id="w3a-set-up-mfa"
           >Set up MFA
         </Button>
       </div>
