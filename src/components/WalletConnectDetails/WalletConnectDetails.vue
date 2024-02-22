@@ -82,6 +82,7 @@ const openWalletConnect = () => {
             size="xs"
             class="flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800 !w-fit"
             @on-click="openWalletConnect"
+            id="w3a-open-wallet-connect-ui"
           >
             Open UI
           </Button>
