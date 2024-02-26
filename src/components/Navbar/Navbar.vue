@@ -60,7 +60,9 @@ const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
         @click="emits('onRedirect')"
         class="cursor-pointer"
       />
-      <Button v-if="isLoginPage" pill @on-click="handleDocsLink"> Documentation </Button>
+      <Button v-if="isLoginPage" pill @on-click="handleDocsLink" id="w3a-documentation">
+        Documentation
+      </Button>
       <Button v-else pill class="!hidden xl:!flex" @on-click="logout"> Logout </Button>
       <Icon
         v-if="isLoggedIn"

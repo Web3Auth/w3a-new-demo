@@ -80,6 +80,7 @@ const initiateTopUpPlugin = () => {
             size="xs"
             class="flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800 !w-fit"
             @on-click="initiateTopUpPlugin"
+            id="w3a-open-topup-ui"
           >
             Open UI
           </Button>

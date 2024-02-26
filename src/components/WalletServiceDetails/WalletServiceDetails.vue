@@ -76,6 +76,7 @@ async function openWalletSignMessage() {
           size="xs"
           class="flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800 !w-fit"
           @on-click="openWalletServiceUi"
+          id="w3a-open-wallet-services-ui"
         >
           Open UI
         </Button>
@@ -94,6 +95,7 @@ async function openWalletSignMessage() {
             { 'cursor-copy': Boolean(signedMessage) }
           ]"
           @on-click="openWalletSignMessage"
+          id="w3a-sign-message"
         >
           {{ Boolean(signedMessage) ? getTruncateString(signedMessage || '') : 'Sign Message' }}
           <Icon

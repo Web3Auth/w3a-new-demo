@@ -3,6 +3,7 @@ import '@toruslabs/vue-components/style.css'
 import './assets/main.css'
 import { createIcons } from '@toruslabs/vue-components'
 import VueGtag from 'vue-gtag-next'
+import { createGtm } from '@gtm-support/vue-gtm'
 
 import { createPinia } from 'pinia'
 
@@ -21,5 +22,11 @@ app
   .use(VueGtag, {
     property: { id: 'G-065WFNK5DW' }
   })
+  .use(
+    createGtm({
+      id: 'GTM-W6THP68T',
+      vueRouter: router
+    })
+  )
 
 app.mount('#app')

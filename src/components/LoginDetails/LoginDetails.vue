@@ -138,6 +138,7 @@ const returnAvatarLetter = (name: string) => {
           class="flex items-center gap-2 !border-app-gray-300 !text-xs font-medium !text-app-gray-800"
           block
           @on-click="handleConsoleBtn"
+          id="w3a-view-userinfo-in-console"
         >
           View User Info in Console <Icon name="arrow-right-icon" />
         </Button>

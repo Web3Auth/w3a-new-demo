@@ -19,3 +19,10 @@ onMounted(() => {
     <Button :pill="true" @on-click="login">Login</Button>
   </div>
 </template>
+
+<style>
+#w3a-modal {
+  height: 90vh;
+  margin-top: auto;
+}
+</style>
