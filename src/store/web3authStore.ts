@@ -1,4 +1,4 @@
-import { POLYGON_MUMBAI_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
+import { POLYGON_AMOY_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
 import { getDefaultExternalAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
@@ -23,13 +23,12 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
   async function initializeWeb3Auth() {
     const chainConfig = {
-      ...SUPPORTED_NETWORKS[POLYGON_MUMBAI_CHAIN_ID],
-      rpcTarget: 'https://polygon-mumbai.infura.io/v3/aacd62799a1a4b919aa46ce261c790f6'
+      ...SUPPORTED_NETWORKS[POLYGON_AMOY_CHAIN_ID],
     }
 
     const privateKeyProvider = new EthereumPrivateKeyProvider({
       config: { chainConfig },
-      state: { chainId: POLYGON_MUMBAI_CHAIN_ID }
+      state: { chainId: POLYGON_AMOY_CHAIN_ID }
     })
 
     const web3AuthOptions: Web3AuthOptions = {

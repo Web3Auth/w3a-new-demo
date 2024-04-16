@@ -1,7 +1,6 @@
 import './globals'
-import '@toruslabs/vue-components/style.css'
 import './assets/main.css'
-import { createIcons } from '@toruslabs/vue-components'
+import { createIcons } from '@toruslabs/vue-components/icons'
 import VueGtag from 'vue-gtag-next'
 import { createGtm } from '@gtm-support/vue-gtm'
 
