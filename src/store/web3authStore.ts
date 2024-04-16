@@ -40,8 +40,10 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       privateKeyProvider: privateKeyProvider,
       uiConfig: {
         uxMode: 'redirect',
-        logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
+        logoDark: 'https://images.web3auth.io/web3auth-logo-w.svg',
         logoLight: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
+        // logoDark: 'https://images.web3auth.io/login-farcaster-active.svg',
+        // logoLight: 'https://images.web3auth.io/login-farcaster-light.svg',
         mode: 'light',
         loginMethodsOrder: ['farcaster', 'google', 'twitter', 'github']
       },

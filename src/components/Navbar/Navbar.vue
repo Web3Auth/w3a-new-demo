@@ -32,6 +32,7 @@ const handleMenuClick = (route: string) => {
 }
 
 const logout = async () => {
+  isMenuOpen.value = false
   console.log('logout')
   try {
     await web3Auth.logoutWeb3Auth()
