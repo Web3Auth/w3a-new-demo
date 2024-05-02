@@ -23,7 +23,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
   async function initializeWeb3Auth() {
     const chainConfig = {
-      ...SUPPORTED_NETWORKS[POLYGON_AMOY_CHAIN_ID],
+      ...SUPPORTED_NETWORKS[POLYGON_AMOY_CHAIN_ID]
     }
 
     const privateKeyProvider = new EthereumPrivateKeyProvider({
@@ -44,7 +44,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         // logoDark: 'https://images.web3auth.io/login-farcaster-active.svg',
         // logoLight: 'https://images.web3auth.io/login-farcaster-light.svg',
         mode: 'light',
-        loginMethodsOrder: ['farcaster', 'google', 'twitter', 'github']
+        loginMethodsOrder: ['google', 'twitter', 'farcaster', 'github']
       },
       web3AuthNetwork: 'sapphire_mainnet'
     }
