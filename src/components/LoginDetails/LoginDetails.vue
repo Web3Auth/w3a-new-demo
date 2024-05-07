@@ -28,7 +28,7 @@ onMounted(async () => {
   browserName.value = getBrowserName()
   osName.value = getOSName()
 
-  account.value = web3Auth.accounts[0].address
+  account.value = web3Auth.accounts[0]
 })
 
 const handleConsoleBtn = async () => {

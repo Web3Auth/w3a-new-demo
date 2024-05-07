@@ -31,7 +31,7 @@ async function openWalletSignMessage() {
     return
   }
 
-  signedMessage.value = await web3Auth.signedMessage()
+  signedMessage.value = (await web3Auth.signedMessage()) as string
 }
 </script>
 

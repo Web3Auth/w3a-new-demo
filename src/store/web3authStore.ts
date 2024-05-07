@@ -1,24 +1,27 @@
-import { POLYGON_AMOY_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
+import {
+  METHOD_TYPES,
+  POLYGON_AMOY_CHAIN_ID,
+  SUPPORTED_NETWORKS
+} from '@toruslabs/ethereum-controllers'
+import { SafeEventEmitterProvider } from '@toruslabs/openlogin-jrpc'
 import { getDefaultExternalAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
 import { defineStore } from 'pinia'
 import { ref, shallowRef, triggerRef, computed } from 'vue'
-import { BrowserProvider, JsonRpcSigner } from 'ethers'
 import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
-import { OpenloginAdapter, type OpenloginUserInfo } from '@web3auth/openlogin-adapter'
+import { type OpenloginUserInfo } from '@web3auth/openlogin-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
-import { WALLET_ADAPTERS } from '@web3auth/base'
 
 export const useWeb3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3Auth | null>(null)
-  const provider = shallowRef<BrowserProvider | null>(null)
+  const provider = shallowRef<SafeEventEmitterProvider | null>(null)
   const walletServicesPlugin = shallowRef<WalletServicesPlugin | null>(null)
 
   const router = useRouter()
 
-  const accounts = ref<JsonRpcSigner[]>([])
+  const accounts = ref<string[]>([])
   const userInfo = ref<Partial<OpenloginUserInfo> | null>(null)
 
   async function initializeWeb3Auth() {
@@ -67,11 +70,13 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
     await web3Auth.value.initModal()
 
-    provider.value = new BrowserProvider(web3Auth.value?.provider!)
+    provider.value = web3Auth.value?.provider!
     console.log('logging', web3Auth.value?.connectedAdapterName)
     triggerRef(web3Auth)
     if (web3Auth.value?.connected) {
-      accounts.value = provider.value ? await provider.value?.listAccounts() : []
+      accounts.value = provider.value
+        ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
+        : []
       userInfo.value = await web3Auth.value.getUserInfo()
       router.push({ name: ROUTES.WELCOME })
     }
@@ -84,7 +89,9 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     // because it's shallow ref, have to trigger again
     triggerRef(web3Auth)
     if (web3Auth.value?.connected) {
-      accounts.value = provider.value ? await provider.value?.listAccounts() : []
+      accounts.value = provider.value
+        ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
+        : []
       userInfo.value = await web3Auth.value.getUserInfo()
       router.push({ name: ROUTES.WELCOME })
     }
@@ -98,8 +105,11 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
   async function signedMessage() {
     const message = 'Example `personal_sign` message'
-    const from = accounts.value[0].address
-    const signedMessage = await provider.value?.send('personal_sign', [message, from])
+    const from = accounts.value[0]
+    const signedMessage = await provider.value?.request<[string, string], string>({
+      method: 'personal_sign',
+      params: [message, from]
+    })
     return signedMessage
   }
 
@@ -117,11 +127,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   async function enableMfa() {
-    if (web3Auth.value?.connectedAdapterName === WALLET_ADAPTERS.OPENLOGIN) {
-      return (
-        web3Auth.value?.walletAdapters[WALLET_ADAPTERS.OPENLOGIN] as OpenloginAdapter
-      ).openloginInstance?.enableMFA({})
-    }
+    return web3Auth.value?.enableMFA()
   }
 
   const isLoggedIn = computed(() => {
