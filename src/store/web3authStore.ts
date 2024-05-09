@@ -1,8 +1,4 @@
-import {
-  METHOD_TYPES,
-  POLYGON_AMOY_CHAIN_ID,
-  SUPPORTED_NETWORKS
-} from '@toruslabs/ethereum-controllers'
+import { POLYGON_AMOY_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
 import { SafeEventEmitterProvider } from '@toruslabs/openlogin-jrpc'
 import { getDefaultExternalAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
