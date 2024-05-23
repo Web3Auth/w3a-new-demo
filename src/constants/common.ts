@@ -39,11 +39,9 @@ export const STEP_DETAILS = [
     route: ROUTES.WALLET_CONNECT
   },
   {
-    // TODO: update logo
-    img: 'wc-logo',
-    heading1: 'NFT Checkout/Airdrop ',
-    // heading2: 'to OpenSea',
-    // subHeading: 'And other apps',
+    img: 'nft-minting-logo',
+    heading1: 'NFT Minting/Purchase',
+    subHeading: 'Easily mint and airdrop NFTs',
     route: ROUTES.NFT_CHECKOUT
   }
 ]
