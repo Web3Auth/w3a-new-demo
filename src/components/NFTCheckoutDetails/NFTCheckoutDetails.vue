@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { Button } from '@toruslabs/vue-components/Button'
+import { Card } from '@toruslabs/vue-components/Card'
+import { Icon } from '@toruslabs/vue-components/Icon'
 import CardHeading from '../CardHeading'
 import { computed, onMounted, ref } from 'vue'
 import { useWeb3authStore } from '../../store/web3authStore'
@@ -32,12 +34,45 @@ const demoNftCheckoutUrl = computed(
 <template>
   <div>
     <CardHeading heading="NFT Checkout/Airdrop" :show-btn="false" />
+    <div
+      class="flex flex-col md:flex-row items-stretch justify-between gap-6 w-full py-8 border-b border-app-gray-300"
+    >
+      <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none">
+        <img src="@/assets/images/nft-icon.svg" class="h-12 w-12" />
+        <h4 class="leading-tight text-app-gray-900 text-lg font-semibold mt-5">
+          Send NFT to users' wallet seamlessly
+        </h4>
+        <p class="text-sm text-app-gray-800 font-normal mt-2">
+          Reduce onboarding steps to improve user experience by keeping all within wallet.
+        </p>
+      </Card>
+      <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none">
+        <img src="@/assets/images/gasless-transactions-logo.svg" class="h-12 w-12" />
+        <h4 class="leading-tight text-app-gray-900 text-lg font-semibold mt-5">
+          Enabled gasless transaction for users
+        </h4>
+        <p class="text-sm text-app-gray-800 font-normal mt-2">
+          Motivate your NFT buyers with zero burdens on gas fees.
+        </p>
+      </Card>
+      <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none">
+        <img src="@/assets/images/topup-3.svg" class="h-12 w-12" />
+        <h4 class="leading-tight text-app-gray-900 text-lg font-semibold mt-5">
+          Let users choose the perfect way to pay
+        </h4>
+        <p class="text-sm text-app-gray-800 font-normal mt-2">
+          Credit card? or Paypal? Enable your users to decide whichever best suits them.
+        </p>
+      </Card>
+    </div>
+
     <div>
       <div class="flex items-center justify-between gap-6 w-full">
         <div class="flex flex-col flex-1 pl-0 p-6">
-          <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Experience NFT Checkout</h4>
+          <Icon name="rss-icon" class="!w-8 !h-8 text-app-gray-400" />
+          <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Experience NFT Minting</h4>
           <p class="text-sm font-normal text-app-gray-500 mb-4">
-            Preview what NFT checkout would feel like for your application or wallet
+            Preview what airdrop NFT would feel like for your application or wallet
           </p>
           <Button
             variant="secondary"
