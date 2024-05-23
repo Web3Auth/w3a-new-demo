@@ -34,6 +34,7 @@ const demoNftCheckoutUrl = computed(
 <template>
   <div>
     <CardHeading heading="NFT Checkout/Airdrop" :show-btn="false" />
+    <img src="@/assets/images/nft-airdrop-banner.svg" class="w-full mb-4" />
     <div
       class="flex flex-col md:flex-row items-stretch justify-between gap-6 w-full py-8 border-b border-app-gray-300"
     >
