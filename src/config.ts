@@ -24,5 +24,6 @@ export default {
   moonpayLiveAPIKEY: 'pk_live_Wg90NLnFst3ms7tiqnMDDO0yjlypMzYK',
   mercuryoHost: 'https://exchange.mercuryo.io',
   mercuryoLiveAPIKEY: '8e531c49-2f64-4e7e-b1d4-16aa4958c291',
-  nftCheckoutHost: import.meta.env.VITE_APP_NFT_CHECKOUT_HOST
+  nftCheckoutHost: import.meta.env.VITE_APP_NFT_CHECKOUT_HOST,
+  nftCheckoutApiKey: import.meta.env.VITE_APP_NFT_CHECKOUT_API_KEY
 }

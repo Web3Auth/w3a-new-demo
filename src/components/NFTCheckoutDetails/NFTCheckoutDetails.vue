@@ -32,12 +32,12 @@ const receiverAddress = computed(() => web3Auth.accounts[0])
 
 const demoNftMintingUrl = computed(
   () =>
-    `${config.nftCheckoutHost}/?contract_id=b5b4de3f-0212-11ef-a08f-0242ac190003&receiver_address=${receiverAddress.value}`
+    `${config.nftCheckoutHost}/?contract_id=b5b4de3f-0212-11ef-a08f-0242ac190003&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
 )
 
 const demoNftPurchaseUrl = computed(
   () =>
-    `${config.nftCheckoutHost}/?contract_id=d1145a8b-98ae-44e0-ab63-2c9c8371caff&receiver_address=${receiverAddress.value}`
+    `${config.nftCheckoutHost}/?contract_id=d1145a8b-98ae-44e0-ab63-2c9c8371caff&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
 )
 </script>
 
