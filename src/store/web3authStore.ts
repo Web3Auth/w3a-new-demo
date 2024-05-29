@@ -1,5 +1,5 @@
-import { POLYGON_AMOY_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
 import { SafeEventEmitterProvider } from '@toruslabs/openlogin-jrpc'
+import { MAINNET_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
 import { getDefaultExternalAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
@@ -9,6 +9,7 @@ import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
 import { type OpenloginUserInfo } from '@web3auth/openlogin-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
+import { WEB3AUTH_NETWORK } from '@web3auth/base'
 
 export const useWeb3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3Auth | null>(null)
@@ -22,12 +23,12 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
   async function initializeWeb3Auth() {
     const chainConfig = {
-      ...SUPPORTED_NETWORKS[POLYGON_AMOY_CHAIN_ID]
+      ...SUPPORTED_NETWORKS[MAINNET_CHAIN_ID]
     }
 
     const privateKeyProvider = new EthereumPrivateKeyProvider({
       config: { chainConfig },
-      state: { chainId: POLYGON_AMOY_CHAIN_ID }
+      state: { chainId: MAINNET_CHAIN_ID }
     })
 
     const web3AuthOptions: Web3AuthOptions = {
@@ -45,7 +46,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         mode: 'light',
         loginMethodsOrder: ['google', 'twitter', 'farcaster', 'github']
       },
-      web3AuthNetwork: 'sapphire_mainnet'
+      web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET
     }
 
     web3Auth.value = new Web3Auth(web3AuthOptions)
@@ -110,16 +111,18 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   async function showWalletUi() {
-    console.log('walletServicesPlugin', walletServicesPlugin.value)
-    return walletServicesPlugin.value?.showWalletUi()
+    if(!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized');
+    return walletServicesPlugin.value.showWalletUi()
   }
 
   function initiateTopUpPlugin() {
-    return walletServicesPlugin.value?.showCheckout()
+    if(!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized');
+    return walletServicesPlugin.value.showCheckout()
   }
 
   function initiateWalletConnect() {
-    return walletServicesPlugin.value?.showWalletConnectScanner()
+    if(!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized');
+    return walletServicesPlugin.value.showWalletConnectScanner()
   }
 
   async function enableMfa() {
@@ -127,7 +130,8 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   const isLoggedIn = computed(() => {
-    return web3Auth.value?.connected
+    if (!web3Auth.value) return false
+    return web3Auth.value.connected
   })
 
   return {
