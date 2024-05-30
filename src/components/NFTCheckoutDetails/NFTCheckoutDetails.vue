@@ -121,6 +121,7 @@ const demoNftPurchaseUrl = computed(
     v-if="showNftMinting"
     id="nftCheckoutIFrame"
     :src="demoNftMintingUrl"
+    name="nft_minting"
     style="
       position: fixed;
       top: 0;
@@ -137,6 +138,7 @@ const demoNftPurchaseUrl = computed(
     v-if="showNftPurchase"
     id="nftCheckoutIFrame"
     :src="demoNftPurchaseUrl"
+    name="nft_purchase"
     style="
       position: fixed;
       top: 0;
