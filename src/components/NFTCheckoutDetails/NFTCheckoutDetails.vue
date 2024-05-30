@@ -9,6 +9,9 @@ import config from '@/config'
 
 const web3Auth = useWeb3authStore()
 
+const FREE_MINT_CONTRACT_ID = 'b5b4de3f-0212-11ef-a08f-0242ac190003'
+const PAID_MINT_CONTRACT_ID = 'd1145a8b-98ae-44e0-ab63-2c9c8371caff'
+
 const showNftMinting = ref(false)
 const openNftMinting = () => {
   showNftMinting.value = true
@@ -32,12 +35,12 @@ const receiverAddress = computed(() => web3Auth.accounts[0])
 
 const demoNftMintingUrl = computed(
   () =>
-    `${config.nftCheckoutHost}/?contract_id=b5b4de3f-0212-11ef-a08f-0242ac190003&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
+    `${config.nftCheckoutHost}/?contract_id=${FREE_MINT_CONTRACT_ID}&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
 )
 
 const demoNftPurchaseUrl = computed(
   () =>
-    `${config.nftCheckoutHost}/?contract_id=d1145a8b-98ae-44e0-ab63-2c9c8371caff&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
+    `${config.nftCheckoutHost}/?contract_id=${PAID_MINT_CONTRACT_ID}&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
 )
 </script>
 
