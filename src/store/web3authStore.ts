@@ -39,8 +39,8 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       privateKeyProvider: privateKeyProvider,
       uiConfig: {
         uxMode: 'redirect',
-        logoDark: 'https://images.web3auth.io/web3auth-logo-w.svg',
-        logoLight: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
+        logoLight: 'https://images.web3auth.io/web3auth-logo-w.svg',
+        logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
         // logoDark: 'https://images.web3auth.io/login-farcaster-active.svg',
         // logoLight: 'https://images.web3auth.io/login-farcaster-light.svg',
         mode: 'light',
@@ -111,17 +111,17 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   }
 
   async function showWalletUi() {
-    if(!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized');
+    if (!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized')
     return walletServicesPlugin.value.showWalletUi()
   }
 
   function initiateTopUpPlugin() {
-    if(!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized');
+    if (!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized')
     return walletServicesPlugin.value.showCheckout()
   }
 
   function initiateWalletConnect() {
-    if(!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized');
+    if (!walletServicesPlugin.value) return console.error('Wallet Services Plugin not initialized')
     return walletServicesPlugin.value.showWalletConnectScanner()
   }
 
