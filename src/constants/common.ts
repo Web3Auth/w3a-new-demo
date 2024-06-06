@@ -48,7 +48,7 @@ export const STEP_DETAILS = [
   },
   {
     img: 'nft-minting-logo',
-    heading1: 'NFT Minting/Purchase',
+    heading1: 'NFT Minting/Checkout',
     subHeading: 'Easily mint and airdrop NFTs',
     route: ROUTES.NFT_CHECKOUT
   }

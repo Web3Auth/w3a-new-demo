@@ -57,13 +57,13 @@ const demoNftPurchaseUrl = computed(
           Send NFT to users' wallet seamlessly
         </h4>
         <p class="text-sm text-app-gray-800 font-normal mt-2">
-          Reduce onboarding steps to improve user experience by keeping all within wallet.
+          Reduce onboarding steps to improve user experience.
         </p>
       </Card>
       <Card class="flex flex-col flex-1 p-6 !rounded-2xl !shadow-none">
         <img src="@/assets/images/gasless-transactions-logo.svg" class="h-12 w-12" />
         <h4 class="leading-tight text-app-gray-900 text-lg font-semibold mt-5">
-          Enabled gasless transaction for users
+          Enable gasless transaction for users
         </h4>
         <p class="text-sm text-app-gray-800 font-normal mt-2">
           Motivate your NFT buyers with zero burdens on gas fees.
@@ -101,7 +101,7 @@ const demoNftPurchaseUrl = computed(
       </div>
       <div class="flex flex-col flex-1 mt-6 sm:mt-0 sm:pr-6">
         <Icon name="shopping-cart-solid-icon" class="!w-8 !h-8 text-app-gray-400" />
-        <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Experience NFT Purchase</h4>
+        <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Experience NFT Checkout</h4>
         <p class="text-sm font-normal text-app-gray-500 mb-4">
           Preview what NFT buying would feel like for your application or wallet
         </p>
