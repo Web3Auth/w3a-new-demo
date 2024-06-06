@@ -52,7 +52,7 @@ jobs:
 
       # Invalidate Cloudfront
       - name: invalidate
-        uses: chaitanyapotti/cloudfront-update-distribution@v3
+        uses: chaitanyapotti/cloudfront-update-distribution@v4
         with:
           cloudfront-distribution-id: ${{ secrets.DISTRIBUTION_DEMO }}
           cloudfront-invalidation-path: '/*'

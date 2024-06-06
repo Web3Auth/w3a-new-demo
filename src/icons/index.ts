@@ -38,6 +38,8 @@ import {
 } from '@toruslabs/vue-icons/security'
 import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
 import { GlobeAltSolidIcon } from '@toruslabs/vue-icons/maps'
+import { RssIcon } from '@toruslabs/vue-icons/connection'
+import { ShoppingCartSolidIcon } from '@toruslabs/vue-icons/others'
 
 export default {
   ChevronDownSolidIcon,
@@ -73,5 +75,7 @@ export default {
   CheckCircleSolidIcon,
   KeySolidIcon,
   GlobeAltSolidIcon,
-  LockClosedSolidIcon
+  LockClosedSolidIcon,
+  RssIcon,
+  ShoppingCartSolidIcon
 } as unknown as IconSets

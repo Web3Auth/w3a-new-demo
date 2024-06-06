@@ -44,6 +44,11 @@ const router = createRouter({
           component: () => import('./views/WalletConnect.vue')
         },
         {
+          path: 'nft-checkout',
+          name: ROUTES.NFT_CHECKOUT,
+          component: () => import('./views/NFTCheckout.vue')
+        },
+        {
           path: 'steps',
           name: ROUTES.STEPS,
           component: () => import('./views/Steps.vue')

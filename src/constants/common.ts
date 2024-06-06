@@ -5,6 +5,7 @@ export const ROUTES = {
   WALLET_UI: 'WalletUi',
   ON_RAMP: 'OnRamp',
   WALLET_CONNECT: 'WalletConnect',
+  NFT_CHECKOUT: 'NFTCheckout',
   STEPS: 'Steps'
 }
 
@@ -36,5 +37,11 @@ export const STEP_DETAILS = [
     heading2: 'to OpenSea',
     subHeading: 'And other apps',
     route: ROUTES.WALLET_CONNECT
+  },
+  {
+    img: 'nft-minting-logo',
+    heading1: 'NFT Minting/Purchase',
+    subHeading: 'Easily mint and airdrop NFTs',
+    route: ROUTES.NFT_CHECKOUT
   }
 ]

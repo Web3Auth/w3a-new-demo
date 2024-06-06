@@ -15,8 +15,8 @@ export default defineConfig({
     port: 4050
   },
   build: {
-    // sourcemap: false
-    sourcemap: true
+    sourcemap: false
+    // sourcemap: true
   },
   define: {
     __SENTRY_DEBUG__: false,
