@@ -9,6 +9,14 @@ export const ROUTES = {
   STEPS: 'Steps'
 }
 
+export interface StepItem {
+  img: string
+  heading1: string
+  heading2?: string
+  subHeading: string
+  route: string
+}
+
 export const STEP_DETAILS = [
   {
     img: 'mfa-logo',
@@ -44,4 +52,4 @@ export const STEP_DETAILS = [
     subHeading: 'Easily mint and airdrop NFTs',
     route: ROUTES.NFT_CHECKOUT
   }
-]
+] as StepItem[]

@@ -6,7 +6,7 @@ import { Icon } from '@toruslabs/vue-components/Icon'
 withDefaults(
   defineProps<{
     heading: string
-    btnLabel: string
+    btnLabel?: string
     showBtn?: boolean
   }>(),
   {

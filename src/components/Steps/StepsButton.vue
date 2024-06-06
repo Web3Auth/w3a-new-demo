@@ -17,9 +17,11 @@
 </template>
 
 <script setup lang="ts">
+import { StepItem } from '@/constants/common'
+
 const props = withDefaults(
   defineProps<{
-    item: { img: string; heading1: string; heading2: string; subHeading: string; route: string }
+    item: StepItem
   }>(),
   {}
 )
