@@ -2,6 +2,7 @@
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
+import { Link } from '@toruslabs/vue-components/Link'
 import CardHeading from '../CardHeading'
 import { computed, onMounted, ref } from 'vue'
 import { useWeb3authStore } from '../../store/web3authStore'
@@ -103,7 +104,10 @@ const demoNftPurchaseUrl = computed(
         <Icon name="shopping-cart-solid-icon" class="!w-8 !h-8 text-app-gray-400" />
         <h4 class="text-xl text-app-gray-900 font-semibold mt-4">Experience NFT Checkout</h4>
         <p class="text-sm font-normal text-app-gray-500 mb-4">
-          Preview what NFT buying would feel like for your application or wallet
+          Preview what NFT buying would feel like for your application or wallet.
+          <Link target="_blank" href="https://docs.stripe.com/testing#cards"
+            >Try our test cards</Link
+          >
         </p>
         <Button
           variant="secondary"
