@@ -1,4 +1,4 @@
-import { POLYGON_AMOY_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
+import { MAINNET_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
 import { SafeEventEmitterProvider } from '@toruslabs/openlogin-jrpc'
 import { getDefaultExternalAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
@@ -22,12 +22,12 @@ export const useWeb3authStore = defineStore('web3auth', () => {
 
   async function initializeWeb3Auth() {
     const chainConfig = {
-      ...SUPPORTED_NETWORKS[POLYGON_AMOY_CHAIN_ID]
+      ...SUPPORTED_NETWORKS[MAINNET_CHAIN_ID]
     }
 
     const privateKeyProvider = new EthereumPrivateKeyProvider({
       config: { chainConfig },
-      state: { chainId: POLYGON_AMOY_CHAIN_ID }
+      state: { chainId: MAINNET_CHAIN_ID }
     })
 
     const web3AuthOptions: Web3AuthOptions = {
