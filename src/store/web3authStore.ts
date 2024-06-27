@@ -56,7 +56,11 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       web3Auth.value?.configureAdapter(adapter)
     })
 
-    walletServicesPlugin.value = new WalletServicesPlugin()
+    walletServicesPlugin.value = new WalletServicesPlugin({
+      walletInitOptions: {
+        confirmationStrategy: 'modal'
+      }
+    })
 
     web3Auth.value.addPlugin(walletServicesPlugin.value)
 
@@ -102,7 +106,10 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   async function signedMessage() {
     const message = 'Example `personal_sign` message'
     const from = accounts.value[0]
-    const signedMessage = await provider.value?.request<[string, string], string>({
+    const signedMessage = await walletServicesPlugin.value?.proxyProvider?.request<
+      [string, string],
+      string
+    >({
       method: 'personal_sign',
       params: [message, from]
     })
