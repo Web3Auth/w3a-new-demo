@@ -75,7 +75,7 @@ const openWalletConnect = () => {
             Experience Connecting with OpenSea
           </h4>
           <p class="text-sm font-normal text-app-gray-500 mb-4">
-            Preview what onramp would feel like for your application or wallet
+            Preview what interoperability would feel like for your application
           </p>
           <Button
             variant="secondary"
