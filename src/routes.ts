@@ -24,11 +24,6 @@ const router = createRouter({
           component: () => import('./views/Welcome.vue')
         },
         {
-          path: 'mpc',
-          name: ROUTES.MPC,
-          component: () => import('./views/Mpc.vue')
-        },
-        {
           path: 'wallet-ui',
           name: ROUTES.WALLET_UI,
           component: () => import('./views/WalletUi.vue')

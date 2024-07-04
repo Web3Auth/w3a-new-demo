@@ -1,14 +1,5 @@
 import Bowser from 'bowser'
 
-export const setTheme = (isDarkMode = false) => {
-  const htmlElement = document.querySelector('html') as HTMLElement
-
-  if (htmlElement) {
-    if (isDarkMode) htmlElement.classList.add('dark')
-    else htmlElement.classList.remove('dark')
-  }
-}
-
 export const openWindow = (url: string) => {
   window.open(
     url,
@@ -75,3 +66,14 @@ export const getTruncateString = (val: string) => {
 //   console.log(JSON.parse(jsonPayload).wallets[0].public_key)
 //   return publicKeyToAddress(JSON.parse(jsonPayload)?.wallets[0]?.public_key || '')
 // }
+
+export function setTheme(isDark: boolean) {
+  const htmlElement = document.querySelector('html') as HTMLElement
+  if (htmlElement) {
+    if (isDark) {
+      htmlElement.classList.add('dark')
+    } else {
+      htmlElement.classList.remove('dark')
+    }
+  }
+}

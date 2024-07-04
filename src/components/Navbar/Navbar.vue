@@ -50,20 +50,25 @@ const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
   <div class="w-full relative">
     <div
       :class="[
-        'p-6 flex items-center justify-between sm:bg-transparent w-full',
-        { 'bg-white': isLoggedIn }
+        'py-6 px-8 flex items-center justify-between bg-app-white dark:bg-app-gray-800 w-full'
       ]"
     >
       <img
         src="@/assets/images/logo.svg"
         alt="web3auth demo logo"
         @click="emits('onRedirect')"
-        class="cursor-pointer"
+        class="cursor-pointer h-12 w-auto dark:hidden"
+      />
+      <img
+        src="@/assets/images/logo-light.svg"
+        alt="web3auth demo logo"
+        @click="emits('onRedirect')"
+        class="cursor-pointer h-12 w-auto hidden dark:block"
       />
       <Button v-if="isLoginPage" pill @on-click="handleDocsLink" id="w3a-documentation">
         Documentation
       </Button>
-      <Button v-else pill class="!hidden xl:!flex" @on-click="logout"> Logout </Button>
+      <Button v-else pill class="!hidden xl:!flex" @on-click="logout">Logout</Button>
       <Icon
         v-if="isLoggedIn"
         name="menu-alt-two-solid-icon"
