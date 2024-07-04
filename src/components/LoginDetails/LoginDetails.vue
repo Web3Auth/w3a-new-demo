@@ -5,7 +5,7 @@ import { Avatar } from '@toruslabs/vue-components/Avatar'
 import { Icon } from '@toruslabs/vue-components/Icon'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Drawer } from '@toruslabs/vue-components/Drawer'
-import { getCountryName, getBrowserName, getOSName, getTruncateString } from '@/utils/common'
+import { getTruncateString } from '@/utils/common'
 
 import { useWeb3authStore } from '@/store/web3authStore'
 import { Card } from '@toruslabs/vue-components'
@@ -14,17 +14,10 @@ const web3Auth = useWeb3authStore()
 
 const openConsole = ref(false)
 const isCopied = ref(false)
-const countryName = ref('')
-const browserName = ref('')
-const osName = ref('')
 const userInfo = computed(() => web3Auth.userInfo)
 const account = ref('')
 
 onMounted(async () => {
-  countryName.value = (await getCountryName()) || ''
-  browserName.value = getBrowserName()
-  osName.value = getOSName()
-
   account.value = web3Auth.accounts[0]
 })
 

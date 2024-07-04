@@ -75,7 +75,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
         : []
       userInfo.value = await web3Auth.value.getUserInfo()
-      router.push({ name: ROUTES.WELCOME })
+      router.push({ name: ROUTES.HOME })
     }
   }
 
@@ -99,7 +99,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
         : []
       userInfo.value = await web3Auth.value.getUserInfo()
-      router.push({ name: ROUTES.WELCOME })
+      router.push({ name: ROUTES.HOME })
     }
   }
 

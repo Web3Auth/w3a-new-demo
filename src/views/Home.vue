@@ -33,4 +33,3 @@ import Passkeys from '@/components/Passkeys'
     </div>
   </div>
 </template>
-@/components/MfaDetails

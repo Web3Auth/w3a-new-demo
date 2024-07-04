@@ -20,10 +20,6 @@ onBeforeMount(async () => {
     isLoading.value = false
   }
 })
-
-const handleLogoRedirect = () => {
-  router.push('/')
-}
 </script>
 
 <template>
@@ -31,7 +27,7 @@ const handleLogoRedirect = () => {
     <Loader :use-spinner="true" />
   </div>
   <div v-else class="min-h-screen flex flex-col">
-    <Navbar @on-redirect="handleLogoRedirect" />
+    <Navbar />
     <router-view />
   </div>
 </template>
