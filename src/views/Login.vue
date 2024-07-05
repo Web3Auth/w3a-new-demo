@@ -275,7 +275,7 @@ watch(
         </Card>
       </div>
       <div class="flex-1 flex justify-center items-center">
-        <div class="max-w-[392px]">
+        <div class="max-w-[392px] -translate-y-[36px]">
           <div>
             <button
               class="flex items-center justify-center gap-2 rounded-full pl-2 pr-4 py-2 mb-6 bg-app-gray-200 dark:bg-app-gray-800"
@@ -358,14 +358,14 @@ watch(
             <!-- Footer -->
             <div class="flex items-center justify-center mt-8">
               <img
-                src="https://images.web3auth.io/ws-trademark-light.svg"
+                src="@/assets/images/ws-trademark-light.svg"
                 alt="web3auth logo"
-                class="block dark:hidden"
+                class="block dark:hidden h-5"
               />
               <img
-                src="https://images.web3auth.io/ws-trademark-dark.svg"
+                src="@/assets/images/ws-trademark-dark.svg"
                 alt="web3auth logo"
-                class="hidden dark:block"
+                class="hidden dark:block h-5"
               />
             </div>
           </Card>
