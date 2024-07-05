@@ -24,7 +24,7 @@ import Passkeys from '@/components/Passkeys'
       </div>
       <div class="break-inside-avoid space-y-4">
         <DocsDetails />
-        <Card class="px-8 py-6 text-sm text-app-gray-800 w-full !rounded-2xl"
+        <Card class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl"
           >Have any questions?
           <a class="text-app-primary-600 hover:underline" href="tel:+">Schedule a demo call</a> with
           our team today</Card

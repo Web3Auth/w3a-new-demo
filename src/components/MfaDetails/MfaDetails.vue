@@ -8,6 +8,7 @@ import { useWeb3authStore } from '@/store/web3authStore'
 import { WALLET_ADAPTERS } from '@web3auth/base'
 import { OpenloginAdapter, OpenloginSessionData } from '@web3auth/openlogin-adapter'
 import Bowser from 'bowser'
+import Divider from '../Divider'
 
 const FACTOR_MAP: Record<string, { title: string; icon?: string }> = {
   device: { title: 'Device', icon: 'mobile-icon' },
@@ -52,13 +53,13 @@ const addMfa = () => {
   <Card class="px-8 py-6 w-full !rounded-2xl">
     <div class="mb-4">
       <div class="flex justify-between items-center mb-1">
-        <h3 class="font-semibold text-app-gray-900">Enable MFA</h3>
+        <h3 class="font-semibold text-app-gray-900 dark:text-app-white">Enable MFA</h3>
         <Badge :variant="isMfaEnabled ? 'success' : 'default'">{{
           isMfaEnabled ? 'Enabled' : 'Disabled'
         }}</Badge>
       </div>
 
-      <p class="text-xs text-app-gray-500">
+      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
         Add an additional security layer to your wallets. While enabled, you will need to verify
         another factor when logging in.
       </p>
@@ -73,13 +74,14 @@ const addMfa = () => {
       >Add MFA</Button
     >
 
-    <hr class="h-px mt-4 bg-app-gray-200 border-0" />
+    <Divider />
 
-    <div class="divide-y divide-app-gray-200">
+    <div class="divide-y divide-app-gray-200 dark:divide-app-gray-500">
       <div class="flex items-center py-4">
         <div class="mr-2">
           <Icon
             v-if="['email_passwordless', 'jwt'].includes(userInfo?.typeOfLogin || '')"
+            class="text-app-gray-900 dark:text-app-white w-5 h-5"
             name="mail-icon"
           />
           <img
@@ -90,7 +92,7 @@ const addMfa = () => {
           />
         </div>
         <div>
-          <h4 class="text-sm font-semibold text-app-gray-900 first-letter:capitalize">
+          <h4 class="text-sm font-semibold text-app-gray-900 dark:text-app-white first-letter:capitalize">
             {{ userInfo?.typeOfLogin }}
           </h4>
           <p class="text-xs text-app-gray-400">{{ userInfo?.verifierId }}</p>
@@ -102,10 +104,13 @@ const addMfa = () => {
         class="flex items-center py-4"
       >
         <div class="mr-2">
-          <Icon :name="shareDetail.icon || 'key-icon'" class="w-5 h-5" />
+          <Icon
+            :name="shareDetail.icon || 'key-icon'"
+            class="text-app-gray-900 dark:text-app-white w-5 h-5"
+          />
         </div>
         <div>
-          <h4 class="text-sm font-semibold text-app-gray-900">{{ shareDetail.title }}</h4>
+          <h4 class="text-sm font-semibold text-app-gray-900 dark:text-app-white">{{ shareDetail.title }}</h4>
           <p class="text-xs text-app-gray-400">{{ shareDetail.details }}</p>
         </div>
       </div>

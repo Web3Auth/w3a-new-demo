@@ -29,8 +29,8 @@ async function signMessage() {
 <template>
   <Card class="px-8 py-6 text-center w-full !rounded-2xl">
     <div class="mb-4">
-      <h3 class="font-semibold text-app-gray-900 mb-1">Wallet Services</h3>
-      <p class="text-xs text-app-gray-500">Production-ready wallet UI</p>
+      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">Wallet Services</h3>
+      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">Production-ready wallet UI</p>
     </div>
     <img
       class="mx-auto mb-6 w-[100px] h-[100px]"

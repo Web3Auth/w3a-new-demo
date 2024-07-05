@@ -10,6 +10,7 @@ import { getTruncateString } from '@/utils/common'
 
 import { useWeb3authStore } from '@/store/web3authStore'
 import { Card } from '@toruslabs/vue-components'
+import Divider from '@/components/Divider'
 
 const web3Auth = useWeb3authStore()
 
@@ -58,7 +59,9 @@ const returnAvatarLetter = (name: string) => {
       </span>
     </Avatar>
     <div>
-      <h3 class="font-bold text-app-gray-800 mb-2">{{ userInfo?.name || '' }}</h3>
+      <h3 class="font-bold text-app-gray-800 dark:text-app-white mb-2">
+        {{ userInfo?.name || '' }}
+      </h3>
       <p class="text-xs text-app-gray-400 mb-1">
         {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
       </p>
@@ -67,7 +70,7 @@ const returnAvatarLetter = (name: string) => {
       </button>
     </div>
 
-    <hr class="h-px my-3 bg-app-gray-200 border-0" />
+    <Divider />
 
     <div class="space-y-2">
       <Button

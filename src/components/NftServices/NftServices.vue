@@ -46,9 +46,8 @@ const demoNftPurchaseUrl = computed(
 <template>
   <Card class="px-8 py-6 w-full !rounded-2xl">
     <div class="mb-4 text-center">
-      <h3 class="font-semibold text-app-gray-900 mb-2">NFT Services</h3>
-
-      <p class="text-xs text-app-gray-500">Let your users to claim or buy NFT in seconds</p>
+      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">NFT Services</h3>
+      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">Let your users to claim or buy NFT in seconds</p>
     </div>
 
     <img src="@/assets/images/nft-sample.svg" class="w-full max-w-xs mx-auto h-auto mb-6" />
