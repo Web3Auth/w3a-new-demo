@@ -12,7 +12,15 @@ import { Button } from '@toruslabs/vue-components/Button'
       </p>
     </div>
 
-    <Button size="sm" class="gap-2 w-full" variant="secondary">Read our docs</Button>
+    <Button
+      href="https://web3auth.io/docs"
+      size="sm"
+      class="gap-2 w-full"
+      variant="secondary"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Read our docs</Button
+    >
   </Card>
 </template>
 

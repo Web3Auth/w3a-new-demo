@@ -4,6 +4,7 @@ import { computed, onMounted, ref } from 'vue'
 import { Avatar } from '@toruslabs/vue-components/Avatar'
 import { Icon } from '@toruslabs/vue-components/Icon'
 import { Button } from '@toruslabs/vue-components/Button'
+import { Link } from '@toruslabs/vue-components/Link'
 import { Drawer } from '@toruslabs/vue-components/Drawer'
 import { getTruncateString } from '@/utils/common'
 
@@ -58,16 +59,12 @@ const returnAvatarLetter = (name: string) => {
     </Avatar>
     <div>
       <h3 class="font-bold text-app-gray-800 mb-2">{{ userInfo?.name || '' }}</h3>
-      <p class="text-xs text-app-gray-400 mb-2">
+      <p class="text-xs text-app-gray-400 mb-1">
         {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
       </p>
-      <Button
-        size="xs"
-        variant="text"
-        class="mx-auto !p-0 !h-[1em] !rounded-none"
-        @on-click="handleConsoleBtn"
-        >View User Info</Button
-      >
+      <button @click="handleConsoleBtn">
+        <Link class="text-xs">View User Info</Link>
+      </button>
     </div>
 
     <hr class="h-px my-3 bg-app-gray-200 border-0" />
@@ -77,7 +74,7 @@ const returnAvatarLetter = (name: string) => {
         size="sm"
         class="gap-2 w-full border-app-gray-300"
         variant="secondary"
-        @on-click="handleCopyAddress"
+        @click="handleCopyAddress"
       >
         {{ getTruncateString(account || '') }}
         <div class="relative">

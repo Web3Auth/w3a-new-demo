@@ -12,13 +12,6 @@ module.exports = {
     )
   ],
   darkMode: 'class',
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Inter', 'sans-serif']
-      }
-    }
-  },
   /** install and import this package to extend css variables without having to use a css file */
   plugins: [require('@mertasan/tailwindcss-variables')]
 }
