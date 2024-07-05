@@ -13,6 +13,7 @@ import {
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
 import { WALLET_ADAPTERS } from '@web3auth/base'
+import { CustomConfig } from '@/utils/interface'
 
 export const useWeb3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3AuthNoModal | null>(null)
@@ -24,7 +25,9 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   const accounts = ref<string[]>([])
   const userInfo = ref<Partial<OpenloginUserInfo> | null>(null)
 
-  async function initializeWeb3Auth() {
+  const isLoggingIn = ref(false)
+
+  async function initializeWeb3Auth(newConfig?: CustomConfig) {
     const chainConfig = {
       ...SUPPORTED_NETWORKS[MAINNET_CHAIN_ID]
     }
@@ -40,7 +43,16 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       clientId:
         'BNI_pZZpoH4tqzbDDMKwfLOWujTif_kek4h9QEN271Gu0JheYDPEUHNKMl5Nnw5PGOjK-SOxp1RpUdG9TJufMZk',
       web3AuthNetwork: 'sapphire_mainnet',
-      privateKeyProvider: privateKeyProvider
+      privateKeyProvider: privateKeyProvider,
+      uiConfig: {
+        mode: newConfig?.isDark ? 'dark' : 'light',
+        useLogoLoader: newConfig?.useLogoAsLoader || false,
+        defaultLanguage: newConfig?.selectedLanguage || 'en',
+        theme: {
+          primary: newConfig?.primaryColor || undefined,
+          onPrimary: newConfig?.primaryTextColor || undefined
+        }
+      }
     })
 
     const openloginAdapter = new OpenloginAdapter({
@@ -54,7 +66,13 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         whiteLabel: {
           logoLight: 'https://images.web3auth.io/web3auth-logo-w.svg',
           logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
-          mode: 'light'
+          mode: newConfig?.isDark ? 'dark' : 'light',
+          useLogoLoader: newConfig?.useLogoAsLoader || false,
+          defaultLanguage: newConfig?.selectedLanguage || 'en',
+          theme: {
+            primary: newConfig?.primaryColor || undefined,
+            onPrimary: newConfig?.primaryTextColor || undefined
+          }
         }
       }
     })
@@ -79,6 +97,11 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     }
   }
 
+  async function updateWeb3AuthInstance(newConfig: CustomConfig) {
+    initializeWeb3Auth(newConfig)
+    triggerRef(web3Auth)
+  }
+
   async function connectToWeb3Auth({
     loginProvider,
     login_hint = ''
@@ -87,6 +110,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     login_hint?: OpenloginLoginParams['login_hint']
   }) {
     console.log('logging', web3Auth.value)
+    isLoggingIn.value = true
     const localProvider = await web3Auth.value!.connectTo<OpenloginLoginParams>(
       WALLET_ADAPTERS.OPENLOGIN,
       { loginProvider, login_hint }
@@ -99,6 +123,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
         : []
       userInfo.value = await web3Auth.value.getUserInfo()
+      isLoggingIn.value = false
       router.push({ name: ROUTES.HOME })
     }
   }
@@ -149,7 +174,9 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     accounts,
     userInfo,
     isLoggedIn,
+    isLoggingIn,
     initializeWeb3Auth,
+    updateWeb3AuthInstance,
     connectToWeb3Auth,
     logoutWeb3Auth,
     showWalletUi,

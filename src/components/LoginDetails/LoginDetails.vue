@@ -96,7 +96,7 @@ const returnAvatarLetter = (name: string) => {
           />
         </div>
       </Button>
-      <Button size="sm" class="gap-2 w-full" variant="secondary">Export Private Keys</Button>
+      <!-- <Button size="sm" class="gap-2 w-full" variant="secondary">Export Private Keys</Button> -->
     </div>
   </Card>
   <Drawer

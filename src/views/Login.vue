@@ -4,39 +4,36 @@ import { Icon } from '@toruslabs/vue-components/Icon'
 import { Button } from '@toruslabs/vue-components/Button'
 import { TextField } from '@toruslabs/vue-components/TextField'
 import { LoginForm, type SocialLoginObj } from '@toruslabs/vue-components/LoginForm'
+import { Link } from '@toruslabs/vue-components/Link'
 import { useWeb3authStore } from '../store/web3authStore'
 import { InputHTMLAttributes, computed, reactive, ref, watch } from 'vue'
-import { LOGIN_PROVIDER, applyWhiteLabelTheme } from '@web3auth/openlogin-adapter'
+import {
+  LANGUAGES,
+  LANGUAGE_TYPE,
+  LOGIN_PROVIDER,
+  applyWhiteLabelTheme
+} from '@web3auth/openlogin-adapter'
 import { Toggle } from '@toruslabs/vue-components/Toggle'
 
 import useLocales from '../composables/use-locales'
 import { setTheme } from '@/utils/common'
+import { CustomConfig } from '@/utils/interface'
 
 const locales = useLocales()
 
-type CustomConfig = {
-  dappName: string
-  addBrandLogo: boolean
-  useLogoAsLoader: boolean
-  selectedLanguage: string
-  isDark: boolean
-  primaryColor: string
-  primaryTextColor: string
-}
-
 type Panel = 'general' | 'theme'
 
-const languages = [
-  { name: 'English', value: 'en' },
-  { name: 'German', value: 'de' },
-  { name: 'Japanese', value: 'ja' },
-  { name: 'Korean', value: 'ko' },
-  { name: 'Mandarin', value: 'zh' },
-  { name: 'Spanish', value: 'es' },
-  { name: 'French', value: 'fr' },
-  { name: 'Portuguese', value: 'pt' },
-  { name: 'Dutch', value: 'nl' },
-  { name: 'Turkish', value: 'tr' }
+const languages: { name: string; value: LANGUAGE_TYPE }[] = [
+  { name: 'English', value: LANGUAGES.en },
+  { name: 'German', value: LANGUAGES.de },
+  { name: 'Japanese', value: LANGUAGES.ja },
+  { name: 'Korean', value: LANGUAGES.ko },
+  { name: 'Mandarin', value: LANGUAGES.zh },
+  { name: 'Spanish', value: LANGUAGES.es },
+  { name: 'French', value: LANGUAGES.fr },
+  { name: 'Portuguese', value: LANGUAGES.pt },
+  { name: 'Dutch', value: LANGUAGES.nl },
+  { name: 'Turkish', value: LANGUAGES.tr }
 ]
 
 const web3Auth = useWeb3authStore()
@@ -52,7 +49,7 @@ const customConfig = reactive<CustomConfig>({
   selectedLanguage: 'en',
   isDark: false,
   primaryColor: '#0346ff',
-  primaryTextColor: '#000000'
+  primaryTextColor: '#ffffff'
 })
 
 locales.setActiveLocale(customConfig.selectedLanguage)
@@ -109,17 +106,18 @@ function setActiveTheme() {
   customConfig.isDark = !customConfig.isDark
   setTheme(customConfig.isDark)
 }
+
 watch(
   () => customConfig,
   (newValue) => {
-    console.log('customConfig', newValue)
+    web3Auth.updateWeb3AuthInstance(newValue)
   },
   { deep: true }
 )
 </script>
 
 <template>
-  <div class="flex-1">
+  <div class="flex-1 flex items-center">
     <div class="flex gap-4 mx-auto h-full w-full py-6 px-10">
       <div class="w-[368px] flex justify-center items-center">
         <Card
@@ -133,10 +131,8 @@ watch(
             </h3>
             <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
               Personalize your login screens to reflect your brand's identity. Check our
-              <a
-                href="http://"
-                class="cursor-pointer text-app-primary-600 dark:text-app-primary-500 hover:underline"
-                >docs</a
+              <Link href="https://web3auth.io/docs" target="_blank" rel="noopener noreferrer"
+                >docs</Link
               >
               for more customization options.
             </p>
@@ -189,7 +185,8 @@ watch(
                       :model-value="customConfig.selectedLanguage"
                       @change="
                         (e) => {
-                          customConfig.selectedLanguage = (e.target as HTMLSelectElement).value
+                          customConfig.selectedLanguage = (e.target as HTMLSelectElement)
+                            .value as LANGUAGE_TYPE
                           locales.setActiveLocale(customConfig.selectedLanguage)
                         }
                       "
@@ -318,7 +315,11 @@ watch(
                 {{ locales.t('header.title') }}
               </p>
               <p class="text-base text-app-gray-500 dark:text-app-gray-400">
-                {{ locales.t('header.subtitle') }}
+                {{
+                  locales.t('header.subtitle-name', {
+                    appName: customConfig.dappName || 'blockchain'
+                  })
+                }}
               </p>
             </div>
             <!-- Body -->

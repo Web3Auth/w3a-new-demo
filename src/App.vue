@@ -4,11 +4,9 @@ import { Loader } from '@toruslabs/vue-components/Loader'
 import Navbar from '@/components/Navbar'
 import { onBeforeMount, ref } from 'vue'
 import { useWeb3authStore } from './store/web3authStore'
-import { useRouter } from 'vue-router'
 
 const web3Auth = useWeb3authStore()
 const isLoading = ref(false)
-const router = useRouter()
 
 onBeforeMount(async () => {
   isLoading.value = true
@@ -23,7 +21,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div v-if="isLoading" class="h-screen flex justify-center items-center">
+  <div v-if="isLoading || web3Auth.isLoggingIn" class="h-screen flex justify-center items-center">
     <Loader :use-spinner="true" />
   </div>
   <div v-else class="min-h-screen flex flex-col">

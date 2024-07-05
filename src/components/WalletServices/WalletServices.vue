@@ -6,7 +6,8 @@ import { useWeb3authStore } from '@/store/web3authStore'
 
 const web3Auth = useWeb3authStore()
 const signedMessage = ref<string>('')
-const signingMessage = ref<boolean>(false)
+const isSigningMessage = ref<boolean>(false)
+const signingState = ref<'success' | 'error' | ''>('')
 
 function openWalletServiceUi() {
   web3Auth.showWalletUi()
@@ -14,15 +15,18 @@ function openWalletServiceUi() {
 
 async function signMessage() {
   try {
-    signingMessage.value = true
+    isSigningMessage.value = true
     signedMessage.value = (await web3Auth.signedMessage()) as string
+    signingState.value = 'success'
   } catch (error) {
     console.error(error)
+    signingState.value = 'error'
   } finally {
-    signingMessage.value = false
+    isSigningMessage.value = false
     setTimeout(() => {
       signedMessage.value = ''
-    }, 1000)
+      signingState.value = ''
+    }, 3000)
   }
 }
 </script>
@@ -44,9 +48,24 @@ async function signMessage() {
       >
       <Button size="sm" class="gap-2 w-full" variant="secondary">Use Fiat Onramp</Button>
       <Button size="sm" class="gap-2 w-full" variant="secondary">Connect to Applications</Button>
-      <Button size="sm" class="gap-2 w-full" variant="secondary" @on-click="signMessage"
+      <Button
+        v-if="signingState === ''"
+        size="sm"
+        class="gap-2 w-full"
+        variant="secondary"
+        @on-click="signMessage"
         >Sign Personal Message</Button
       >
+      <div
+        v-else
+        class="border border-app-gray-500 text-app-gray-500 flex items-center justify-center text-sm rounded-md h-9"
+        :class="{
+          'bg-app-green-100 text-app-green-500': signingState === 'success',
+          'bg-app-red-100 text-app-red-800': signingState === 'error'
+        }"
+      >
+        {{ signingState === 'success' ? 'Signature Success!' : 'Signature Failed, Try again' }}
+      </div>
     </div>
   </Card>
 </template>

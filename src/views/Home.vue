@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Card } from '@toruslabs/vue-components/Card'
+import { Link } from '@toruslabs/vue-components/Link'
 import LoginDetails from '@/components/LoginDetails'
 import WalletServices from '@/components/WalletServices'
 import DocsDetails from '@/components/DocsDetails'
@@ -26,31 +27,15 @@ import Passkeys from '@/components/Passkeys'
         <DocsDetails />
         <Card class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl"
           >Have any questions?
-          <a class="text-app-primary-600 hover:underline" href="tel:+">Schedule a demo call</a> with
-          our team today</Card
+          <Link
+            href="https://calendly.com/web3auth/meeting-with-web3auth"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Schedule a demo call</Link
+          >
+          with our team today</Card
         >
       </div>
     </div>
-    <!-- <div class="w-full gap-4 grid grid-cols-1 sm:grid-cols-2">
-      <div class="space-y-4">
-        <LoginDetails />
-        <Passkeys />
-        <MfaDetails />
-      </div>
-      <div class="space-y-4">
-        <WalletServices />
-      </div>
-      <div class="space-y-4">
-        <NftServices />
-      </div>
-      <div class="space-y-4">
-        <DocsDetails />
-        <Card class="px-8 py-6 text-sm text-app-gray-800 w-full !rounded-2xl"
-          >Have any questions?
-          <a class="text-app-primary-600 hover:underline" href="tel:+">Schedule a demo call</a> with
-          our team today</Card
-        >
-      </div>
-    </div> -->
   </div>
 </template>
