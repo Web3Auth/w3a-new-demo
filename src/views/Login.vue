@@ -65,12 +65,13 @@ function closeConfigDialog() {
     "
   >
     <WhiteLabelConfig />
+    <button class="absolute top-4 right-4" @click="closeConfigDialog"><Icon class="text-app-gray-900 dark:text-app-gray-100" size="12px" name="x-icon" /></button>
   </dialog>
 </template>
 
 <style scoped>
 dialog.config-dialog {
-  @apply w-full max-w-full p-5 m-auto rounded-t-2xl;
+  @apply w-full max-w-full p-5 m-auto rounded-t-2xl dark:bg-app-gray-800;
   margin-block-end: 0;
 }
 dialog.config-dialog {
