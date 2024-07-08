@@ -51,7 +51,9 @@ const returnAvatarLetter = (name: string) => {
 }
 </script>
 <template>
-  <Card class="px-8 py-6 text-center w-full !rounded-2xl">
+  <Card
+    class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+  >
     <Avatar size="xl" class="text-2xl flex-shrink-0 w-[60px] h-[60px] mb-2">
       <img v-if="userInfo?.profileImage" :src="userInfo?.profileImage" class="w-full h-full" />
       <span v-else>
@@ -65,8 +67,8 @@ const returnAvatarLetter = (name: string) => {
       <p class="text-xs text-app-gray-400 mb-1">
         {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
       </p>
-      <button @click="handleConsoleBtn">
-        <Link class="text-xs">View User Info</Link>
+      <button class="leading-none" @click="handleConsoleBtn">
+        <Link class="text-xs dark:text-app-primary-500">View User Info</Link>
       </button>
     </div>
 
@@ -75,7 +77,7 @@ const returnAvatarLetter = (name: string) => {
     <div class="space-y-2">
       <Button
         size="sm"
-        class="gap-2 w-full border-app-gray-300"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
         variant="secondary"
         @click="handleCopyAddress"
       >
@@ -90,10 +92,16 @@ const returnAvatarLetter = (name: string) => {
               class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
             ></div>
           </div>
-          <Icon
-            :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
-            :class="['cursor-pointer', isCopied ? 'text-app-success' : 'text-app-gray-400']"
-          />
+          <div>
+            <Icon
+              size="16"
+              :name="isCopied ? 'check-circle-solid-icon' : 'document-duplicate-icon'"
+              :class="[
+                'cursor-pointer',
+                isCopied ? 'text-app-success' : 'text-app-gray-800 dark:!text-app-white'
+              ]"
+            />
+          </div>
         </div>
       </Button>
       <!-- <Button size="sm" class="gap-2 w-full" variant="secondary">Export Private Keys</Button> -->

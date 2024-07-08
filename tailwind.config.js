@@ -12,6 +12,13 @@ module.exports = {
     )
   ],
   darkMode: 'class',
+  theme: {
+    extend: {
+      boxShadow: {
+        modal: '4px 4px 20px 0px #2E5BFF1A'
+      }
+    }
+  },
   /** install and import this package to extend css variables without having to use a css file */
   plugins: [require('@mertasan/tailwindcss-variables')]
 }

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ROUTES } from '@/constants/common'
-import { useWeb3authStore } from '@/store/web3authStore'
-import { Button } from '@toruslabs/vue-components/Button'
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { Button } from '@toruslabs/vue-components/Button'
+import { ROUTES } from '@/constants/common'
+import { useWeb3authStore } from '@/store/web3authStore'
 
 const router = useRouter()
 const route = useRoute()
@@ -32,23 +32,29 @@ const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
   <div class="w-full relative">
     <div
       :class="[
-        'py-6 px-8 flex items-center justify-between bg-app-white dark:bg-app-gray-800 w-full'
+        'py-4 sm:py-6 px-8 flex items-center justify-between bg-app-white dark:bg-app-gray-800 w-full'
       ]"
     >
       <img
         src="@/assets/images/logo.svg"
         alt="web3auth demo logo"
-        class="cursor-pointer h-12 w-auto dark:hidden"
+        class="cursor-pointer h-8 sm:h-12 w-auto dark:hidden"
       />
       <img
         src="@/assets/images/logo-light.svg"
         alt="web3auth demo logo"
-        class="cursor-pointer h-12 w-auto hidden dark:block"
+        class="cursor-pointer h-8 sm:h-12 w-auto hidden dark:block"
       />
-      <Button v-if="isLoginPage" pill @on-click="handleDocsLink" id="w3a-documentation">
+      <Button
+        v-if="isLoginPage"
+        @on-click="handleDocsLink"
+        id="w3a-documentation"
+        class="!h-9 sm:!h-10"
+      >
         Documentation
       </Button>
-      <Button v-else variant="secondary" @on-click="logout">Logout</Button>
+
+      <Button v-if="!isLoginPage" variant="secondary" @on-click="logout">Logout</Button>
     </div>
   </div>
 </template>

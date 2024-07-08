@@ -44,26 +44,36 @@ const demoNftPurchaseUrl = computed(
 )
 </script>
 <template>
-  <Card class="px-8 py-6 w-full !rounded-2xl">
+  <Card class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
     <div class="mb-4 text-center">
       <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">NFT Services</h3>
-      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">Let your users to claim or buy NFT in seconds</p>
+      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
+        Let your users to claim or buy NFT in seconds
+      </p>
     </div>
 
     <img src="@/assets/images/nft-sample.svg" class="w-full max-w-xs mx-auto h-auto mb-6" />
 
     <div class="space-y-2 mb-4">
-      <Button size="sm" class="gap-2 w-full" variant="secondary" @on-click="openNftMinting"
+      <Button
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        variant="secondary"
+        @on-click="openNftMinting"
         >Mint free NFT airdrop</Button
       >
-      <Button size="sm" class="gap-2 w-full" variant="secondary" @on-click="openNftPurchase"
+      <Button
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        variant="secondary"
+        @on-click="openNftPurchase"
         >NFT Checkout</Button
       >
     </div>
 
     <div class="text-center">
       <Link
-        class="text-sm"
+        class="text-sm dark:text-app-primary-500"
         href="https://docs.stripe.com/testing#cards"
         target="_blank"
         rel="noopener noreferrer"

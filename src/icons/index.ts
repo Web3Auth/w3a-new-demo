@@ -42,7 +42,7 @@ import {
 import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
 import { GlobeAltSolidIcon, MoonSolidIcon } from '@toruslabs/vue-icons/maps'
 import { RssIcon } from '@toruslabs/vue-icons/connection'
-import { ShoppingCartSolidIcon } from '@toruslabs/vue-icons/others'
+import { CogIcon, ShoppingCartSolidIcon } from '@toruslabs/vue-icons/others'
 import { MobileIcon } from '@toruslabs/vue-icons/gadgets'
 
 export default {
@@ -86,5 +86,6 @@ export default {
   ShoppingCartSolidIcon,
   SunSolidIcon,
   MoonSolidIcon,
-  MobileIcon
+  MobileIcon,
+  CogIcon
 } as unknown as IconSets

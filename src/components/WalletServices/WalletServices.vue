@@ -13,6 +13,14 @@ function openWalletServiceUi() {
   web3Auth.showWalletUi()
 }
 
+function openFiatOnramp() {
+  web3Auth.initiateTopUpPlugin()
+}
+
+function connectToApplications() {
+  web3Auth.initiateWalletConnect()
+}
+
 async function signMessage() {
   try {
     isSigningMessage.value = true
@@ -31,7 +39,7 @@ async function signMessage() {
 }
 </script>
 <template>
-  <Card class="px-8 py-6 text-center w-full !rounded-2xl">
+  <Card class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
     <div class="mb-4">
       <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">Wallet Services</h3>
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">Production-ready wallet UI</p>
@@ -43,15 +51,31 @@ async function signMessage() {
     />
 
     <div class="space-y-2">
-      <Button size="sm" class="gap-2 w-full" variant="secondary" @on-click="openWalletServiceUi"
+      <Button
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        variant="secondary"
+        @on-click="openWalletServiceUi"
         >Open Wallet UI</Button
       >
-      <Button size="sm" class="gap-2 w-full" variant="secondary">Use Fiat Onramp</Button>
-      <Button size="sm" class="gap-2 w-full" variant="secondary">Connect to Applications</Button>
+      <Button
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        variant="secondary"
+        @on-click="openFiatOnramp"
+        >Use Fiat Onramp</Button
+      >
+      <Button
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        variant="secondary"
+        @on-click="connectToApplications"
+        >Connect to Applications</Button
+      >
       <Button
         v-if="signingState === ''"
         size="sm"
-        class="gap-2 w-full"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
         variant="secondary"
         @on-click="signMessage"
         >Sign Personal Message</Button

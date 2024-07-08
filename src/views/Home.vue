@@ -25,9 +25,10 @@ import Passkeys from '@/components/Passkeys'
       </div>
       <div class="break-inside-avoid space-y-4">
         <DocsDetails />
-        <Card class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl"
+        <Card class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
           >Have any questions?
           <Link
+            class="dark:text-app-primary-500"
             href="https://calendly.com/web3auth/meeting-with-web3auth"
             target="_blank"
             rel="noopener noreferrer"

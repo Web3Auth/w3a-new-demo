@@ -50,7 +50,7 @@ const addMfa = () => {
 }
 </script>
 <template>
-  <Card class="px-8 py-6 w-full !rounded-2xl">
+  <Card class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
     <div class="mb-4">
       <div class="flex justify-between items-center mb-1">
         <h3 class="font-semibold text-app-gray-900 dark:text-app-white">Enable MFA</h3>
@@ -68,7 +68,7 @@ const addMfa = () => {
     <Button
       v-if="!isMfaEnabled"
       size="sm"
-      class="gap-2 w-full"
+      class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
       variant="secondary"
       @on-click="addMfa"
       >Add MFA</Button
@@ -92,7 +92,9 @@ const addMfa = () => {
           />
         </div>
         <div>
-          <h4 class="text-sm font-semibold text-app-gray-900 dark:text-app-white first-letter:capitalize">
+          <h4
+            class="text-sm font-semibold text-app-gray-900 dark:text-app-white first-letter:capitalize"
+          >
             {{ userInfo?.typeOfLogin }}
           </h4>
           <p class="text-xs text-app-gray-400">{{ userInfo?.verifierId }}</p>
@@ -110,7 +112,9 @@ const addMfa = () => {
           />
         </div>
         <div>
-          <h4 class="text-sm font-semibold text-app-gray-900 dark:text-app-white">{{ shareDetail.title }}</h4>
+          <h4 class="text-sm font-semibold text-app-gray-900 dark:text-app-white">
+            {{ shareDetail.title }}
+          </h4>
           <p class="text-xs text-app-gray-400">{{ shareDetail.details }}</p>
         </div>
       </div>
