@@ -39,7 +39,9 @@ async function signMessage() {
 }
 </script>
 <template>
-  <Card class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
+  <Card
+    class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+  >
     <div class="mb-4">
       <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">Wallet Services</h3>
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">Production-ready wallet UI</p>
@@ -82,13 +84,16 @@ async function signMessage() {
       >
       <div
         v-else
-        class="border border-app-gray-500 text-app-gray-500 flex items-center justify-center text-sm rounded-md h-9"
+        class="border p-2 border-app-gray-500 text-app-gray-500 flex flex-col items-center justify-center text-sm rounded-md min-h-9"
         :class="{
           'bg-app-green-100 text-app-green-500': signingState === 'success',
           'bg-app-red-100 text-app-red-800': signingState === 'error'
         }"
       >
-        {{ signingState === 'success' ? 'Signature Success!' : 'Signature Failed, Try again' }}
+        <div>
+          {{ signingState === 'success' ? 'Signature Success!' : 'Signature Failed, Try again' }}
+        </div>
+        <div v-if="signedMessage" class="break-all text-xxs leading-tight mt-1">{{ signedMessage }}</div>
       </div>
     </div>
   </Card>

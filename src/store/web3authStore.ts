@@ -47,6 +47,14 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       uiConfig: {
         mode: newConfig?.isDark ? 'dark' : 'light',
         useLogoLoader: newConfig?.useLogoAsLoader || false,
+        logoLight:
+          newConfig?.addBrandLogo && newConfig?.logoUrl
+            ? newConfig.logoUrl
+            : 'https://images.web3auth.io/web3auth-logo-w.svg',
+        logoDark:
+          newConfig?.addBrandLogo && newConfig?.logoUrl
+            ? newConfig.logoUrl
+            : 'https://images.web3auth.io/web3auth-logo-w-light.svg',
         defaultLanguage: newConfig?.selectedLanguage || 'en',
         theme: {
           primary: newConfig?.primaryColor || undefined,
@@ -64,8 +72,14 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       walletInitOptions: {
         confirmationStrategy: 'modal',
         whiteLabel: {
-          logoLight: 'https://images.web3auth.io/web3auth-logo-w.svg',
-          logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
+          logoLight:
+            newConfig?.addBrandLogo && newConfig?.logoUrl
+              ? newConfig.logoUrl
+              : 'https://images.web3auth.io/web3auth-logo-w.svg',
+          logoDark:
+            newConfig?.addBrandLogo && newConfig?.logoUrl
+              ? newConfig.logoUrl
+              : 'https://images.web3auth.io/web3auth-logo-w-light.svg',
           mode: newConfig?.isDark ? 'dark' : 'light',
           useLogoLoader: newConfig?.useLogoAsLoader || false,
           defaultLanguage: newConfig?.selectedLanguage || 'en',

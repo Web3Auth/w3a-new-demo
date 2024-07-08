@@ -38,12 +38,12 @@ const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
       <img
         src="@/assets/images/logo.svg"
         alt="web3auth demo logo"
-        class="cursor-pointer h-8 sm:h-12 w-auto dark:hidden"
+        class="cursor-pointer h-8 sm:!h-12 w-auto dark:hidden"
       />
       <img
         src="@/assets/images/logo-light.svg"
         alt="web3auth demo logo"
-        class="cursor-pointer h-8 sm:h-12 w-auto hidden dark:block"
+        class="cursor-pointer h-8 sm:!h-12 w-auto hidden dark:block"
       />
       <Button
         v-if="isLoginPage"

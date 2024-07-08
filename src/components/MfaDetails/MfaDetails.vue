@@ -53,7 +53,7 @@ const addMfa = () => {
   <Card class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
     <div class="mb-4">
       <div class="flex justify-between items-center mb-1">
-        <h3 class="font-semibold text-app-gray-900 dark:text-app-white">Enable MFA</h3>
+        <h3 class="font-semibold text-app-gray-900 dark:text-app-white">MFA</h3>
         <Badge :variant="isMfaEnabled ? 'success' : 'default'">{{
           isMfaEnabled ? 'Enabled' : 'Disabled'
         }}</Badge>

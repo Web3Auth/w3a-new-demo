@@ -85,6 +85,16 @@ function setPrimaryTextColor(color: string) {
             <div class="text-app-gray-900 dark:text-app-white">Add Brand Logo</div>
             <Toggle size="small" v-model="customConfig.config.addBrandLogo" />
           </div>
+          <div
+            v-if="customConfig.config.addBrandLogo"
+            class="flex justify-between items-center mb-6"
+          >
+            <TextField
+              label="Logo URL"
+              placeholder="Logo URL"
+              v-model="customConfig.config.logoUrl"
+            />
+          </div>
           <div class="flex justify-between items-center mb-6">
             <div class="text-app-gray-900 dark:text-app-white">Use Logo as Loader</div>
             <Toggle size="small" v-model="customConfig.config.useLogoAsLoader" />

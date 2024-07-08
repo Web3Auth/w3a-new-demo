@@ -32,7 +32,7 @@ function closeConfigDialog() {
 <template>
   <div class="flex-1 block lg:flex items-center">
     <div class="flex gap-4 mx-auto h-full w-full p-4 sm:py-6 sm:px-10">
-      <div class="hidden w-[368px] lg:flex justify-center items-center">
+      <div class="hidden w-[368px] lg:!flex justify-center items-center">
         <Card
           class="!shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
           :classes="{

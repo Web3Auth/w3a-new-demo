@@ -82,13 +82,8 @@ function socialLogin(item: SocialLoginObj) {
     <div>
       <div v-if="config.addBrandLogo" class="mb-6">
         <img
-          class="h-11 w-auto dark:hidden"
-          src="https://images.web3auth.io/web3auth-logo-w.svg"
-          alt=""
-        />
-        <img
-          class="h-11 w-auto hidden dark:block"
-          src="https://images.web3auth.io/web3auth-logo-w-light.svg"
+          class="h-11 w-auto"
+          :src="config.logoUrl || `https://images.web3auth.io/web3auth-logo-w.svg`"
           alt=""
         />
       </div>
