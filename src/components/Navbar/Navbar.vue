@@ -32,7 +32,7 @@ const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
   <div class="w-full relative">
     <div
       :class="[
-        'py-4 sm:py-6 px-8 flex items-center justify-between bg-app-white dark:bg-app-gray-800 w-full'
+        'py-4 px-4 sm:py-6 sm:px-8 flex items-center justify-between bg-app-white dark:bg-app-gray-800 w-full'
       ]"
     >
       <img
