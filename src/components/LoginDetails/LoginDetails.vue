@@ -112,7 +112,7 @@ const returnAvatarLetter = (name: string) => {
     :backdrop-close-icon="false"
     placement="right"
     :classes="{
-      container: '!w-full sm:!w-[421px] border-l border-app-gray-200',
+      container: '!w-full sm:!w-[421px] border-l border-app-gray-200 dark:border-app-gray-500',
       backdropContainer: 'opacity-0',
       sidebarCloseBtn: '!top-4 !right-4'
     }"
@@ -121,13 +121,13 @@ const returnAvatarLetter = (name: string) => {
   >
     <template #sidebar>
       <div class="p-5 flex flex-col flex-1 h-full">
-        <h3 class="text-center text-base text-app-gray-600">User Info Console</h3>
+        <h3 class="text-center text-base text-app-gray-600 dark:text-app-white">User Info Console</h3>
         <div
-          class="rounded-2xl p-4 bg-app-gray-100 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
+          class="rounded-2xl p-4 bg-app-gray-100 dark:bg-app-dark-surface2 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
         >
-          <pre class="text-sm break-words leading-relaxed text-wrap">{{ userInfo }}</pre>
+          <pre class="text-sm break-words leading-relaxed text-wrap dark:text-app-white">{{ userInfo }}</pre>
         </div>
-        <Button block pill @on-click="openConsole = false">Close</Button>
+        <Button block @on-click="openConsole = false">Close</Button>
       </div>
     </template>
   </Drawer>
