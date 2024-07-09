@@ -25,16 +25,16 @@
     "@web3auth/base": "^8.8.0",
     "@web3auth/default-evm-adapter": "^8.8.0",
     "@web3auth/ethereum-provider": "^8.8.0",
-    "@web3auth/modal": "^8.8.0",
-    "@web3auth/no-modal": "^8.8.0",
+    "@web3auth/modal": "^8.9.1",
+    "@web3auth/no-modal": "^8.9.1",
     "@web3auth/openlogin-adapter": "^8.8.0",
-    "@web3auth/wallet-services-plugin": "^8.8.0",
+    "@web3auth/wallet-services-plugin": "^8.9.1",
     "bn.js": "^5.2.1",
     "bowser": "^2.11.0",
     "pinia": "^2.1.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "vue": "^3.4.30",
+    "vue": "^3.4.31",
     "vue-gtag-next": "^1.14.0",
     "vue-router": "^4.4.0"
   },
@@ -42,7 +42,7 @@
     "@rushstack/eslint-patch": "^1.10.3",
     "@tsconfig/node18": "^18.2.4",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@vitejs/plugin-vue": "^5.0.5",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^13.0.0",
@@ -52,22 +52,22 @@
     "buffer": "^6.0.3",
     "empty-module": "^0.0.2",
     "eslint": "^8.56.0",
-    "eslint-plugin-vue": "^9.26.0",
+    "eslint-plugin-vue": "^9.27.0",
     "jsdom": "^24.1.0",
     "lodash-es": "^4.17.21",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "process": "^0.11.10",
     "source-map-explorer": "^2.5.3",
     "tailwindcss": "^3.4.4",
-    "typescript": "^5.5.2",
-    "vite": "^5.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.3",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "^1.6.0",
-    "vue-tsc": "^2.0.22"
+    "vue-tsc": "^2.0.26"
   },
   "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "^4.18.0"
+    "@rollup/rollup-linux-x64-gnu": "^4.18.1"
   }
 }
