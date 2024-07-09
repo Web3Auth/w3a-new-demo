@@ -64,7 +64,10 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     })
 
     const openloginAdapter = new OpenloginAdapter({
-      privateKeyProvider
+      privateKeyProvider,
+      adapterSettings: {
+        uxMode: 'redirect'
+      }
     })
     web3Auth.value.configureAdapter(openloginAdapter)
 
@@ -123,22 +126,29 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     loginProvider: OpenloginLoginParams['loginProvider']
     login_hint?: OpenloginLoginParams['login_hint']
   }) {
-    console.log('logging', web3Auth.value)
-    isLoggingIn.value = true
-    const localProvider = await web3Auth.value!.connectTo<OpenloginLoginParams>(
-      WALLET_ADAPTERS.OPENLOGIN,
-      { loginProvider, login_hint }
-    )
-    console.log(localProvider, 'available')
-    // because it's shallow ref, have to trigger again
-    triggerRef(web3Auth)
-    if (web3Auth.value?.connected) {
-      accounts.value = provider.value
-        ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
-        : []
-      userInfo.value = await web3Auth.value.getUserInfo()
+    try {
+      console.log('logging', web3Auth.value)
+      isLoggingIn.value = true
+      const localProvider = await web3Auth.value?.connectTo<OpenloginLoginParams>(
+        WALLET_ADAPTERS.OPENLOGIN,
+        { loginProvider, login_hint }
+      )
+      console.log(localProvider, 'available')
+      // because it's shallow ref, have to trigger again
+      triggerRef(web3Auth)
+      if (web3Auth.value?.connected) {
+        accounts.value = provider.value
+          ? ((await provider.value?.request<never, string[]>({
+              method: 'eth_accounts'
+            })) as string[])
+          : []
+        userInfo.value = await web3Auth.value.getUserInfo()
+        isLoggingIn.value = false
+        router.push({ name: ROUTES.HOME })
+      }
+    } catch (error) {
+      console.error(error)
       isLoggingIn.value = false
-      router.push({ name: ROUTES.HOME })
     }
   }
 
