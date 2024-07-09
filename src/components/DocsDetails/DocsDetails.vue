@@ -23,16 +23,26 @@ import { Link } from '@toruslabs/vue-components/Link'
         >.
       </p>
     </div>
-
-    <Button
-      href="https://web3auth.io/docs"
-      size="sm"
-      class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
-      variant="secondary"
-      target="_blank"
-      rel="noopener noreferrer"
-      >Read our docs</Button
-    >
+    <div class="space-y-2">
+      <Button
+        href="https://web3auth.io/docs"
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        variant="secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Read our docs</Button
+      >
+      <Button
+        href="https://web3auth.io/customers"
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        variant="secondary"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Checkout Live Integrations</Button
+      >
+    </div>
   </Card>
 </template>
 
