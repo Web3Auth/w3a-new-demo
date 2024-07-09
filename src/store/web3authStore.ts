@@ -66,7 +66,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     const openloginAdapter = new OpenloginAdapter({
       privateKeyProvider,
       adapterSettings: {
-        uxMode: 'redirect'
+        uxMode: 'popup'
       }
     })
     web3Auth.value.configureAdapter(openloginAdapter)
