@@ -92,7 +92,12 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Logo URL"
               placeholder="Logo URL"
-              v-model="customConfig.config.logoUrl"
+              :value="customConfig.config.logoUrl"
+              @change="
+                (e) => {
+                  customConfig.config.logoUrl = (e.target as HTMLInputElement).value
+                }
+              "
             />
           </div>
           <div class="flex justify-between items-center mb-6">
@@ -103,7 +108,12 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Application Name"
               placeholder="dApp Name"
-              v-model="customConfig.config.dappName"
+              :value="customConfig.config.dappName"
+              @change="
+                (e) => {
+                  customConfig.config.dappName = (e.target as HTMLInputElement).value
+                }
+              "
             />
           </div>
           <div>
@@ -155,7 +165,12 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Primary Color"
               helper-text="Applies to primary elements like buttons, text links, tabs, focus, spinners, nav tabs"
-              v-model="customConfig.config.primaryColor"
+              :value="customConfig.config.primaryColor"
+              @change="
+                (e) => {
+                  customConfig.config.primaryColor = (e.target as HTMLInputElement).value
+                }
+              "
             >
               <template #endIconSlot>
                 <input
@@ -177,7 +192,12 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Primary Text Color"
               helper-text="Applies to text elements set against the primary color background"
-              v-model="customConfig.config.primaryTextColor"
+              :value="customConfig.config.primaryTextColor"
+              @change="
+                (e) => {
+                  customConfig.config.primaryTextColor = (e.target as HTMLInputElement).value
+                }
+              "
             >
               <template #endIconSlot>
                 <input
