@@ -1,58 +1,42 @@
 <script setup lang="ts">
-import { Icon } from '@toruslabs/vue-components/Icon'
 import { Card } from '@toruslabs/vue-components/Card'
-import Steps from '@/components/Steps'
-import { ROUTES } from '@/constants/common'
-import { useWeb3authStore } from '@/store/web3authStore'
-import { computed, onMounted } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-
-const web3Auth = useWeb3authStore()
-const router = useRouter()
-const route = useRoute()
-
-function goToSteps() {
-  router.push({ name: ROUTES.STEPS })
-}
-
-const showBackButton = computed(() => {
-  return ![ROUTES.STEPS, ROUTES.WELCOME].includes(router.currentRoute.value.name as string)
-})
-
-const isSteps = computed(() => route.name === ROUTES.STEPS)
-
-onMounted(() => {
-  if (!web3Auth.isLoggedIn) {
-    router.push({ name: ROUTES.LOGIN })
-  }
-})
+import { Link } from '@toruslabs/vue-components/Link'
+import LoginDetails from '@/components/LoginDetails'
+import WalletServices from '@/components/WalletServices'
+import DocsDetails from '@/components/DocsDetails'
+import MfaDetails from '@/components/MfaDetails'
+import NftServices from '@/components/NftServices'
+import Passkeys from '@/components/Passkeys'
 </script>
 
 <template>
-  <div class="flex-1 flex flex-col px-4 sm:px-6 pt-0 pb-12">
-    <div v-if="showBackButton" class="!flex xl:!hidden">
-      <button
-        type="button"
-        class="text-app-gray-400 hover:text-app-gray-500 mb-4 text-xs flex items-center"
-        @click="goToSteps"
-      >
-        <Icon class="mr-2" name="chevron-left-solid-icon" /> Back to next steps
-      </button>
-    </div>
-    <div class="flex flex-1 gap-6">
-      <Card class="hidden xl:block !rounded-2xl">
-        <Steps class="bg-white p-6" />
-      </Card>
-      <Card
-        v-if="!isSteps"
-        :class="[
-          `flex-1 !rounded-2xl px-6 py-6 md:px-10 md:py-8 overflow-y-auto`,
-          isSteps ? 'hidden xl:flex' : ''
-        ]"
-      >
-        <router-view />
-      </Card>
-      <router-view v-if="isSteps" class="xl:hidden" />
+  <div class="flex-1 flex py-4 px-4 sm:py-6 sm:px-10">
+    <div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 break-before-avoid">
+      <div class="break-inside-avoid space-y-4 mb-4">
+        <LoginDetails />
+        <Passkeys />
+        <MfaDetails />
+      </div>
+      <div class="break-inside-avoid lg:break-after-avoid xl:break-after-column mb-4">
+        <WalletServices />
+      </div>
+      <div class="break-inside-avoid xl:break-after-column mb-4">
+        <NftServices />
+      </div>
+      <div class="break-inside-avoid space-y-4">
+        <DocsDetails />
+        <Card class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+          >Have any questions?
+          <Link
+            class="dark:text-app-primary-500"
+            href="https://calendly.com/web3auth/meeting-with-web3auth"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Schedule a demo call</Link
+          >
+          with our team today</Card
+        >
+      </div>
     </div>
   </div>
 </template>

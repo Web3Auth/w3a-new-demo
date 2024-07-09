@@ -1,17 +1,22 @@
 import { MAINNET_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
 import { SafeEventEmitterProvider } from '@toruslabs/openlogin-jrpc'
-import { getDefaultExternalAdapters } from '@web3auth/default-evm-adapter'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
-import { Web3Auth, type Web3AuthOptions } from '@web3auth/modal'
+import { Web3AuthNoModal } from '@web3auth/no-modal'
 import { defineStore } from 'pinia'
 import { ref, shallowRef, triggerRef, computed } from 'vue'
 import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
-import { type OpenloginUserInfo } from '@web3auth/openlogin-adapter'
+import {
+  OpenloginAdapter,
+  OpenloginLoginParams,
+  type OpenloginUserInfo
+} from '@web3auth/openlogin-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
+import { WALLET_ADAPTERS } from '@web3auth/base'
+import { CustomConfig } from '@/utils/interface'
 
 export const useWeb3authStore = defineStore('web3auth', () => {
-  const web3Auth = shallowRef<Web3Auth | null>(null)
+  const web3Auth = shallowRef<Web3AuthNoModal | null>(null)
   const provider = shallowRef<SafeEventEmitterProvider | null>(null)
   const walletServicesPlugin = shallowRef<WalletServicesPlugin | null>(null)
 
@@ -20,7 +25,9 @@ export const useWeb3authStore = defineStore('web3auth', () => {
   const accounts = ref<string[]>([])
   const userInfo = ref<Partial<OpenloginUserInfo> | null>(null)
 
-  async function initializeWeb3Auth() {
+  const isLoggingIn = ref(false)
+
+  async function initializeWeb3Auth(newConfig?: CustomConfig) {
     const chainConfig = {
       ...SUPPORTED_NETWORKS[MAINNET_CHAIN_ID]
     }
@@ -30,35 +37,60 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       state: { chainId: MAINNET_CHAIN_ID }
     })
 
-    const web3AuthOptions: Web3AuthOptions = {
+    web3Auth.value = new Web3AuthNoModal({
       enableLogging: true,
       chainConfig,
       clientId:
         'BNI_pZZpoH4tqzbDDMKwfLOWujTif_kek4h9QEN271Gu0JheYDPEUHNKMl5Nnw5PGOjK-SOxp1RpUdG9TJufMZk',
+      web3AuthNetwork: 'sapphire_mainnet',
       privateKeyProvider: privateKeyProvider,
       uiConfig: {
-        uxMode: 'redirect',
-        logoLight: 'https://images.web3auth.io/web3auth-logo-w.svg',
-        logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg',
-        // logoDark: 'https://images.web3auth.io/login-farcaster-active.svg',
-        // logoLight: 'https://images.web3auth.io/login-farcaster-light.svg',
-        mode: 'light',
-        loginMethodsOrder: ['google', 'twitter', 'farcaster', 'github']
-      },
-      web3AuthNetwork: 'sapphire_mainnet'
-    }
-
-    web3Auth.value = new Web3Auth(web3AuthOptions)
-
-    const adapters = await getDefaultExternalAdapters({ options: web3AuthOptions })
-
-    adapters.forEach((adapter) => {
-      web3Auth.value?.configureAdapter(adapter)
+        mode: newConfig?.isDark ? 'dark' : 'light',
+        useLogoLoader: newConfig?.useLogoAsLoader || false,
+        logoLight:
+          newConfig?.addBrandLogo && newConfig?.logoUrl
+            ? newConfig.logoUrl
+            : 'https://images.web3auth.io/web3auth-logo-w.svg',
+        logoDark:
+          newConfig?.addBrandLogo && newConfig?.logoUrl
+            ? newConfig.logoUrl
+            : 'https://images.web3auth.io/web3auth-logo-w-light.svg',
+        defaultLanguage: newConfig?.selectedLanguage || 'en',
+        theme: {
+          primary: newConfig?.primaryColor || undefined,
+          onPrimary: newConfig?.primaryTextColor || undefined
+        }
+      }
     })
+
+    const openloginAdapter = new OpenloginAdapter({
+      privateKeyProvider,
+      adapterSettings: {
+        uxMode: 'redirect'
+      }
+    })
+    web3Auth.value.configureAdapter(openloginAdapter)
 
     walletServicesPlugin.value = new WalletServicesPlugin({
       walletInitOptions: {
-        confirmationStrategy: 'modal'
+        confirmationStrategy: 'modal',
+        whiteLabel: {
+          logoLight:
+            newConfig?.addBrandLogo && newConfig?.logoUrl
+              ? newConfig.logoUrl
+              : 'https://images.web3auth.io/web3auth-logo-w.svg',
+          logoDark:
+            newConfig?.addBrandLogo && newConfig?.logoUrl
+              ? newConfig.logoUrl
+              : 'https://images.web3auth.io/web3auth-logo-w-light.svg',
+          mode: newConfig?.isDark ? 'dark' : 'light',
+          useLogoLoader: newConfig?.useLogoAsLoader || false,
+          defaultLanguage: newConfig?.selectedLanguage || 'en',
+          theme: {
+            primary: newConfig?.primaryColor || undefined,
+            onPrimary: newConfig?.primaryTextColor || undefined
+          }
+        }
       }
     })
 
@@ -68,7 +100,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       console.log('check: connected')
     })
 
-    await web3Auth.value.initModal()
+    await web3Auth.value.init()
 
     provider.value = web3Auth.value?.provider!
     console.log('logging', web3Auth.value?.connectedAdapterName)
@@ -78,22 +110,45 @@ export const useWeb3authStore = defineStore('web3auth', () => {
         ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
         : []
       userInfo.value = await web3Auth.value.getUserInfo()
-      router.push({ name: ROUTES.WELCOME })
+      router.push({ name: ROUTES.HOME })
     }
   }
 
-  async function connectToWeb3Auth() {
-    console.log('logging', web3Auth.value)
-    const localProvider = await web3Auth.value?.connect()
-    console.log(localProvider, 'available')
-    // because it's shallow ref, have to trigger again
+  async function updateWeb3AuthInstance(newConfig: CustomConfig) {
+    initializeWeb3Auth(newConfig)
     triggerRef(web3Auth)
-    if (web3Auth.value?.connected) {
-      accounts.value = provider.value
-        ? ((await provider.value?.request<never, string[]>({ method: 'eth_accounts' })) as string[])
-        : []
-      userInfo.value = await web3Auth.value.getUserInfo()
-      router.push({ name: ROUTES.WELCOME })
+  }
+
+  async function connectToWeb3Auth({
+    loginProvider,
+    login_hint = ''
+  }: {
+    loginProvider: OpenloginLoginParams['loginProvider']
+    login_hint?: OpenloginLoginParams['login_hint']
+  }) {
+    try {
+      console.log('logging', web3Auth.value)
+      isLoggingIn.value = true
+      const localProvider = await web3Auth.value?.connectTo<OpenloginLoginParams>(
+        WALLET_ADAPTERS.OPENLOGIN,
+        { loginProvider, login_hint }
+      )
+      console.log(localProvider, 'available')
+      // because it's shallow ref, have to trigger again
+      triggerRef(web3Auth)
+      if (web3Auth.value?.connected) {
+        accounts.value = provider.value
+          ? ((await provider.value?.request<never, string[]>({
+              method: 'eth_accounts'
+            })) as string[])
+          : []
+        userInfo.value = await web3Auth.value.getUserInfo()
+        isLoggingIn.value = false
+        router.push({ name: ROUTES.HOME })
+      }
+    } catch (error) {
+      console.error(error)
+      isLoggingIn.value = false
     }
   }
 
@@ -143,7 +198,9 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     accounts,
     userInfo,
     isLoggedIn,
+    isLoggingIn,
     initializeWeb3Auth,
+    updateWeb3AuthInstance,
     connectToWeb3Auth,
     logoutWeb3Auth,
     showWalletUi,
