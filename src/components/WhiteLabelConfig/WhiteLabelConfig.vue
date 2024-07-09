@@ -168,7 +168,8 @@ function setPrimaryTextColor(color: string) {
               :value="customConfig.config.primaryColor"
               @change="
                 (e) => {
-                  customConfig.config.primaryColor = (e.target as HTMLInputElement).value
+                  const color = (e.target as InputHTMLAttributes).value
+                  setPrimaryColor(color)
                 }
               "
             >
@@ -195,7 +196,7 @@ function setPrimaryTextColor(color: string) {
               :value="customConfig.config.primaryTextColor"
               @change="
                 (e) => {
-                  customConfig.config.primaryTextColor = (e.target as HTMLInputElement).value
+                  setPrimaryTextColor((e.target as HTMLInputElement).value)
                 }
               "
             >
