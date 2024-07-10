@@ -92,7 +92,7 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Logo URL"
               placeholder="Logo URL"
-              :value="customConfig.config.logoUrl"
+              :model-value="customConfig.config.logoUrl"
               @change="
                 (e) => {
                   customConfig.config.logoUrl = (e.target as HTMLInputElement).value
@@ -100,7 +100,10 @@ function setPrimaryTextColor(color: string) {
               "
             />
           </div>
-          <div class="flex justify-between items-center mb-6">
+          <div
+            v-if="customConfig.config.addBrandLogo"
+            class="flex justify-between items-center mb-6"
+          >
             <div class="text-app-gray-900 dark:text-app-white">Use Logo as Loader</div>
             <Toggle size="small" v-model="customConfig.config.useLogoAsLoader" />
           </div>
@@ -108,7 +111,7 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Application Name"
               placeholder="dApp Name"
-              :value="customConfig.config.dappName"
+              :model-value="customConfig.config.dappName"
               @change="
                 (e) => {
                   customConfig.config.dappName = (e.target as HTMLInputElement).value
@@ -165,7 +168,7 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Primary Color"
               helper-text="Applies to primary elements like buttons, text links, tabs, focus, spinners, nav tabs"
-              :value="customConfig.config.primaryColor"
+              :model-value="customConfig.config.primaryColor"
               @change="
                 (e) => {
                   const color = (e.target as InputHTMLAttributes).value
@@ -193,7 +196,7 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Primary Text Color"
               helper-text="Applies to text elements set against the primary color background"
-              :value="customConfig.config.primaryTextColor"
+              :model-value="customConfig.config.primaryTextColor"
               @change="
                 (e) => {
                   setPrimaryTextColor((e.target as HTMLInputElement).value)
