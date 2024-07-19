@@ -6,11 +6,36 @@ export const precisionDisplay = (value: string, precision = 3) => {
   return Number.parseFloat(value).toPrecision(precision).toString()
 }
 
-export const getCountryName = async () => {
-  const response = await fetch('https://lrc.admin.openlogin.com/api/v2/user/location')
-  const { data } = await response.json()
-  const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
-  return regionNames.of(data.country)
+export const passwordlessBackendUrl = 'https://api-passwordless.web3auth.io'
+export const getUserCountry = async (): Promise<{ country: string; dialCode: string } | null> => {
+  try {
+    const result = await fetch(`${passwordlessBackendUrl}/api/v2/user/location`)
+    const { data } = (await result.json()) as { data: { country: string; dial_code: string } }
+    if (data && data.country) return { country: data.country, dialCode: data.dial_code }
+    return null
+  } catch (error) {
+    console.error('error getting user country', error)
+    return null
+  }
+}
+
+export const validatePhoneNumber = async (phoneNumber: string): Promise<boolean | string> => {
+  try {
+    const fetchResult = await fetch(`${passwordlessBackendUrl}/api/v3/phone_number/validate`, {
+      method: 'POST',
+      body: JSON.stringify({ phone_number: phoneNumber }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    const result = (await fetchResult.json()) as { success: boolean; parsed_number: string }
+
+    if (result && result.success) return result.parsed_number
+    return false
+  } catch (error: unknown) {
+    console.error('error validating phone number', error)
+    return false
+  }
 }
 
 export const getBrowserName = () => {

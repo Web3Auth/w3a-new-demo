@@ -10,7 +10,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': 'View less',
     'social.view-more': 'View more',
     'social.passwordless-cta': 'Continue',
-    'social.passwordless-title': 'Email or Phone'
+    'social.passwordless-title': 'Email or Phone',
+    'social.invalid-input': 'Invalid Email or Phone Number'
   },
   de: {
     'header.title': 'Einloggen',
@@ -21,7 +22,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': 'Weniger anzeigen',
     'social.view-more': 'Mehr anzeigen',
     'social.passwordless-cta': 'Weitermachen',
-    'social.passwordless-title': 'E-Mail oder Telefon'
+    'social.passwordless-title': 'E-Mail oder Telefon',
+    'social.invalid-input': 'Ungültige E-Mail-Adresse oder Telefonnummer'
   },
   es: {
     'header.title': 'Iniciar sesión',
@@ -32,7 +34,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': 'Ver menos',
     'social.view-more': 'Ver más',
     'social.passwordless-cta': 'Continuar',
-    'social.passwordless-title': 'Email o teléfono'
+    'social.passwordless-title': 'Email o teléfono',
+    'social.invalid-input': 'Correo electrónico o número de teléfono no válido'
   },
   fr: {
     'header.title': 'Se connecter',
@@ -43,7 +46,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': 'Voir moins',
     'social.view-more': 'Voir plus',
     'social.passwordless-cta': 'Continuer',
-    'social.passwordless-title': 'Email ou téléphone'
+    'social.passwordless-title': 'Email ou téléphone',
+    'social.invalid-input': 'E-mail ou numéro de téléphone invalide'
   },
   ja: {
     'header.title': 'ログイン',
@@ -54,7 +58,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': '表示が少なくなります',
     'social.view-more': 'もっと見る',
     'social.passwordless-cta': '続ける',
-    'social.passwordless-title': 'メールまたは電話'
+    'social.passwordless-title': 'メールまたは電話',
+    'social.invalid-input': '無効な電子メールまたは電話番号'
   },
   ko: {
     'header.title': '로그인',
@@ -65,7 +70,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': '덜보십시오',
     'social.view-more': '더보기',
     'social.passwordless-cta': '계속',
-    'social.passwordless-title': '이메일 또는 전화'
+    'social.passwordless-title': '이메일 또는 전화',
+    'social.invalid-input': '잘못된 이메일 또는 전화번호'
   },
   nl: {
     'header.title': 'Aanmelden',
@@ -76,7 +82,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': 'Minder bekijken',
     'social.view-more': 'Meer bekijken',
     'social.passwordless-cta': 'Doorgaan',
-    'social.passwordless-title': 'E-mail of telefoon'
+    'social.passwordless-title': 'E-mail of telefoon',
+    'social.invalid-input': 'Ongeldig e-mailadres of telefoonnummer'
   },
   pt: {
     'header.title': 'Entrar',
@@ -87,7 +94,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': 'Ver menos',
     'social.view-more': 'Ver mais',
     'social.passwordless-cta': 'Continuar',
-    'social.passwordless-title': 'Email ou telefone'
+    'social.passwordless-title': 'Email ou telefone',
+    'social.invalid-input': 'E-mail ou número de telefone inválido'
   },
   tr: {
     'header.title': 'Giriş yap',
@@ -98,7 +106,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': 'Daha az görüntüle',
     'social.view-more': 'Daha fazla görüntüle',
     'social.passwordless-cta': 'Devam et',
-    'social.passwordless-title': 'E-posta veya Telefon'
+    'social.passwordless-title': 'E-posta veya Telefon',
+    'social.invalid-input': 'Geçersiz E-posta veya Telefon Numarası'
   },
   zh: {
     'header.title': '登录',
@@ -109,7 +118,8 @@ const locales: Record<string, Record<string, string>> = {
     'social.view-less': '少查看',
     'social.view-more': '查看更多',
     'social.passwordless-cta': '继续',
-    'social.passwordless-title': '邮件或电话'
+    'social.passwordless-title': '邮件或电话',
+    'social.invalid-input': '电子邮件或电话号码无效'
   }
 }
 const activeLocale = ref('en')
