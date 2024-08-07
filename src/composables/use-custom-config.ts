@@ -7,7 +7,7 @@ const web3Auth = useWeb3authStore()
 const config = reactive<CustomConfig>({
   dappName: '',
   addBrandLogo: false,
-  logoUrl: 'https://images.web3auth.io/example-login-hello-hover.svg',
+  logoUrl: 'https://images.web3auth.io/demo-logo.svg',
   useLogoAsLoader: false,
   selectedLanguage: 'en',
   isDark: false,

@@ -85,11 +85,11 @@ const returnAvatarLetter = (name: string) => {
         <div class="relative">
           <div
             v-if="isCopied"
-            class="absolute bottom-[150%] left-1/2 -translate-x-1/2 bg-app-white py-2 px-4 rounded-lg text-black text-sm text-center w-max shadow-md"
+            class="absolute bottom-[150%] left-1/2 -translate-x-1/2 bg-app-white dark:bg-app-gray-600 py-2 px-4 rounded-lg text-black text-sm text-center w-max shadow-md"
           >
             Copied
             <div
-              class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+              class="absolute border-8 border-b-0 border-r-transparent border-t-app-white dark:border-t-app-gray-600 border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
             ></div>
           </div>
           <div>
