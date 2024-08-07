@@ -15,7 +15,7 @@ import { Link } from '@toruslabs/vue-components/Link'
         Browse our full suite of features for your dApp with our docs. Access codes examples for
         these features by visiting our
         <Link
-          href="https://web3auth.io/customers.html"
+          href="https://pnp-modal-playground.vercel.app/"
           class="text-xs dark:text-app-primary-500"
           target="_blank"
           rel="noopener noreferrer"
