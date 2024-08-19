@@ -23,7 +23,7 @@ app
   })
   .use(
     createGtm({
-      id: 'GTM-W6THP68T',
+      id: 'GTM-NFBSNHL',
       vueRouter: router
     })
   )
