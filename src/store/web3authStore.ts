@@ -1,29 +1,24 @@
 import { MAINNET_CHAIN_ID, SUPPORTED_NETWORKS } from '@toruslabs/ethereum-controllers'
-import { SafeEventEmitterProvider } from '@toruslabs/openlogin-jrpc'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { Web3AuthNoModal } from '@web3auth/no-modal'
 import { defineStore } from 'pinia'
 import { ref, shallowRef, triggerRef, computed } from 'vue'
 import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
-import {
-  OpenloginAdapter,
-  OpenloginLoginParams,
-  type OpenloginUserInfo
-} from '@web3auth/openlogin-adapter'
+import { AuthAdapter, type AuthUserInfo, type AuthLoginParams } from '@web3auth/auth-adapter'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/common'
-import { WALLET_ADAPTERS } from '@web3auth/base'
 import { CustomConfig } from '@/utils/interface'
+import { WEB3AUTH_NETWORK, IProvider, WALLET_ADAPTERS } from '@web3auth/base'
 
 export const useWeb3authStore = defineStore('web3auth', () => {
   const web3Auth = shallowRef<Web3AuthNoModal | null>(null)
-  const provider = shallowRef<SafeEventEmitterProvider | null>(null)
+  const provider = shallowRef<IProvider | null>(null)
   const walletServicesPlugin = shallowRef<WalletServicesPlugin | null>(null)
 
   const router = useRouter()
 
   const accounts = ref<string[]>([])
-  const userInfo = ref<Partial<OpenloginUserInfo> | null>(null)
+  const userInfo = ref<Partial<AuthUserInfo> | null>(null)
 
   const isLoggingIn = ref(false)
 
@@ -42,7 +37,7 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       chainConfig,
       clientId:
         'BNI_pZZpoH4tqzbDDMKwfLOWujTif_kek4h9QEN271Gu0JheYDPEUHNKMl5Nnw5PGOjK-SOxp1RpUdG9TJufMZk',
-      web3AuthNetwork: 'sapphire_mainnet',
+      web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
       privateKeyProvider: privateKeyProvider,
       uiConfig: {
         mode: newConfig?.isDark ? 'dark' : 'light',
@@ -63,13 +58,13 @@ export const useWeb3authStore = defineStore('web3auth', () => {
       }
     })
 
-    const openloginAdapter = new OpenloginAdapter({
+    const authAdapter = new AuthAdapter({
       privateKeyProvider,
       adapterSettings: {
         uxMode: 'popup'
       }
     })
-    web3Auth.value.configureAdapter(openloginAdapter)
+    web3Auth.value.configureAdapter(authAdapter)
 
     walletServicesPlugin.value = new WalletServicesPlugin({
       walletInitOptions: {
@@ -123,14 +118,14 @@ export const useWeb3authStore = defineStore('web3auth', () => {
     loginProvider,
     login_hint = ''
   }: {
-    loginProvider: OpenloginLoginParams['loginProvider']
-    login_hint?: OpenloginLoginParams['login_hint']
+    loginProvider: AuthLoginParams['loginProvider']
+    login_hint?: AuthLoginParams['login_hint']
   }) {
     try {
       console.log('logging', web3Auth.value)
       isLoggingIn.value = true
-      const localProvider = await web3Auth.value?.connectTo<OpenloginLoginParams>(
-        WALLET_ADAPTERS.OPENLOGIN,
+      const localProvider = await web3Auth.value?.connectTo<AuthLoginParams>(
+        WALLET_ADAPTERS.AUTH,
         { loginProvider, login_hint }
       )
       console.log(localProvider, 'available')

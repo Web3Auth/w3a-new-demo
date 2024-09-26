@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
 import { useWeb3authStore } from '@/store/web3authStore'
-import { LOGIN_PROVIDER } from '@web3auth/openlogin-adapter'
+import { LOGIN_PROVIDER } from '@web3auth/auth-adapter'
 import useCustomConfig from '@/composables/use-custom-config'
 import useLocales from '@/composables/use-locales'
 import { getUserCountry, validatePhoneNumber } from '@/utils/common'

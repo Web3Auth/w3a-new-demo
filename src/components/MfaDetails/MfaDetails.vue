@@ -6,7 +6,7 @@ import { Icon } from '@toruslabs/vue-components/Icon'
 import { computed } from 'vue'
 import { useWeb3authStore } from '@/store/web3authStore'
 import { WALLET_ADAPTERS } from '@web3auth/base'
-import { OpenloginAdapter, OpenloginSessionData } from '@web3auth/openlogin-adapter'
+import { AuthAdapter, AuthSessionData } from '@web3auth/auth-adapter'
 import Bowser from 'bowser'
 import Divider from '../Divider'
 
@@ -22,8 +22,8 @@ const userInfo = computed(() => web3Auth.userInfo)
 const isMfaEnabled = computed(() => web3Auth.userInfo?.isMfaEnabled)
 
 const shareDetails = computed(() => {
-  const adapter = web3Auth.web3Auth?.walletAdapters[WALLET_ADAPTERS.OPENLOGIN] as OpenloginAdapter
-  const { shareDetails } = adapter.openloginInstance?.state as OpenloginSessionData & {
+  const adapter = web3Auth.web3Auth?.walletAdapters[WALLET_ADAPTERS.AUTH] as AuthAdapter
+  const { shareDetails } = adapter.authInstance?.state as AuthSessionData & {
     shareDetails: { shareType: string; details: string }[]
   }
   if (!shareDetails) return []
