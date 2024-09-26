@@ -1,4 +1,4 @@
-import { LANGUAGE_TYPE } from '@toruslabs/openlogin-utils'
+import type { LANGUAGE_TYPE } from '@web3auth/auth-adapter'
 
 export type CustomConfig = {
   dappName: string

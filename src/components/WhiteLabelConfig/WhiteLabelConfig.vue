@@ -4,7 +4,7 @@ import { Link } from '@toruslabs/vue-components/Link'
 import { Toggle } from '@toruslabs/vue-components/Toggle'
 import { TextField } from '@toruslabs/vue-components/TextField'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import { LANGUAGES, LANGUAGE_TYPE, applyWhiteLabelTheme } from '@web3auth/openlogin-adapter'
+import { LANGUAGES, LANGUAGE_TYPE, applyWhiteLabelTheme } from '@web3auth/auth-adapter'
 import useCustomConfig from '@/composables/use-custom-config'
 import useLocales from '@/composables/use-locales'
 
