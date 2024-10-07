@@ -40,7 +40,7 @@ import { Link } from '@toruslabs/vue-components/Link'
         variant="secondary"
         target="_blank"
         rel="noopener noreferrer"
-        >Checkout Live Integrations</Button
+        >Check Live Integrations</Button
       >
     </div>
   </Card>
