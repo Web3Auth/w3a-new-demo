@@ -107,7 +107,7 @@ onMounted(async () => {
     </button>
   </div>
   <Card
-    class="dapp-login-modal !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+    class="dapp-login-modal !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark w-[380px]"
     :classes="{
       container: `!rounded-2xl p-8`
     }"
