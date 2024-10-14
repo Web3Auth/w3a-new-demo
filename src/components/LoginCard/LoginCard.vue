@@ -28,7 +28,9 @@ const socialLoginsAll = computed((): SocialLoginObj[] => {
       x !== LOGIN_PROVIDER.SMS_PASSWORDLESS &&
       x !== LOGIN_PROVIDER.WEIBO &&
       x !== LOGIN_PROVIDER.WEBAUTHN &&
-      x !== LOGIN_PROVIDER.JWT
+      x !== LOGIN_PROVIDER.JWT &&
+      x !== LOGIN_PROVIDER.PASSKEYS &&
+      x !== LOGIN_PROVIDER.AUTHENTICATOR
   )
   return loginProviders.map((loginProvider) => {
     return {
