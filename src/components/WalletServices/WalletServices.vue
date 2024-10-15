@@ -2,30 +2,47 @@
 import { ref } from 'vue'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
-import { useWeb3authStore } from '@/store/web3authStore'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { IProvider, WALLET_PLUGINS } from '@web3auth/base'
+import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
+import { signPersonalMessage } from '@/services/ethHandlers'
 
-const web3Auth = useWeb3authStore()
 const signedMessage = ref<string>('')
 const isSigningMessage = ref<boolean>(false)
 const signingState = ref<'success' | 'error' | ''>('')
+const { web3Auth, provider } = useWeb3Auth()
 
-function openWalletServiceUi() {
-  web3Auth.showWalletUi()
+async function openWalletServiceUi() {
+  const walletPlugin = web3Auth.value?.getPlugin(
+    WALLET_PLUGINS.WALLET_SERVICES
+  ) as WalletServicesPlugin
+  await walletPlugin.showWalletUi()
 }
 
-function openFiatOnramp() {
-  web3Auth.initiateTopUpPlugin()
+async function openFiatOnramp() {
+  const walletPlugin = web3Auth.value?.getPlugin(
+    WALLET_PLUGINS.WALLET_SERVICES
+  ) as WalletServicesPlugin
+  await walletPlugin.showCheckout()
 }
 
-function connectToApplications() {
-  web3Auth.initiateWalletConnect()
+async function connectToApplications() {
+  const walletPlugin = web3Auth.value?.getPlugin(
+    WALLET_PLUGINS.WALLET_SERVICES
+  ) as WalletServicesPlugin
+  await walletPlugin.showWalletConnectScanner()
 }
 
 async function signMessage() {
   try {
     isSigningMessage.value = true
-    signedMessage.value = (await web3Auth.signedMessage()) as string
-    signingState.value = 'success'
+    const { signedMessage: signedData, valid } = await signPersonalMessage(
+      provider.value as IProvider
+    )
+    if (valid) {
+      signedMessage.value = signedData
+      signingState.value = 'success'
+    }
   } catch (error) {
     console.error(error)
     signingState.value = 'error'
@@ -98,7 +115,9 @@ async function signMessage() {
         <div>
           {{ signingState === 'success' ? 'Signature Success!' : 'Signature Failed, Try again' }}
         </div>
-        <div v-if="signedMessage" class="break-all text-xxs leading-tight mt-1">{{ signedMessage }}</div>
+        <div v-if="signedMessage" class="break-all text-xxs leading-tight mt-1">
+          {{ signedMessage }}
+        </div>
       </div>
     </div>
   </Card>

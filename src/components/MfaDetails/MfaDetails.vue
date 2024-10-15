@@ -4,58 +4,65 @@ import { Button } from '@toruslabs/vue-components/Button'
 import { Badge } from '@toruslabs/vue-components/Badge'
 import { Icon } from '@toruslabs/vue-components/Icon'
 import { computed } from 'vue'
-import { useWeb3authStore } from '@/store/web3authStore'
 import { WALLET_ADAPTERS } from '@web3auth/base'
 import { AuthAdapter, AuthSessionData } from '@web3auth/auth-adapter'
 import Bowser from 'bowser'
 import Divider from '../Divider'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 
 const FACTOR_MAP: Record<string, { title: string; icon?: string }> = {
   device: { title: 'Device', icon: 'mobile-icon' },
   seedPhrase: { title: 'Recovery Phrase', icon: 'key-solid-icon' },
   social: { title: 'Social Recovery Factor', icon: 'key-solid-icon' },
-  password: { title: 'Password', icon: 'key-solid-icon' }
+  password: { title: 'Password', icon: 'key-solid-icon' },
+  authenticator: { title: 'Authenticator', icon: 'key-solid-icon' }
 }
 
-const web3Auth = useWeb3authStore()
-const userInfo = computed(() => web3Auth.userInfo)
-const isMfaEnabled = computed(() => web3Auth.userInfo?.isMfaEnabled)
+const { userInfo, web3Auth } = useWeb3Auth()
 
 const shareDetails = computed(() => {
-  const adapter = web3Auth.web3Auth?.walletAdapters[WALLET_ADAPTERS.AUTH] as AuthAdapter
+  const adapter = web3Auth.value?.walletAdapters[WALLET_ADAPTERS.AUTH] as AuthAdapter
+
   const { shareDetails } = adapter.authInstance?.state as AuthSessionData & {
     shareDetails: { shareType: string; details: string }[]
   }
+
   if (!shareDetails) return []
 
   // Format shareDetails
-  return shareDetails.map((share) => {
-    let details = share.details
-    if (share.shareType === 'device') {
-      const browser = Bowser.getParser(share.details)
-      const browserDetails = browser.getBrowser()
+  return shareDetails
+    .filter((share) => share.details)
+    .map((share) => {
+      let details = share.details
+      if (share.shareType === 'device') {
+        const browser = Bowser.getParser(share.details)
+        const browserDetails = browser.getBrowser()
 
-      details = `${browserDetails.name} ${browserDetails.version} (${browser.getOSName()})`
-    }
-    return {
-      title: FACTOR_MAP[share.shareType].title,
-      details,
-      icon: FACTOR_MAP[share.shareType].icon
-    }
-  })
+        details = `${browserDetails.name} ${browserDetails.version} (${browser.getOSName()})`
+      }
+      return {
+        title: FACTOR_MAP[share.shareType]?.title,
+        details,
+        icon: FACTOR_MAP[share.shareType]?.icon
+      }
+    })
 })
 
 const addMfa = () => {
-  web3Auth.enableMfa()
+  if (web3Auth.value) {
+    web3Auth.value.enableMFA()
+  }
 }
 </script>
 <template>
-  <Card class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
+  <Card
+    class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+  >
     <div class="mb-4">
       <div class="flex justify-between items-center mb-1">
         <h3 class="font-semibold text-app-gray-900 dark:text-app-white">MFA</h3>
-        <Badge :variant="isMfaEnabled ? 'success' : 'default'">{{
-          isMfaEnabled ? 'Enabled' : 'Disabled'
+        <Badge :variant="userInfo?.isMfaEnabled ? 'success' : 'default'">{{
+          userInfo?.isMfaEnabled ? 'Enabled' : 'Disabled'
         }}</Badge>
       </div>
 
@@ -66,7 +73,7 @@ const addMfa = () => {
     </div>
 
     <Button
-      v-if="!isMfaEnabled"
+      v-if="!userInfo?.isMfaEnabled"
       size="sm"
       class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
       variant="secondary"

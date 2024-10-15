@@ -1,9 +1,10 @@
 import { reactive, watch } from 'vue'
 import { setTheme } from '@/utils/common'
 import { CustomConfig } from '@/utils/interface'
-import { useWeb3authStore } from '../store/web3authStore'
+// import { useWeb3authStore } from '../store/web3authStore'
+// import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 
-const web3Auth = useWeb3authStore()
+// const { isConnected, connect } = useWeb3Auth()
 const config = reactive<CustomConfig>({
   dappName: '',
   addBrandLogo: false,
@@ -20,14 +21,6 @@ export default () => {
     config.isDark = !config.isDark
     setTheme(config.isDark)
   }
-
-  watch(
-    () => config,
-    (newValue) => {
-      web3Auth.updateWeb3AuthInstance(newValue)
-    },
-    { deep: true }
-  )
   return {
     config,
     setActiveTheme

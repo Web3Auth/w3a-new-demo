@@ -6,13 +6,19 @@ import useLocales from '../composables/use-locales'
 import useCustomConfig from '../composables/use-custom-config'
 import WhiteLabelConfig from '@/components/WhiteLabelConfig'
 import LoginCard from '@/components/LoginCard'
-import { ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 
 const showAnimateConfigDialog = ref(false)
 const locales = useLocales()
 const customConfig = useCustomConfig()
+const { connect, web3Auth } = useWeb3Auth()
 
 locales.setActiveLocale(customConfig.config.selectedLanguage)
+
+window.addEventListener('load', () => {
+  connect()
+})
 
 const configDialogRef = ref<HTMLDialogElement | null>(null)
 
@@ -27,6 +33,14 @@ function closeConfigDialog() {
     configDialogRef.value?.close()
   }, 180)
 }
+
+// watch(
+//   () => customConfig.config.dappName,
+//   () => {
+//     console.log(customConfig, 'HELLO')
+//     connect()
+//   }
+// )
 </script>
 
 <template>
@@ -42,14 +56,14 @@ function closeConfigDialog() {
           <WhiteLabelConfig />
         </Card>
       </div>
-      <div class="flex-1 flex justify-center items-center">
+      <div class="flex-1 flex justify-start items-start max-sm:z-[10000000]">
         <div class="max-w-[392px]">
           <LoginCard />
         </div>
       </div>
     </div>
   </div>
-  <div class="fixed lg:hidden bottom-2 right-2">
+  <div class="fixed lg:hidden bottom-2 right-2 max-sm:z-[1000000]">
     <Button icon rounded @on-click="showConfigDialog"><Icon name="cog-icon" /></Button>
   </div>
   <dialog
@@ -65,7 +79,9 @@ function closeConfigDialog() {
     "
   >
     <WhiteLabelConfig />
-    <button class="absolute top-4 right-4" @click="closeConfigDialog"><Icon class="text-app-gray-900 dark:text-app-gray-100" size="12px" name="x-icon" /></button>
+    <button class="absolute top-4 right-4 max-sm:z-[1000000]" @click="closeConfigDialog">
+      <Icon class="text-app-gray-900 dark:text-app-gray-100" size="12px" name="x-icon" />
+    </button>
   </dialog>
 </template>
 

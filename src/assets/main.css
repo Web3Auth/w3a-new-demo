@@ -21,3 +21,40 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+#w3a-modal {
+  width: 50%;
+  height: 750px;
+  margin-left: auto;
+  margin-top: auto;
+
+  @media only screen and (max-width: 768px) {
+    width: 100%;
+    margin-top: 10%;
+  }
+}
+
+.w3a-parent-container #w3a-modal .w3a-modal__inner {
+  top: 50% !important;
+  left: 50% !important;
+  right: 0;
+  transform: translate(-70%, -50%) !important;
+  position: absolute !important;
+  z-index: 999999;
+
+  @media only screen and (max-width: 768px) {
+    top: 50% !important;
+    left: 50% !important;
+    right: 0;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+#w3a-modal::before {
+  display: none;
+}
+
+.w3a-parent-container #w3a-modal button.w3a-header__button,
+.w3a-parent-container #w3a-modal button.w3a-header__button_wallet {
+  display: none !important;
+}

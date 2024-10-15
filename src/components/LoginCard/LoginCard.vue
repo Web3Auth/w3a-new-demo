@@ -89,7 +89,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mb-6">
+  <div class="mb-6 max-sm:z-[1000000]">
     <button
       class="flex items-center justify-center gap-2 rounded-full pl-2 pr-4 py-2 bg-app-gray-200 dark:bg-app-gray-800"
       @click="customConfig.setActiveTheme"
@@ -106,7 +106,7 @@ onMounted(async () => {
       </div>
     </button>
   </div>
-  <Card
+  <!-- <Card
     class="dapp-login-modal !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark w-[380px]"
     :classes="{
       container: `!rounded-2xl p-8`
@@ -131,7 +131,6 @@ onMounted(async () => {
         }}
       </p>
     </div>
-    <!-- Body -->
     <LoginForm
       pill
       :social-logins="socialLogins"
@@ -172,7 +171,6 @@ onMounted(async () => {
         </form>
       </template>
     </LoginForm>
-    <!-- Footer -->
     <div class="flex items-center justify-center mt-8">
       <img
         src="@/assets/images/ws-trademark-light.svg"
@@ -185,5 +183,5 @@ onMounted(async () => {
         class="hidden dark:block h-5"
       />
     </div>
-  </Card>
+  </Card> -->
 </template>

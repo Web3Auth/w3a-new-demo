@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 
 import { Avatar } from '@toruslabs/vue-components/Avatar'
 import { Icon } from '@toruslabs/vue-components/Icon'
@@ -8,20 +8,31 @@ import { Link } from '@toruslabs/vue-components/Link'
 import { Drawer } from '@toruslabs/vue-components/Drawer'
 import { getTruncateString } from '@/utils/common'
 
-import { useWeb3authStore } from '@/store/web3authStore'
 import { Card } from '@toruslabs/vue-components'
 import Divider from '@/components/Divider'
-
-const web3Auth = useWeb3authStore()
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { getAccounts } from '@/services/ethHandlers'
+import { IProvider } from '@web3auth/base'
 
 const openConsole = ref(false)
 const isCopied = ref(false)
-const userInfo = computed(() => web3Auth.userInfo)
-const account = ref('')
+const account = ref()
+const { userInfo, provider } = useWeb3Auth()
 
 onMounted(async () => {
-  account.value = web3Auth.accounts[0]
+  const address = await getAccounts(provider.value as IProvider)
+  account.value = address
 })
+
+watch(
+  () => provider.value,
+  async () => {
+    if (provider.value) {
+      const address = await getAccounts(provider.value as IProvider)
+      account.value = address
+    }
+  }
+)
 
 const handleConsoleBtn = async () => {
   if (userInfo.value) {
@@ -121,11 +132,15 @@ const returnAvatarLetter = (name: string) => {
   >
     <template #sidebar>
       <div class="p-5 flex flex-col flex-1 h-full">
-        <h3 class="text-center text-base text-app-gray-600 dark:text-app-white">User Info Console</h3>
+        <h3 class="text-center text-base text-app-gray-600 dark:text-app-white">
+          User Info Console
+        </h3>
         <div
           class="rounded-2xl p-4 bg-app-gray-100 dark:bg-app-dark-surface2 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
         >
-          <pre class="text-sm break-words leading-relaxed text-wrap dark:text-app-white">{{ userInfo }}</pre>
+          <pre class="text-sm break-words leading-relaxed text-wrap dark:text-app-white">{{
+            userInfo
+          }}</pre>
         </div>
         <Button block @on-click="openConsole = false">Close</Button>
       </div>
