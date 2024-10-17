@@ -1,91 +1,94 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
-import { useWeb3authStore } from '@/store/web3authStore'
-import { LOGIN_PROVIDER } from '@web3auth/auth-adapter'
+import { computed } from 'vue'
+// import { computed, onMounted, ref, watch } from 'vue'
+// import { useWeb3authStore } from '@/store/web3authStore'
+// import { LOGIN_PROVIDER } from '@web3auth/auth-adapter'
 import useCustomConfig from '@/composables/use-custom-config'
-import useLocales from '@/composables/use-locales'
-import { getUserCountry, validatePhoneNumber } from '@/utils/common'
+// import useLocales from '@/composables/use-locales'
+// import { getUserCountry, validatePhoneNumber } from '@/utils/common'
 
-import { Card } from '@toruslabs/vue-components/Card'
+// import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import { Button } from '@toruslabs/vue-components/Button'
-import { TextField } from '@toruslabs/vue-components/TextField'
-import { LoginForm, type SocialLoginObj } from '@toruslabs/vue-components/LoginForm'
+// import { Button } from '@toruslabs/vue-components/Button'
+// import { TextField } from '@toruslabs/vue-components/TextField'
+// import { LoginForm, type SocialLoginObj } from '@toruslabs/vue-components/LoginForm'
 
-const locales = useLocales()
-const web3Auth = useWeb3authStore()
+// const locales = useLocales()
+// const web3Auth = useWeb3authStore()
 const customConfig = useCustomConfig()
-const passwordlessEmailSms = ref<string>('')
-const selectedSocialLogins = ref<string[]>([])
+// const passwordlessEmailSms = ref<string>('')
+// const selectedSocialLogins = ref<string[]>([])
 const config = computed(() => customConfig.config)
-const countryCode = ref<string | null>(null)
-const isValidPasswordlessInput = ref<boolean>(true)
+// const countryCode = ref<string | null>(null)
+// const isValidPasswordlessInput = ref<boolean>(true)
 
-const socialLoginsAll = computed((): SocialLoginObj[] => {
-  const loginProviders = Object.values(LOGIN_PROVIDER).filter(
-    (x) =>
-      x !== LOGIN_PROVIDER.EMAIL_PASSWORDLESS &&
-      x !== LOGIN_PROVIDER.SMS_PASSWORDLESS &&
-      x !== LOGIN_PROVIDER.WEIBO &&
-      x !== LOGIN_PROVIDER.WEBAUTHN &&
-      x !== LOGIN_PROVIDER.JWT
-  )
-  return loginProviders.map((loginProvider) => {
-    return {
-      description:
-        loginProvider === LOGIN_PROVIDER.GOOGLE
-          ? locales.t('social.continueCustom', { adapter: 'Google' })
-          : '',
-      icon: loginProvider,
-      verifier: loginProvider
-    }
-  })
-})
+// const socialLoginsAll = computed((): SocialLoginObj[] => {
+//   const loginProviders = Object.values(LOGIN_PROVIDER).filter(
+//     (x) =>
+//       x !== LOGIN_PROVIDER.EMAIL_PASSWORDLESS &&
+//       x !== LOGIN_PROVIDER.SMS_PASSWORDLESS &&
+//       x !== LOGIN_PROVIDER.WEIBO &&
+//       x !== LOGIN_PROVIDER.WEBAUTHN &&
+//       x !== LOGIN_PROVIDER.JWT &&
+//       x !== LOGIN_PROVIDER.PASSKEYS &&
+//       x !== LOGIN_PROVIDER.AUTHENTICATOR
+//   )
+//   return loginProviders.map((loginProvider) => {
+//     return {
+//       description:
+//         loginProvider === LOGIN_PROVIDER.GOOGLE
+//           ? locales.t('social.continueCustom', { adapter: 'Google' })
+//           : '',
+//       icon: loginProvider,
+//       verifier: loginProvider
+//     }
+//   })
+// })
 
-const socialLogins = computed((): SocialLoginObj[] => {
-  return socialLoginsAll.value.filter((x) => !selectedSocialLogins.value.includes(x.verifier!))
-})
+// const socialLogins = computed((): SocialLoginObj[] => {
+//   return socialLoginsAll.value.filter((x) => !selectedSocialLogins.value.includes(x.verifier!))
+// })
 
-async function passwordlessLogin() {
-  const isEmailValid = passwordlessEmailSms.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-  if (isEmailValid) {
-    web3Auth.connectToWeb3Auth({
-      loginProvider: LOGIN_PROVIDER.EMAIL_PASSWORDLESS,
-      login_hint: passwordlessEmailSms.value
-    })
-    return
-  }
-  const number = passwordlessEmailSms.value.startsWith('+')
-    ? passwordlessEmailSms.value
-    : `${countryCode.value}${passwordlessEmailSms.value}`
-  const result = await validatePhoneNumber(number)
-  if (result && typeof result === 'string') {
-    web3Auth.connectToWeb3Auth({
-      loginProvider: LOGIN_PROVIDER.SMS_PASSWORDLESS,
-      login_hint: result
-    })
-    return
-  }
-  isValidPasswordlessInput.value = false
-}
+// async function passwordlessLogin() {
+//   const isEmailValid = passwordlessEmailSms.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+//   if (isEmailValid) {
+//     web3Auth.connectToWeb3Auth({
+//       loginProvider: LOGIN_PROVIDER.EMAIL_PASSWORDLESS,
+//       login_hint: passwordlessEmailSms.value
+//     })
+//     return
+//   }
+//   const number = passwordlessEmailSms.value.startsWith('+')
+//     ? passwordlessEmailSms.value
+//     : `${countryCode.value}${passwordlessEmailSms.value}`
+//   const result = await validatePhoneNumber(number)
+//   if (result && typeof result === 'string') {
+//     web3Auth.connectToWeb3Auth({
+//       loginProvider: LOGIN_PROVIDER.SMS_PASSWORDLESS,
+//       login_hint: result
+//     })
+//     return
+//   }
+//   isValidPasswordlessInput.value = false
+// }
 
-watch(
-  () => passwordlessEmailSms.value,
-  () => {
-    isValidPasswordlessInput.value = true
-  }
-)
+// watch(
+//   () => passwordlessEmailSms.value,
+//   () => {
+//     isValidPasswordlessInput.value = true
+//   }
+// )
 
-function socialLogin(item: SocialLoginObj) {
-  web3Auth.connectToWeb3Auth({ loginProvider: item.verifier! })
-}
+// function socialLogin(item: SocialLoginObj) {
+//   web3Auth.connectToWeb3Auth({ loginProvider: item.verifier! })
+// }
 
-onMounted(async () => {
-  const result = await getUserCountry()
-  if (result && result.dialCode) {
-    countryCode.value = result.dialCode
-  }
-})
+// onMounted(async () => {
+//   const result = await getUserCountry()
+//   if (result && result.dialCode) {
+//     countryCode.value = result.dialCode
+//   }
+// })
 </script>
 
 <template>

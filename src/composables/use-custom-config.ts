@@ -1,10 +1,7 @@
 import { ref } from 'vue'
 import { setTheme } from '@/utils/common'
 import { CustomConfig } from '@/utils/interface'
-// import { useWeb3authStore } from '../store/web3authStore'
-// import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 
-// const { isConnected, connect } = useWeb3Auth()
 const config = ref<CustomConfig>({
   dappName: '',
   addBrandLogo: false,
