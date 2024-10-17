@@ -1,30 +1,32 @@
-/* eslint-env node */
 require('@rushstack/eslint-patch/modern-module-resolution')
 
 module.exports = {
   root: true,
-  extends: [
-    'plugin:vue/vue3-essential',
-    'eslint:recommended',
-    '@vue/eslint-config-typescript',
-    '@vue/eslint-config-prettier/skip-formatting'
-  ],
-  env: {
-    node: true,
-    es2022: true, 
-  },
+  extends: ['@toruslabs/vue'],
+  parser: 'vue-eslint-parser',
+  ignorePatterns: ['*.config.js', '.eslintrc.js', '*.config.mts'],
   parserOptions: {
-    ecmaVersion: 'latest'
+    parser: '@typescript-eslint/parser',
+    sourceType: 'module',
+    ecmaVersion: 2022,
+    project: './tsconfig.json'
   },
-  overrides: [
-    {
-      files: ['*.config.js'],
-      env: {
-        node: true
-      }
-    }
-  ],
+  env: {
+    browser: true,
+    node: true,
+    mocha: true
+  },
   rules: {
-    'vue/multi-word-component-names': 'off'
+    camelcase: 0,
+    'import/extensions': [
+      'error',
+      'ignorePackages',
+      {
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never'
+      }
+    ]
   }
 }

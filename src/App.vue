@@ -17,7 +17,6 @@ import { Web3AuthOptions } from '@web3auth/modal'
 import { EthereumPrivateKeyProvider } from '@web3auth/ethereum-provider'
 import { WalletConnectV2Adapter } from '@web3auth/wallet-connect-v2-adapter'
 import { getInjectedAdapters as getInjectedEvmAdapters } from '@web3auth/default-evm-adapter'
-import { getInjectedAdapters as getInjectedSolanaAdapters } from '@web3auth/default-solana-adapter'
 import useCustomConfig from './composables/use-custom-config'
 
 const { config } = useCustomConfig()
@@ -34,8 +33,6 @@ const getExternalAdapterByName = (name: string): IAdapter<unknown>[] => {
       ]
     case 'injected-evm':
       return getInjectedEvmAdapters({ options: options.value })
-    case 'injected-solana':
-      return getInjectedSolanaAdapters({ options: options.value })
     default:
       return []
   }
@@ -75,7 +72,6 @@ const walletPlugins = computed(() => {
 })
 
 const options = computed((): Web3AuthOptions => {
-  console.log(config.value, 'CONFIG DATA OPTIONS')
   const uiConfig: Web3AuthOptions['uiConfig'] = {
     appName: config.value.dappName,
     logoLight: config.value.addBrandLogo ? config.value.logoUrl : undefined,
@@ -105,14 +101,6 @@ const options = computed((): Web3AuthOptions => {
 })
 
 const configs = computed(() => {
-  // eslint-disable-next-line no-console
-  console.log(
-    externalAdaptersData.value,
-    options.value,
-    walletPlugins.value,
-    modalParams.value,
-    'FORM'
-  )
   return {
     adapters: externalAdaptersData.value,
     web3AuthOptions: options.value,
@@ -126,7 +114,6 @@ const configs = computed(() => {
   <div v-if="false" class="h-screen flex justify-center items-center">
     <Loader :use-spinner="true" />
   </div>
-
   <div v-else class="min-h-screen flex flex-col">
     <Web3AuthProvider :config="configs">
       <Navbar />

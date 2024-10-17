@@ -27,27 +27,16 @@ html {
   height: 750px;
   margin-left: auto;
   margin-top: auto;
-
-  @media only screen and (max-width: 768px) {
-    width: 100%;
-    margin-top: 10%;
-  }
+  margin-bottom: auto;
 }
 
 .w3a-parent-container #w3a-modal .w3a-modal__inner {
   top: 50% !important;
   left: 50% !important;
   right: 0;
-  transform: translate(-70%, -50%) !important;
+  transform: translate(-100%, -60%) !important;
   position: absolute !important;
   z-index: 999999;
-
-  @media only screen and (max-width: 768px) {
-    top: 50% !important;
-    left: 50% !important;
-    right: 0;
-    transform: translate(-50%, -50%) !important;
-  }
 }
 
 #w3a-modal::before {
@@ -57,4 +46,59 @@ html {
 .w3a-parent-container #w3a-modal button.w3a-header__button,
 .w3a-parent-container #w3a-modal button.w3a-header__button_wallet {
   display: none !important;
+}
+
+@media only screen and (max-width: 1450px) {
+  .w3a-parent-container #w3a-modal .w3a-modal__inner {
+    top: 50% !important;
+    left: 50% !important;
+    right: 0;
+    transform: translate(-100%, -45%) !important;
+  }
+}
+
+@media only screen and (max-width: 1240px) {
+  .w3a-parent-container #w3a-modal .w3a-modal__inner {
+    top: 50% !important;
+    left: 50% !important;
+    right: 0;
+    transform: translate(-70%, -45%) !important;
+  }
+}
+
+@media only screen and (max-width: 1030px) {
+  .w3a-parent-container #w3a-modal .w3a-modal__inner {
+    top: 50% !important;
+    left: 50% !important;
+    right: 0;
+    transform: translate(-50%, -85%) !important;
+  }
+}
+
+@media only screen and (max-width: 830px) {
+  #w3a-modal {
+    width: 100%;
+  }
+
+  .w3a-parent-container #w3a-modal .w3a-modal__inner {
+    top: 50% !important;
+    left: 50% !important;
+    right: 0;
+    transform: translate(-50%, -50%) !important;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  #w3a-modal {
+    width: 100%;
+    margin-top: 10%;
+  }
+
+  .w3a-parent-container #w3a-modal .w3a-modal__inner {
+    top: 50% !important;
+    left: 50% !important;
+    right: 0;
+    transform: translate(-50%, -50%) !important;
+    margin-top: 30px;
+  }
 }
