@@ -6,7 +6,7 @@ import useLocales from '../composables/use-locales'
 import useCustomConfig from '../composables/use-custom-config'
 import WhiteLabelConfig from '@/components/WhiteLabelConfig'
 import LoginCard from '@/components/LoginCard'
-import { onMounted, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 
 const showAnimateConfigDialog = ref(false)
@@ -14,11 +14,7 @@ const locales = useLocales()
 const customConfig = useCustomConfig()
 const { connect, web3Auth } = useWeb3Auth()
 
-locales.setActiveLocale(customConfig.config.selectedLanguage)
-
-window.addEventListener('load', () => {
-  connect()
-})
+locales.setActiveLocale(customConfig.config.value.selectedLanguage)
 
 const configDialogRef = ref<HTMLDialogElement | null>(null)
 
@@ -34,6 +30,20 @@ function closeConfigDialog() {
   }, 180)
 }
 
+watch(
+  web3Auth,
+  () => {
+    console.log(web3Auth.value?.status, 'IS INITIALIZED')
+    if (web3Auth.value?.status === 'ready') {
+      connect()
+      return
+    }
+    web3Auth.value?.on('ready', () => {
+      connect()
+    })
+  },
+  { immediate: true }
+)
 // watch(
 //   () => customConfig.config.dappName,
 //   () => {

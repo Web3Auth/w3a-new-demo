@@ -97,12 +97,12 @@ onMounted(async () => {
       <div class="h-8 w-8 bg-app-white rounded-full flex justify-center items-center">
         <Icon
           class="text-app-gray-500"
-          :name="config.isDark ? 'moon-solid-icon' : 'sun-solid-icon'"
+          :name="config.value.isDark ? 'moon-solid-icon' : 'sun-solid-icon'"
           size="24"
         />
       </div>
       <div class="leading-none text-left text-sm text-app-gray-500 dark:text-app-gray-400">
-        {{ config.isDark ? 'DARK' : 'LIGHT' }}<br />MODE
+        {{ config.value.isDark ? 'DARK' : 'LIGHT' }}<br />MODE
       </div>
     </button>
   </div>
