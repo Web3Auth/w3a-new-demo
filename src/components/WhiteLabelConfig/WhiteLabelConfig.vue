@@ -29,13 +29,13 @@ const languages: { name: string; value: LANGUAGE_TYPE }[] = [
 const activeConfigPanel = ref<Panel>('general')
 
 function setPrimaryColor(color: string) {
-  customConfig.config.primaryColor = color
+  customConfig.config.value.primaryColor = color
   const rootElement = document.querySelector('.dapp-login-modal') as HTMLElement
   applyWhiteLabelTheme(rootElement, { primary: color })
 }
 
 function setPrimaryTextColor(color: string) {
-  customConfig.config.primaryTextColor = color
+  customConfig.config.value.primaryTextColor = color
   const rootElement = document.querySelector('.dapp-login-modal') as HTMLElement
   applyWhiteLabelTheme(rootElement, { onPrimary: color })
 }
@@ -83,38 +83,38 @@ function setPrimaryTextColor(color: string) {
         <div>
           <div class="flex justify-between items-center mb-6">
             <div class="text-app-gray-900 dark:text-app-white">Add Brand Logo</div>
-            <Toggle size="small" v-model="customConfig.config.addBrandLogo" />
+            <Toggle size="small" v-model="customConfig.config.value.addBrandLogo" />
           </div>
           <div
-            v-if="customConfig.config.addBrandLogo"
+            v-if="customConfig.config.value.addBrandLogo"
             class="flex justify-between items-center mb-6"
           >
             <TextField
               label="Logo URL"
               placeholder="Logo URL"
-              :model-value="customConfig.config.logoUrl"
+              :model-value="customConfig.config.value.logoUrl"
               @change="
                 (e) => {
-                  customConfig.config.logoUrl = (e.target as HTMLInputElement).value
+                  customConfig.config.value.logoUrl = (e.target as HTMLInputElement).value
                 }
               "
             />
           </div>
           <div
-            v-if="customConfig.config.addBrandLogo"
+            v-if="customConfig.config.value.addBrandLogo"
             class="flex justify-between items-center mb-6"
           >
             <div class="text-app-gray-900 dark:text-app-white">Use Logo as Loader</div>
-            <Toggle size="small" v-model="customConfig.config.useLogoAsLoader" />
+            <Toggle size="small" v-model="customConfig.config.value.useLogoAsLoader" />
           </div>
           <div class="mb-6">
             <TextField
               label="Application Name"
               placeholder="dApp Name"
-              :model-value="customConfig.config.dappName"
+              :model-value="customConfig.config.value.dappName"
               @change="
                 (e) => {
-                  customConfig.config.dappName = (e.target as HTMLInputElement).value
+                  customConfig.config.value.dappName = (e.target as HTMLInputElement).value
                 }
               "
             />
@@ -126,12 +126,12 @@ function setPrimaryTextColor(color: string) {
             <select
               id="countries"
               class="outline outline-1 outline-app-gray-300 border-r-[20px] border-r-transparent bg-app-gray-50 text-app-gray-900 dark:bg-app-gray-700 dark:outline-app-gray-600 dark:text-app-white px-3 py-3 w-full text-sm font-normal rounded-lg"
-              :model-value="customConfig.config.selectedLanguage"
+              :model-value="customConfig.config.value.selectedLanguage"
               @change="
                 (e) => {
-                  customConfig.config.selectedLanguage = (e.target as HTMLSelectElement)
+                  customConfig.config.value.selectedLanguage = (e.target as HTMLSelectElement)
                     .value as LANGUAGE_TYPE
-                  locales.setActiveLocale(customConfig.config.selectedLanguage)
+                  locales.setActiveLocale(customConfig.config.value.selectedLanguage)
                 }
               "
             >
@@ -168,7 +168,7 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Primary Color"
               helper-text="Applies to primary elements like buttons, text links, tabs, focus, spinners, nav tabs"
-              :model-value="customConfig.config.primaryColor"
+              :model-value="customConfig.config.value.primaryColor"
               @change="
                 (e) => {
                   const color = (e.target as InputHTMLAttributes).value
@@ -181,7 +181,7 @@ function setPrimaryTextColor(color: string) {
                   id="primary-color-picker"
                   class="color-picker"
                   type="color"
-                  :value="customConfig.config.primaryColor"
+                  :value="customConfig.config.value.primaryColor"
                   @input="
                     (e) => {
                       const color = (e.target as InputHTMLAttributes).value
@@ -196,7 +196,7 @@ function setPrimaryTextColor(color: string) {
             <TextField
               label="Primary Text Color"
               helper-text="Applies to text elements set against the primary color background"
-              :model-value="customConfig.config.primaryTextColor"
+              :model-value="customConfig.config.value.primaryTextColor"
               @change="
                 (e) => {
                   setPrimaryTextColor((e.target as HTMLInputElement).value)
@@ -208,7 +208,7 @@ function setPrimaryTextColor(color: string) {
                   id="primary-text-color-picker"
                   class="color-picker"
                   type="color"
-                  :value="customConfig.config.primaryTextColor"
+                  :value="customConfig.config.value.primaryTextColor"
                   @input="
                     (e) => {
                       const color = (e.target as InputHTMLAttributes).value

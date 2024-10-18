@@ -3,11 +3,12 @@ import { computed, onMounted, ref } from 'vue'
 import { Card } from '@toruslabs/vue-components/Card'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Link } from '@toruslabs/vue-components/Link'
-
 import config from '@/config'
-import { useWeb3authStore } from '@/store/web3authStore'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { getAccounts } from '@/services/ethHandlers'
+import { IProvider } from '@web3auth/base'
 
-const web3Auth = useWeb3authStore()
+const { provider } = useWeb3Auth()
 
 const FREE_MINT_CONTRACT_ID = 'b5b4de3f-0212-11ef-a08f-0242ac190003'
 const PAID_MINT_CONTRACT_ID = 'd1145a8b-98ae-44e0-ab63-2c9c8371caff'
@@ -22,16 +23,17 @@ const openNftPurchase = () => {
   showNftPurchase.value = true
 }
 
-onMounted(() => {
+const receiverAddress = ref()
+onMounted(async () => {
   window.addEventListener('message', function (event: MessageEvent) {
     if (event.origin === config.nftCheckoutHost && event.data === 'close-nft-checkout') {
       showNftMinting.value = false
       showNftPurchase.value = false
     }
   })
+  const address = await getAccounts(provider.value as IProvider)
+  receiverAddress.value = address
 })
-
-const receiverAddress = computed(() => web3Auth.accounts[0])
 
 const demoNftMintingUrl = computed(
   () =>
@@ -44,7 +46,9 @@ const demoNftPurchaseUrl = computed(
 )
 </script>
 <template>
-  <Card class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
+  <Card
+    class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+  >
     <div class="mb-4 text-center">
       <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">NFT Services</h3>
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">

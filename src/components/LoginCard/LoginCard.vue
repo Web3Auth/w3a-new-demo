@@ -1,97 +1,98 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
-import { useWeb3authStore } from '@/store/web3authStore'
-import { LOGIN_PROVIDER } from '@web3auth/auth-adapter'
+import { computed } from 'vue'
+// import { computed, onMounted, ref, watch } from 'vue'
+// import { useWeb3authStore } from '@/store/web3authStore'
+// import { LOGIN_PROVIDER } from '@web3auth/auth-adapter'
 import useCustomConfig from '@/composables/use-custom-config'
-import useLocales from '@/composables/use-locales'
-import { getUserCountry, validatePhoneNumber } from '@/utils/common'
+// import useLocales from '@/composables/use-locales'
+// import { getUserCountry, validatePhoneNumber } from '@/utils/common'
 
-import { Card } from '@toruslabs/vue-components/Card'
+// import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import { Button } from '@toruslabs/vue-components/Button'
-import { TextField } from '@toruslabs/vue-components/TextField'
-import { LoginForm, type SocialLoginObj } from '@toruslabs/vue-components/LoginForm'
+// import { Button } from '@toruslabs/vue-components/Button'
+// import { TextField } from '@toruslabs/vue-components/TextField'
+// import { LoginForm, type SocialLoginObj } from '@toruslabs/vue-components/LoginForm'
 
-const locales = useLocales()
-const web3Auth = useWeb3authStore()
+// const locales = useLocales()
+// const web3Auth = useWeb3authStore()
 const customConfig = useCustomConfig()
-const passwordlessEmailSms = ref<string>('')
-const selectedSocialLogins = ref<string[]>([])
+// const passwordlessEmailSms = ref<string>('')
+// const selectedSocialLogins = ref<string[]>([])
 const config = computed(() => customConfig.config)
-const countryCode = ref<string | null>(null)
-const isValidPasswordlessInput = ref<boolean>(true)
+// const countryCode = ref<string | null>(null)
+// const isValidPasswordlessInput = ref<boolean>(true)
 
-const socialLoginsAll = computed((): SocialLoginObj[] => {
-  const loginProviders = Object.values(LOGIN_PROVIDER).filter(
-    (x) =>
-      x !== LOGIN_PROVIDER.EMAIL_PASSWORDLESS &&
-      x !== LOGIN_PROVIDER.SMS_PASSWORDLESS &&
-      x !== LOGIN_PROVIDER.WEIBO &&
-      x !== LOGIN_PROVIDER.WEBAUTHN &&
-      x !== LOGIN_PROVIDER.JWT &&
-      x !== LOGIN_PROVIDER.PASSKEYS &&
-      x !== LOGIN_PROVIDER.AUTHENTICATOR
-  )
-  return loginProviders.map((loginProvider) => {
-    return {
-      description:
-        loginProvider === LOGIN_PROVIDER.GOOGLE
-          ? locales.t('social.continueCustom', { adapter: 'Google' })
-          : '',
-      icon: loginProvider,
-      verifier: loginProvider
-    }
-  })
-})
+// const socialLoginsAll = computed((): SocialLoginObj[] => {
+//   const loginProviders = Object.values(LOGIN_PROVIDER).filter(
+//     (x) =>
+//       x !== LOGIN_PROVIDER.EMAIL_PASSWORDLESS &&
+//       x !== LOGIN_PROVIDER.SMS_PASSWORDLESS &&
+//       x !== LOGIN_PROVIDER.WEIBO &&
+//       x !== LOGIN_PROVIDER.WEBAUTHN &&
+//       x !== LOGIN_PROVIDER.JWT &&
+//       x !== LOGIN_PROVIDER.PASSKEYS &&
+//       x !== LOGIN_PROVIDER.AUTHENTICATOR
+//   )
+//   return loginProviders.map((loginProvider) => {
+//     return {
+//       description:
+//         loginProvider === LOGIN_PROVIDER.GOOGLE
+//           ? locales.t('social.continueCustom', { adapter: 'Google' })
+//           : '',
+//       icon: loginProvider,
+//       verifier: loginProvider
+//     }
+//   })
+// })
 
-const socialLogins = computed((): SocialLoginObj[] => {
-  return socialLoginsAll.value.filter((x) => !selectedSocialLogins.value.includes(x.verifier!))
-})
+// const socialLogins = computed((): SocialLoginObj[] => {
+//   return socialLoginsAll.value.filter((x) => !selectedSocialLogins.value.includes(x.verifier!))
+// })
 
-async function passwordlessLogin() {
-  const isEmailValid = passwordlessEmailSms.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-  if (isEmailValid) {
-    web3Auth.connectToWeb3Auth({
-      loginProvider: LOGIN_PROVIDER.EMAIL_PASSWORDLESS,
-      login_hint: passwordlessEmailSms.value
-    })
-    return
-  }
-  const number = passwordlessEmailSms.value.startsWith('+')
-    ? passwordlessEmailSms.value
-    : `${countryCode.value}${passwordlessEmailSms.value}`
-  const result = await validatePhoneNumber(number)
-  if (result && typeof result === 'string') {
-    web3Auth.connectToWeb3Auth({
-      loginProvider: LOGIN_PROVIDER.SMS_PASSWORDLESS,
-      login_hint: result
-    })
-    return
-  }
-  isValidPasswordlessInput.value = false
-}
+// async function passwordlessLogin() {
+//   const isEmailValid = passwordlessEmailSms.value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+//   if (isEmailValid) {
+//     web3Auth.connectToWeb3Auth({
+//       loginProvider: LOGIN_PROVIDER.EMAIL_PASSWORDLESS,
+//       login_hint: passwordlessEmailSms.value
+//     })
+//     return
+//   }
+//   const number = passwordlessEmailSms.value.startsWith('+')
+//     ? passwordlessEmailSms.value
+//     : `${countryCode.value}${passwordlessEmailSms.value}`
+//   const result = await validatePhoneNumber(number)
+//   if (result && typeof result === 'string') {
+//     web3Auth.connectToWeb3Auth({
+//       loginProvider: LOGIN_PROVIDER.SMS_PASSWORDLESS,
+//       login_hint: result
+//     })
+//     return
+//   }
+//   isValidPasswordlessInput.value = false
+// }
 
-watch(
-  () => passwordlessEmailSms.value,
-  () => {
-    isValidPasswordlessInput.value = true
-  }
-)
+// watch(
+//   () => passwordlessEmailSms.value,
+//   () => {
+//     isValidPasswordlessInput.value = true
+//   }
+// )
 
-function socialLogin(item: SocialLoginObj) {
-  web3Auth.connectToWeb3Auth({ loginProvider: item.verifier! })
-}
+// function socialLogin(item: SocialLoginObj) {
+//   web3Auth.connectToWeb3Auth({ loginProvider: item.verifier! })
+// }
 
-onMounted(async () => {
-  const result = await getUserCountry()
-  if (result && result.dialCode) {
-    countryCode.value = result.dialCode
-  }
-})
+// onMounted(async () => {
+//   const result = await getUserCountry()
+//   if (result && result.dialCode) {
+//     countryCode.value = result.dialCode
+//   }
+// })
 </script>
 
 <template>
-  <div class="mb-6">
+  <div class="mb-6 max-sm:z-[1000000]">
     <button
       class="flex items-center justify-center gap-2 rounded-full pl-2 pr-4 py-2 bg-app-gray-200 dark:bg-app-gray-800"
       @click="customConfig.setActiveTheme"
@@ -99,16 +100,16 @@ onMounted(async () => {
       <div class="h-8 w-8 bg-app-white rounded-full flex justify-center items-center">
         <Icon
           class="text-app-gray-500"
-          :name="config.isDark ? 'moon-solid-icon' : 'sun-solid-icon'"
+          :name="config.value.isDark ? 'moon-solid-icon' : 'sun-solid-icon'"
           size="24"
         />
       </div>
       <div class="leading-none text-left text-sm text-app-gray-500 dark:text-app-gray-400">
-        {{ config.isDark ? 'DARK' : 'LIGHT' }}<br />MODE
+        {{ config.value.isDark ? 'DARK' : 'LIGHT' }}<br />MODE
       </div>
     </button>
   </div>
-  <Card
+  <!-- <Card
     class="dapp-login-modal !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark w-[380px]"
     :classes="{
       container: `!rounded-2xl p-8`
@@ -133,7 +134,6 @@ onMounted(async () => {
         }}
       </p>
     </div>
-    <!-- Body -->
     <LoginForm
       pill
       :social-logins="socialLogins"
@@ -174,7 +174,6 @@ onMounted(async () => {
         </form>
       </template>
     </LoginForm>
-    <!-- Footer -->
     <div class="flex items-center justify-center mt-8">
       <img
         src="@/assets/images/ws-trademark-light.svg"
@@ -187,5 +186,5 @@ onMounted(async () => {
         class="hidden dark:block h-5"
       />
     </div>
-  </Card>
+  </Card> -->
 </template>
