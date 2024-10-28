@@ -71,7 +71,7 @@ html {
     top: 50% !important;
     left: 50% !important;
     right: 0;
-    transform: translate(-50%, -85%) !important;
+    /* transform: translate(-50%, -85%) !important; */
   }
 }
 
