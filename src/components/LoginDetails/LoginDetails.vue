@@ -65,7 +65,7 @@ const returnAvatarLetter = (name: string) => {
   <Card
     class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
   >
-    <Avatar size="xl" class="text-2xl flex-shrink-0 w-[60px] h-[60px] mb-2">
+    <Avatar size="xl" class="text-lg flex-shrink-0 w-[60px] h-[60px] mb-2">
       <img v-if="userInfo?.profileImage" :src="userInfo?.profileImage" class="w-full h-full" />
       <span v-else>
         {{ returnAvatarLetter(userInfo?.name || '') }}

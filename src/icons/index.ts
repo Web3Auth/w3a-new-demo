@@ -37,7 +37,10 @@ import {
   ShieldExclamationSolidIcon,
   KeyIcon,
   KeySolidIcon,
-  LockClosedSolidIcon
+  LockClosedSolidIcon,
+  LockClosedIcon,
+  ShieldCheckIcon,
+  FingerPrintIcon
 } from '@toruslabs/vue-icons/security'
 import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
 import { GlobeAltSolidIcon, MoonSolidIcon } from '@toruslabs/vue-icons/maps'
@@ -87,5 +90,8 @@ export default {
   SunSolidIcon,
   MoonSolidIcon,
   MobileIcon,
-  CogIcon
+  CogIcon,
+  LockClosedIcon,
+  ShieldCheckIcon,
+  FingerPrintIcon
 } as unknown as IconSets

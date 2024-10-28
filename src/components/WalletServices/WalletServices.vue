@@ -3,14 +3,16 @@ import { ref } from 'vue'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
-import { IProvider, WALLET_PLUGINS } from '@web3auth/base'
+import { IProvider, WALLET_ADAPTERS, WALLET_PLUGINS } from '@web3auth/base'
 import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
 import { signPersonalMessage } from '@/services/ethHandlers'
 
 const signedMessage = ref<string>('')
 const isSigningMessage = ref<boolean>(false)
 const signingState = ref<'success' | 'error' | ''>('')
-const { web3Auth, provider } = useWeb3Auth()
+const { web3Auth, provider, isConnected, isInitialized } = useWeb3Auth()
+
+const isDisabled = ref(web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH)
 
 async function openWalletServiceUi() {
   const walletPlugin = web3Auth.value?.getPlugin(
@@ -77,29 +79,32 @@ async function signMessage() {
     <div class="space-y-2">
       <Button
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
         variant="secondary"
+        :disabled="isDisabled"
         @on-click="openWalletServiceUi"
         >Open Wallet UI</Button
       >
       <Button
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
         variant="secondary"
+        :disabled="isDisabled"
         @on-click="openFiatOnramp"
         >Use Fiat Onramp</Button
       >
       <Button
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
         variant="secondary"
+        :disabled="isDisabled"
         @on-click="connectToApplications"
         >Connect to Applications</Button
       >
       <Button
         v-if="signingState === ''"
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
         variant="secondary"
         @on-click="signMessage"
         >Sign Personal Message</Button

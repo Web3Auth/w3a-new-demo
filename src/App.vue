@@ -63,8 +63,8 @@ const walletPlugins = computed(() => {
     walletInitOptions: {
       whiteLabel: {
         showWidgetButton: true,
-        logoDark: 'logo',
-        logoLight: 'logo'
+        logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg', // logo used on dark mode
+        logoLight: 'https://images.web3auth.io/web3auth-logo-w.svg'
       }
     }
   })
