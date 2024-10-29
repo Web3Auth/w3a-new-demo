@@ -37,9 +37,9 @@ const logoutApp = async () => {
       />
       <Button
         v-if="!isConnected"
-        @on-click="handleDocsLink"
         id="w3a-documentation"
         class="!h-9 sm:!h-10"
+        @on-click="handleDocsLink"
       >
         Documentation
       </Button>

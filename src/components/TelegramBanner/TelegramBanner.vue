@@ -8,8 +8,9 @@ const handleURL = () => {
 </script>
 
 <template>
-  <div
-    class="rounded-[10px] flex gap-x-2 items-center bg-app-white dark:bg-app-gray-800 w-full lg:!w-[368px] p-4 cursor-pointer"
+  <button
+    type="button"
+    class="appearance-none rounded-[10px] flex gap-x-2 items-center bg-app-white dark:bg-app-gray-800 w-full lg:!w-[368px] p-4 cursor-pointer"
     @click="handleURL"
   >
     <Badge variant="info" class="gap-x-1 p-2 sm:px-2.5 sm:py-1 rounded-[10px]">
@@ -22,8 +23,7 @@ const handleURL = () => {
     <p class="text-sm text-app-gray-900 dark:text-app-white font-medium">
       Try out our Telegram MiniApp
     </p>
-    <button class="ml-auto" @click="handleURL">
-      <Icon name="chevron-right-solid-icon" class="text-app-gray-900 dark:text-app-white" />
-    </button>
-  </div>
+
+    <Icon name="chevron-right-solid-icon" class="ml-auto text-app-gray-900 dark:text-app-white" />
+  </button>
 </template>

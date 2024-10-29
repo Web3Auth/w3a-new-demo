@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { Card } from '@toruslabs/vue-components/Card'
 import { Link } from '@toruslabs/vue-components/Link'
-import LoginDetails from '@/components/LoginDetails'
-import WalletServices from '@/components/WalletServices'
+
 import DocsDetails from '@/components/DocsDetails'
+import LoginDetails from '@/components/LoginDetails'
 import MfaDetails from '@/components/MfaDetails'
 import NftServices from '@/components/NftServices'
 import Passkeys from '@/components/Passkeys'
+import WalletServices from '@/components/WalletServices'
 </script>
 
 <template>
@@ -25,7 +26,8 @@ import Passkeys from '@/components/Passkeys'
       </div>
       <div class="break-inside-avoid space-y-4">
         <DocsDetails />
-        <Card class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+        <Card
+          class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
           >Have any questions?
           <Link
             class="dark:text-app-primary-500"

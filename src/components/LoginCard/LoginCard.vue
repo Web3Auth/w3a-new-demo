@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import useCustomConfig from '@/composables/use-custom-config'
 import { Icon } from '@toruslabs/vue-components/Icon'
+import { computed } from 'vue'
+
+import useCustomConfig from '@/composables/use-custom-config'
+
 const customConfig = useCustomConfig()
 const config = computed(() => customConfig.config)
 </script>
@@ -9,6 +11,7 @@ const config = computed(() => customConfig.config)
 <template>
   <div class="mb-6 max-sm:z-[1000000]">
     <button
+      type="button"
       class="flex items-center justify-center gap-2 rounded-full pl-2 pr-4 py-2 bg-app-gray-200 dark:bg-app-gray-800"
       @click="customConfig.setActiveTheme"
     >

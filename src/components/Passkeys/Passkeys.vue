@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { Card } from '@toruslabs/vue-components/Card'
-import { Button } from '@toruslabs/vue-components/Button'
 import { Badge } from '@toruslabs/vue-components/Badge'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import Divider from '../Divider'
 import { computed } from 'vue'
+
+import Divider from '../Divider'
 
 const passkeys = computed((): { id: string; name: string; detail: string }[] => [])
 
@@ -15,7 +16,9 @@ function deletePasskey(id: string) {
 }
 </script>
 <template>
-  <Card class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
+  <Card
+    class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+  >
     <div class="mb-4">
       <div class="flex justify-between items-center mb-1">
         <h3 class="font-semibold text-app-gray-900 dark:text-app-white">Passkeys</h3>

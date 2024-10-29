@@ -1,18 +1,17 @@
 <script setup lang="ts">
+import { Card } from '@toruslabs/vue-components'
+import { Avatar } from '@toruslabs/vue-components/Avatar'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Drawer } from '@toruslabs/vue-components/Drawer'
+import { Icon } from '@toruslabs/vue-components/Icon'
+import { Link } from '@toruslabs/vue-components/Link'
+import { IProvider } from '@web3auth/base'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 import { onMounted, ref, watch } from 'vue'
 
-import { Avatar } from '@toruslabs/vue-components/Avatar'
-import { Icon } from '@toruslabs/vue-components/Icon'
-import { Button } from '@toruslabs/vue-components/Button'
-import { Link } from '@toruslabs/vue-components/Link'
-import { Drawer } from '@toruslabs/vue-components/Drawer'
-import { getTruncateString } from '@/utils/common'
-
-import { Card } from '@toruslabs/vue-components'
 import Divider from '@/components/Divider'
-import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 import { getAccounts } from '@/services/ethHandlers'
-import { IProvider } from '@web3auth/base'
+import { getTruncateString } from '@/utils/common'
 
 const openConsole = ref(false)
 const isCopied = ref(false)
@@ -34,7 +33,6 @@ watch(provider, async (newProvider) => {
 const handleConsoleBtn = () => {
   if (userInfo.value) {
     openConsole.value = true
-    return
   }
 }
 
@@ -50,12 +48,11 @@ const returnAvatarLetter = (name: string) => {
   if (!name) return 'W3A'
   if (name.includes('@')) {
     return `${name.charAt(0).toUpperCase()}${name.charAt(1).toUpperCase()}`
-  } else {
-    return `${name.split(' ')[0].charAt(0).toUpperCase()}${name
-      .split(' ')[1]
-      .charAt(0)
-      .toUpperCase()}`
   }
+  return `${name.split(' ')[0].charAt(0).toUpperCase()}${name
+    .split(' ')[1]
+    .charAt(0)
+    .toUpperCase()}`
 }
 </script>
 <template>
@@ -63,7 +60,12 @@ const returnAvatarLetter = (name: string) => {
     class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
   >
     <Avatar size="xl" class="text-lg flex-shrink-0 w-[60px] h-[60px] mb-2">
-      <img v-if="userInfo?.profileImage" :src="userInfo?.profileImage" class="w-full h-full" />
+      <img
+        v-if="userInfo?.profileImage"
+        alt="profile-image"
+        :src="userInfo?.profileImage"
+        class="w-full h-full"
+      />
       <span v-else>
         {{ returnAvatarLetter(userInfo?.name || '') }}
       </span>
@@ -75,7 +77,7 @@ const returnAvatarLetter = (name: string) => {
       <p class="text-xs text-app-gray-400 mb-1">
         {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
       </p>
-      <button class="leading-none" @click="handleConsoleBtn">
+      <button type="button" class="leading-none" @click="handleConsoleBtn">
         <Link class="text-xs dark:text-app-primary-500">View User Info</Link>
       </button>
     </div>

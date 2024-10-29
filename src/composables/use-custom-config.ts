@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+
 import { setTheme } from '@/utils/common'
 import { CustomConfig } from '@/utils/interface'
 

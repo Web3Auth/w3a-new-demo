@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { Card } from '@toruslabs/vue-components/Card'
-import { Button } from '@toruslabs/vue-components/Button'
 import { Badge } from '@toruslabs/vue-components/Badge'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import { computed, onMounted, ref, watch } from 'vue'
-import { WALLET_ADAPTERS } from '@web3auth/base'
 import { AuthAdapter, AuthSessionData } from '@web3auth/auth-adapter'
-import Bowser from 'bowser'
-import Divider from '../Divider'
+import { WALLET_ADAPTERS } from '@web3auth/base'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import Bowser from 'bowser'
+import { computed, onMounted, ref, watch } from 'vue'
+
+import Divider from '../Divider'
 
 const FACTOR_MAP: Record<string, { title: string; icon?: string }> = {
   device: { title: 'Device', icon: 'mobile-icon' },
@@ -50,7 +51,7 @@ const shareDetailsList = () => {
   // Format shareDetails
   const sortedList = SortMFAShares(shareDetails)
   return sortedList.map((share) => {
-    let details = share.details
+    let { details } = share
     if (share.shareType === 'device') {
       const browser = Bowser.getParser(share.details)
       const browserDetails = browser.getBrowser()

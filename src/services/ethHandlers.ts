@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IProvider, log } from '@web3auth/base'
 
 export const getAccounts = async (provider: IProvider): Promise<string | undefined> => {
@@ -16,7 +15,7 @@ export const signPersonalMessage = async (
   provider: IProvider
 ): Promise<{ signedMessage: string }> => {
   try {
-    const originalMessage = 'Example `personal_sign` messages'
+    const originalMessage = 'Example `personal_sign` message'
     const from = await getAccounts(provider)
     // Sign the message
     const signedMessage = await provider.request<[string, string?], string>({

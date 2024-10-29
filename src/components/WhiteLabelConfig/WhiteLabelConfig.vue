@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { InputHTMLAttributes, ref } from 'vue'
-import { Link } from '@toruslabs/vue-components/Link'
-import { Toggle } from '@toruslabs/vue-components/Toggle'
-import { TextField } from '@toruslabs/vue-components/TextField'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import { LANGUAGES, LANGUAGE_TYPE, applyWhiteLabelTheme } from '@web3auth/auth-adapter'
+import { Link } from '@toruslabs/vue-components/Link'
+import { TextField } from '@toruslabs/vue-components/TextField'
+import { Toggle } from '@toruslabs/vue-components/Toggle'
+import { applyWhiteLabelTheme, LANGUAGE_TYPE, LANGUAGES } from '@web3auth/auth-adapter'
+import { InputHTMLAttributes, ref } from 'vue'
+
 import useCustomConfig from '@/composables/use-custom-config'
 import useLocales from '@/composables/use-locales'
 
@@ -64,6 +65,7 @@ function setPrimaryTextColor(color: string) {
   <div class="accordion">
     <div class="accordion-panel">
       <button
+        type="button"
         class="w-full text-left relative block font-medium text-app-gray-900 dark:text-app-white"
         @click="activeConfigPanel = 'general'"
       >
@@ -83,7 +85,7 @@ function setPrimaryTextColor(color: string) {
         <div>
           <div class="flex justify-between items-center mb-6">
             <div class="text-app-gray-900 dark:text-app-white">Add Brand Logo</div>
-            <Toggle size="small" v-model="customConfig.config.value.addBrandLogo" />
+            <Toggle v-model="customConfig.config.value.addBrandLogo" size="small" />
           </div>
           <div
             v-if="customConfig.config.value.addBrandLogo"
@@ -105,7 +107,7 @@ function setPrimaryTextColor(color: string) {
             class="flex justify-between items-center mb-6"
           >
             <div class="text-app-gray-900 dark:text-app-white">Use Logo as Loader</div>
-            <Toggle size="small" v-model="customConfig.config.value.useLogoAsLoader" />
+            <Toggle v-model="customConfig.config.value.useLogoAsLoader" size="small" />
           </div>
           <div class="mb-6">
             <TextField
@@ -135,7 +137,7 @@ function setPrimaryTextColor(color: string) {
                 }
               "
             >
-              <option v-for="language in languages" :value="language.value" :key="language.value">
+              <option v-for="language in languages" :key="language.value" :value="language.value">
                 {{ language.name }}
               </option>
             </select>
@@ -148,6 +150,7 @@ function setPrimaryTextColor(color: string) {
 
     <div class="accordion-panel">
       <button
+        type="button"
         class="w-full text-left relative block font-medium text-app-gray-900 dark:text-app-white"
         @click="activeConfigPanel = 'theme'"
       >
@@ -158,10 +161,10 @@ function setPrimaryTextColor(color: string) {
         />
       </button>
       <div
+        id="panel2-content"
         class="accordion-content text-sm font-medium pt-6"
         role="region"
         :aria-hidden="activeConfigPanel !== 'theme'"
-        id="panel2-content"
       >
         <div>
           <div class="mb-6">

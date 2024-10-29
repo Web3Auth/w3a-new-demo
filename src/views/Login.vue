@@ -2,14 +2,15 @@
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import useLocales from '../composables/use-locales'
-import useCustomConfig from '../composables/use-custom-config'
-import WhiteLabelConfig from '@/components/WhiteLabelConfig'
-import LoginCard from '@/components/LoginCard'
-import { ref, watch } from 'vue'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { ref, watch } from 'vue'
 
+import LoginCard from '@/components/LoginCard'
 import TelegramBanner from '@/components/TelegramBanner/TelegramBanner.vue'
+import WhiteLabelConfig from '@/components/WhiteLabelConfig'
+
+import useCustomConfig from '../composables/use-custom-config'
+import useLocales from '../composables/use-locales'
 
 const showAnimateConfigDialog = ref(false)
 const locales = useLocales()
@@ -77,6 +78,7 @@ watch(
     ref="configDialogRef"
     class="config-dialog"
     :class="{ showAnimate: showAnimateConfigDialog }"
+    @keydown.escape="closeConfigDialog"
     @click="
       (e) => {
         if (e.currentTarget === e.target) {
@@ -86,7 +88,11 @@ watch(
     "
   >
     <WhiteLabelConfig />
-    <button class="absolute top-4 right-4 max-sm:z-[1000000]" @click="closeConfigDialog">
+    <button
+      type="button"
+      class="absolute top-4 right-4 max-sm:z-[1000000]"
+      @click="closeConfigDialog"
+    >
       <Icon class="text-app-gray-900 dark:text-app-gray-100" size="12px" name="x-icon" />
     </button>
   </dialog>

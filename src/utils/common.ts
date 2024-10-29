@@ -41,7 +41,7 @@ export const validatePhoneNumber = async (phoneNumber: string): Promise<boolean 
 export const getBrowserName = () => {
   const { userAgent } = navigator
   try {
-    // @ts-ignore works only on brave browser
+    // @ts-expect-error works only on brave browser
     if (navigator.brave?.isBrave()) return 'Brave'
   } catch (error) {
     console.error(error)

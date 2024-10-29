@@ -1,12 +1,12 @@
 import './globals'
 import './assets/main.css'
-import { createIcons } from '@toruslabs/vue-components/icons'
+
 import { createGtm } from '@gtm-support/vue-gtm'
-
-import icons from './icons'
-
+import { createIcons } from '@toruslabs/vue-components/icons'
 import { createApp } from 'vue'
+
 import App from './App.vue'
+import icons from './icons'
 
 const app = createApp(App)
 

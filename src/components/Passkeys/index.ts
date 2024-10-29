@@ -1,1 +1,3 @@
-export { default } from './Passkeys.vue'
+import Passkeys from './Passkeys.vue'
+
+export default Passkeys

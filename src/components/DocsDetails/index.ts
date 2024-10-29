@@ -1,1 +1,3 @@
-export { default } from './DocsDetails.vue'
+import DocsDetails from './DocsDetails.vue'
+
+export default DocsDetails

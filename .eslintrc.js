@@ -17,6 +17,7 @@ module.exports = {
     mocha: true
   },
   rules: {
+    'vue/multi-word-component-names': 'off',
     'no-console': 'off',
     'prettier/prettier': [
       'error',
