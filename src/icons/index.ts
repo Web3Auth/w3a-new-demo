@@ -5,7 +5,8 @@ import {
   ChevronLeftIcon,
   ChevronUpSolidIcon,
   ArrowRightIcon,
-  ChevronLeftSolidIcon
+  ChevronLeftSolidIcon,
+  ChevronRightSolidIcon
 } from '@toruslabs/vue-icons/arrows'
 import {
   GoogleIcon,
@@ -24,7 +25,7 @@ import {
 import { DocumentDuplicateIcon, ColorSwatchSolidIcon } from '@toruslabs/vue-icons/file'
 import { ChartBarSolidIcon } from '@toruslabs/vue-icons/charts'
 import { ExternalLinkIcon, PaperAirplaneSolidIcon, MailIcon } from '@toruslabs/vue-icons/mail'
-import { SunSolidIcon } from '@toruslabs/vue-icons/others'
+import { SunSolidIcon, SparklesSolidIcon } from '@toruslabs/vue-icons/others'
 import {
   XCircleSolidIcon,
   XIcon,
@@ -93,5 +94,7 @@ export default {
   CogIcon,
   LockClosedIcon,
   ShieldCheckIcon,
-  FingerPrintIcon
+  FingerPrintIcon,
+  SparklesSolidIcon,
+  ChevronRightSolidIcon
 } as unknown as IconSets

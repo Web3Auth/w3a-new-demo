@@ -9,6 +9,8 @@ import LoginCard from '@/components/LoginCard'
 import { ref, watch } from 'vue'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 
+import TelegramBanner from '@/components/TelegramBanner/TelegramBanner.vue'
+
 const showAnimateConfigDialog = ref(false)
 const locales = useLocales()
 const customConfig = useCustomConfig()
@@ -44,31 +46,27 @@ watch(
   },
   { immediate: true }
 )
-// watch(
-//   () => customConfig.config.dappName,
-//   () => {
-//     console.log(customConfig, 'HELLO')
-//     connect()
-//   }
-// )
 </script>
 
 <template>
-  <div class="flex-1 block lg:flex items-center">
-    <div class="flex gap-4 mx-auto h-full w-full p-4 sm:py-6 sm:px-10">
-      <div class="hidden w-[368px] lg:!flex justify-center items-center">
-        <Card
-          class="!shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
-          :classes="{
-            container: `!rounded-xl p-8 bg-app-white`
-          }"
-        >
-          <WhiteLabelConfig />
-        </Card>
-      </div>
-      <div class="flex-1 flex justify-start items-start max-sm:z-[10000000]">
-        <div class="max-w-[392px]">
-          <LoginCard />
+  <div class="flex-1 lg:flex items-center">
+    <div class="flex flex-col gap-4 mx-auto h-full w-full p-4 sm:py-6 sm:px-10">
+      <TelegramBanner />
+      <div class="flex gap-x-4">
+        <div class="hidden w-[368px] lg:!flex justify-center items-center">
+          <Card
+            class="!shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+            :classes="{
+              container: `!rounded-xl p-8 bg-app-white`
+            }"
+          >
+            <WhiteLabelConfig />
+          </Card>
+        </div>
+        <div class="flex-1 flex justify-start items-start max-sm:z-[10000000]">
+          <div class="max-w-[392px]">
+            <LoginCard />
+          </div>
         </div>
       </div>
     </div>

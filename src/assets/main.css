@@ -34,7 +34,7 @@ html {
   top: 50% !important;
   left: 50% !important;
   right: 0;
-  transform: translate(-100%, -60%) !important;
+  transform: translate(-100%, -40%) !important;
   position: absolute !important;
   z-index: 999999;
 }
@@ -71,7 +71,7 @@ html {
     top: 50% !important;
     left: 50% !important;
     right: 0;
-    /* transform: translate(-50%, -85%) !important; */
+    transform: translate(-50%, -20%) !important;
   }
 }
 
@@ -84,7 +84,7 @@ html {
     top: 50% !important;
     left: 50% !important;
     right: 0;
-    transform: translate(-50%, -50%) !important;
+    transform: translate(-50%, -40%) !important;
   }
 }
 
@@ -99,6 +99,6 @@ html {
     left: 50% !important;
     right: 0;
     transform: translate(-50%, -50%) !important;
-    margin-top: 30px;
+    margin-top: 85px;
   }
 }
