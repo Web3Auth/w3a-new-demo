@@ -13,7 +13,7 @@ export const getAccounts = async (provider: IProvider): Promise<string | undefin
 
 export const signPersonalMessage = async (
   provider: IProvider
-): Promise<{ signedMessage: string }> => {
+): Promise<{ signedMessage: string; error?: string }> => {
   try {
     const originalMessage = 'Example `personal_sign` message'
     const from = await getAccounts(provider)
@@ -26,8 +26,7 @@ export const signPersonalMessage = async (
     return { signedMessage: signedMessage ?? '' }
     // uiConsole(`Success`, { signedMessage, verify: valid })
   } catch (error) {
-    log.error('Error', error)
-    // uiConsole('Error', error instanceof Error ? error.message : error)
-    return { signedMessage: '' }
+    const errorInstance = error as Error
+    return { signedMessage: '', error: errorInstance.message }
   }
 }

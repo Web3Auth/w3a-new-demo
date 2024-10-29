@@ -11,7 +11,7 @@ import { signPersonalMessage } from '@/services/ethHandlers'
 const signedMessage = ref<string>('')
 const isSigningMessage = ref<boolean>(false)
 const signingState = ref<'success' | 'error' | ''>('')
-const { web3Auth } = useWeb3Auth()
+const { web3Auth, provider } = useWeb3Auth()
 const {
   isPluginConnected,
   showCheckout,
@@ -28,9 +28,17 @@ const isDisabled = computed(
 async function signMessage() {
   try {
     isSigningMessage.value = true
-    const { signedMessage: signedData } = await signPersonalMessage(
-      plugin.value?.wsEmbedInstance.provider as IProvider
+    const { signedMessage: signedData, error } = await signPersonalMessage(
+      web3Auth.value?.connectedAdapterName === WALLET_ADAPTERS.AUTH
+        ? (plugin.value?.wsEmbedInstance.provider as IProvider)
+        : (provider.value as IProvider)
     )
+    if (error) {
+      console.error(error)
+      signedMessage.value = error
+      signingState.value = 'error'
+      return
+    }
     signedMessage.value = signedData
     signingState.value = 'success'
   } catch (error) {
