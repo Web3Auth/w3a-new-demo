@@ -17,6 +17,11 @@ module.exports = {
     mocha: true
   },
   rules: {
+    'no-console': 'off',
+    'prettier/prettier': [
+      'error',
+      { semi: false, tabWidth: 2, singleQuote: true, printWidth: 100, trailingComma: 'none' }
+    ],
     camelcase: 0,
     'import/extensions': [
       'error',
@@ -28,5 +33,12 @@ module.exports = {
         tsx: 'never'
       }
     ]
+  },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: './tsconfig.json'
+      }
+    }
   }
 }

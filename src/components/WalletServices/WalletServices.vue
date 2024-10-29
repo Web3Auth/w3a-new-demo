@@ -1,18 +1,25 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
-import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 import { IProvider, WALLET_ADAPTERS } from '@web3auth/base'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 import { useWalletServicesPlugin } from '@web3auth/wallet-services-plugin-vue-composables'
+import { computed, ref } from 'vue'
+
 import { signPersonalMessage } from '@/services/ethHandlers'
 
 const signedMessage = ref<string>('')
 const isSigningMessage = ref<boolean>(false)
 const signingState = ref<'success' | 'error' | ''>('')
-const { web3Auth, provider } = useWeb3Auth()
-const { isPluginConnected, showCheckout, showSwap, showWalletConnectScanner, showWalletUI } =
-  useWalletServicesPlugin()
+const { web3Auth } = useWeb3Auth()
+const {
+  isPluginConnected,
+  showCheckout,
+  showSwap,
+  showWalletConnectScanner,
+  showWalletUI,
+  plugin
+} = useWalletServicesPlugin()
 
 const isDisabled = computed(
   () => web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH || !isPluginConnected
@@ -21,7 +28,9 @@ const isDisabled = computed(
 async function signMessage() {
   try {
     isSigningMessage.value = true
-    const { signedMessage: signedData } = await signPersonalMessage(provider.value as IProvider)
+    const { signedMessage: signedData } = await signPersonalMessage(
+      plugin.value?.wsEmbedInstance.provider as IProvider
+    )
     signedMessage.value = signedData
     signingState.value = 'success'
   } catch (error) {

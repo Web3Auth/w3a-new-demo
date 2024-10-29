@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { Card } from '@toruslabs/vue-components/Card'
 import { Button } from '@toruslabs/vue-components/Button'
+import { Card } from '@toruslabs/vue-components/Card'
 import { Link } from '@toruslabs/vue-components/Link'
-import config from '@/config'
-import { useWeb3Auth } from '@web3auth/modal-vue-composables'
-import { getAccounts } from '@/services/ethHandlers'
 import { IProvider } from '@web3auth/base'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { computed, onMounted, ref } from 'vue'
+
+import config from '@/config'
+import { getAccounts } from '@/services/ethHandlers'
 
 const { provider } = useWeb3Auth()
 
@@ -25,7 +26,7 @@ const openNftPurchase = () => {
 
 const receiverAddress = ref<string | undefined>('')
 onMounted(async () => {
-  window.addEventListener('message', function (event: MessageEvent) {
+  window.addEventListener('message', (event: MessageEvent) => {
     if (event.origin === config.nftCheckoutHost && event.data === 'close-nft-checkout') {
       showNftMinting.value = false
       showNftPurchase.value = false
@@ -56,7 +57,11 @@ const demoNftPurchaseUrl = computed(
       </p>
     </div>
 
-    <img src="@/assets/images/nft-sample.svg" class="w-full max-w-xs mx-auto h-auto mb-6" />
+    <img
+      alt="nft sample image"
+      src="@/assets/images/nft-sample.svg"
+      class="w-full max-w-xs mx-auto h-auto mb-6"
+    />
 
     <div class="space-y-2 mb-4">
       <Button
@@ -88,6 +93,7 @@ const demoNftPurchaseUrl = computed(
   <iframe
     v-if="showNftMinting"
     id="nftCheckoutIFrame"
+    title="nftCheckoutIFrame"
     :src="demoNftMintingUrl"
     name="nft_minting"
     style="
@@ -105,6 +111,7 @@ const demoNftPurchaseUrl = computed(
   <iframe
     v-if="showNftPurchase"
     id="nftCheckoutIFrame"
+    title="nftCheckoutIFrame"
     :src="demoNftPurchaseUrl"
     name="nft_purchase"
     style="
