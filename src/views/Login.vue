@@ -35,7 +35,6 @@ function closeConfigDialog() {
 watch(
   web3Auth,
   () => {
-    console.log(web3Auth.value?.status, 'IS INITIALIZED')
     if (web3Auth.value?.status === 'ready') {
       connect()
       return

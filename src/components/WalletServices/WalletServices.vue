@@ -1,50 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
-import { IProvider, WALLET_ADAPTERS, WALLET_PLUGINS } from '@web3auth/base'
-import { WalletServicesPlugin } from '@web3auth/wallet-services-plugin'
+import { IProvider, WALLET_ADAPTERS } from '@web3auth/base'
+import { useWalletServicesPlugin } from '@web3auth/wallet-services-plugin-vue-composables'
 import { signPersonalMessage } from '@/services/ethHandlers'
 
 const signedMessage = ref<string>('')
 const isSigningMessage = ref<boolean>(false)
 const signingState = ref<'success' | 'error' | ''>('')
-const { web3Auth, provider, isConnected, isInitialized } = useWeb3Auth()
+const { web3Auth, provider } = useWeb3Auth()
+const { isPluginConnected, showCheckout, showSwap, showWalletConnectScanner, showWalletUI } =
+  useWalletServicesPlugin()
 
-const isDisabled = ref(web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH)
-
-async function openWalletServiceUi() {
-  const walletPlugin = web3Auth.value?.getPlugin(
-    WALLET_PLUGINS.WALLET_SERVICES
-  ) as WalletServicesPlugin
-  await walletPlugin.showWalletUi()
-}
-
-async function openFiatOnramp() {
-  const walletPlugin = web3Auth.value?.getPlugin(
-    WALLET_PLUGINS.WALLET_SERVICES
-  ) as WalletServicesPlugin
-  await walletPlugin.showCheckout()
-}
-
-async function connectToApplications() {
-  const walletPlugin = web3Auth.value?.getPlugin(
-    WALLET_PLUGINS.WALLET_SERVICES
-  ) as WalletServicesPlugin
-  await walletPlugin.showWalletConnectScanner()
-}
+const isDisabled = computed(
+  () => web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH || !isPluginConnected
+)
 
 async function signMessage() {
   try {
     isSigningMessage.value = true
-    const { signedMessage: signedData, valid } = await signPersonalMessage(
-      provider.value as IProvider
-    )
-    if (valid) {
-      signedMessage.value = signedData
-      signingState.value = 'success'
-    }
+    const { signedMessage: signedData } = await signPersonalMessage(provider.value as IProvider)
+    signedMessage.value = signedData
+    signingState.value = 'success'
   } catch (error) {
     console.error(error)
     signingState.value = 'error'
@@ -82,7 +61,7 @@ async function signMessage() {
         class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
         variant="secondary"
         :disabled="isDisabled"
-        @on-click="openWalletServiceUi"
+        @on-click="showWalletUI"
         >Open Wallet UI</Button
       >
       <Button
@@ -90,7 +69,7 @@ async function signMessage() {
         class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
         variant="secondary"
         :disabled="isDisabled"
-        @on-click="openFiatOnramp"
+        @on-click="showCheckout"
         >Use Fiat Onramp</Button
       >
       <Button
@@ -98,8 +77,16 @@ async function signMessage() {
         class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
         variant="secondary"
         :disabled="isDisabled"
-        @on-click="connectToApplications"
+        @on-click="showWalletConnectScanner"
         >Connect to Applications</Button
+      >
+      <Button
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+        variant="secondary"
+        :disabled="isDisabled"
+        @on-click="showSwap"
+        >Swap</Button
       >
       <Button
         v-if="signingState === ''"

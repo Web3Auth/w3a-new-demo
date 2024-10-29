@@ -3,7 +3,7 @@ import { Card } from '@toruslabs/vue-components/Card'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Badge } from '@toruslabs/vue-components/Badge'
 import { Icon } from '@toruslabs/vue-components/Icon'
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import { WALLET_ADAPTERS } from '@web3auth/base'
 import { AuthAdapter, AuthSessionData } from '@web3auth/auth-adapter'
 import Bowser from 'bowser'
@@ -23,7 +23,7 @@ type MFASharesType = { title: string; icon?: string; details: string }
 
 const { userInfo, web3Auth, isMFAEnabled, enableMFA } = useWeb3Auth()
 
-const isDisabled = ref(web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH)
+const isDisabled = computed(() => web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH)
 
 const mfaShares = ref<MFASharesType[]>([])
 
@@ -64,7 +64,7 @@ const shareDetailsList = () => {
   })
 }
 
-const addMfa = async () => {
+const addMfa = () => {
   enableMFA()
 }
 
@@ -72,12 +72,9 @@ onMounted(() => {
   mfaShares.value = shareDetailsList()
 })
 
-watch(
-  () => isMFAEnabled.value,
-  () => {
-    mfaShares.value = shareDetailsList()
-  }
-)
+watch(isMFAEnabled, () => {
+  mfaShares.value = shareDetailsList()
+})
 </script>
 
 <template>

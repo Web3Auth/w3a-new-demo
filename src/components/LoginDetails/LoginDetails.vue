@@ -16,7 +16,7 @@ import { IProvider } from '@web3auth/base'
 
 const openConsole = ref(false)
 const isCopied = ref(false)
-const account = ref()
+const account = ref<string | undefined>('')
 const { userInfo, provider } = useWeb3Auth()
 
 onMounted(async () => {
@@ -24,17 +24,14 @@ onMounted(async () => {
   account.value = address
 })
 
-watch(
-  () => provider.value,
-  async () => {
-    if (provider.value) {
-      const address = await getAccounts(provider.value as IProvider)
-      account.value = address
-    }
+watch(provider, async (newProvider) => {
+  if (newProvider) {
+    const address = await getAccounts(newProvider as IProvider)
+    account.value = address
   }
-)
+})
 
-const handleConsoleBtn = async () => {
+const handleConsoleBtn = () => {
   if (userInfo.value) {
     openConsole.value = true
     return

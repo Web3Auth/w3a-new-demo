@@ -1,12 +1,6 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { Button } from '@toruslabs/vue-components/Button'
-import { ROUTES } from '@/constants/common'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
-
-const router = useRouter()
-const route = useRoute()
 
 // Web3Auth
 const { logout, isConnected } = useWeb3Auth()
@@ -16,19 +10,12 @@ const handleDocsLink = () => {
 }
 
 const logoutApp = async () => {
-  console.log('logout')
   try {
     await logout()
   } catch (error) {
-    console.log((error as Error).message)
-  } finally {
-    console.log('CALLES')
-    router.replace('/')
-    window.location.reload()
+    console.error((error as Error).message)
   }
 }
-
-const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
 </script>
 
 <template>

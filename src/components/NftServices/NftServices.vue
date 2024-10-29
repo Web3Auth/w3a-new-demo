@@ -23,7 +23,7 @@ const openNftPurchase = () => {
   showNftPurchase.value = true
 }
 
-const receiverAddress = ref()
+const receiverAddress = ref<string | undefined>('')
 onMounted(async () => {
   window.addEventListener('message', function (event: MessageEvent) {
     if (event.origin === config.nftCheckoutHost && event.data === 'close-nft-checkout') {
