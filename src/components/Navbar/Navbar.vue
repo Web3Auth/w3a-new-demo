@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { Button } from '@toruslabs/vue-components/Button'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { useI18n } from 'petite-vue-i18n'
 
 // Web3Auth
 const { logout, isConnected } = useWeb3Auth()
+const { t } = useI18n()
 
 const handleDocsLink = () => {
   window.open('https://web3auth.io/docs', '_blank')
@@ -41,9 +43,9 @@ const logoutApp = async () => {
         class="!h-9 sm:!h-10"
         @on-click="handleDocsLink"
       >
-        Documentation
+        {{ t('login.documentation') }}
       </Button>
-      <Button v-else variant="secondary" @on-click="logoutApp">Logout</Button>
+      <Button v-else variant="secondary" @on-click="logoutApp">{{ t('login.logout') }}</Button>
     </div>
   </div>
 </template>

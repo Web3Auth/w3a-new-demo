@@ -7,6 +7,7 @@ import { AuthAdapter, AuthSessionData } from '@web3auth/auth-adapter'
 import { WALLET_ADAPTERS } from '@web3auth/base'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
 import Bowser from 'bowser'
+import { useI18n } from 'petite-vue-i18n'
 import { computed, onMounted, ref, watch } from 'vue'
 
 import Divider from '../Divider'
@@ -27,6 +28,7 @@ const { userInfo, web3Auth, isMFAEnabled, enableMFA } = useWeb3Auth()
 const isDisabled = computed(() => web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH)
 
 const mfaShares = ref<MFASharesType[]>([])
+const { t } = useI18n()
 
 const SortMFAShares = (arr: { shareType: string; details: string }[]) => {
   return arr.sort((a, b) => {
@@ -86,13 +88,12 @@ watch(isMFAEnabled, () => {
       <div class="flex justify-between items-center mb-1">
         <h3 class="font-semibold text-app-gray-900 dark:text-app-white">MFA</h3>
         <Badge :variant="isMFAEnabled ? 'success' : 'default'">{{
-          isMFAEnabled ? 'Enabled' : 'Disabled'
+          isMFAEnabled ? t('dashboard.enabled') : t('dashboard.disabled')
         }}</Badge>
       </div>
 
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
-        Add an additional security layer to your wallets. While enabled, you will need to verify
-        another factor when logging in.
+        {{ t('dashboard.mfa-subtext') }}
       </p>
     </div>
 
@@ -103,7 +104,7 @@ watch(isMFAEnabled, () => {
       :disabled="isDisabled"
       variant="secondary"
       @on-click="addMfa"
-      >Add MFA</Button
+      >{{ t('dashboard.add-mfa') }}</Button
     >
 
     <Divider v-if="!isDisabled" />

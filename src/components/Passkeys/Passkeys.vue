@@ -3,9 +3,12 @@ import { Badge } from '@toruslabs/vue-components/Badge'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
+import { useI18n } from 'petite-vue-i18n'
 import { computed } from 'vue'
 
 import Divider from '../Divider'
+
+const { t } = useI18n()
 
 const passkeys = computed((): { id: string; name: string; detail: string }[] => [])
 
@@ -21,14 +24,18 @@ function deletePasskey(id: string) {
   >
     <div class="mb-4">
       <div class="flex justify-between items-center mb-1">
-        <h3 class="font-semibold text-app-gray-900 dark:text-app-white">Passkeys</h3>
+        <h3 class="font-semibold text-app-gray-900 dark:text-app-white">
+          {{ t('dashboard.passkeys') }}
+        </h3>
         <!-- <Badge :variant="hasPasskeys ? 'success' : 'default'">{{
           hasPasskeys ? 'Enabled' : 'Disabled'
         }}</Badge> -->
-        <Badge variant="default">Coming soon</Badge>
+        <Badge variant="default">{{ t('dashboard.coming-soon') }}</Badge>
       </div>
 
-      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">Link a passkey to your account</p>
+      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
+        {{ t('dashboard.passkey-subtext') }}
+      </p>
     </div>
 
     <Button
@@ -36,7 +43,7 @@ function deletePasskey(id: string) {
       class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
       variant="secondary"
       disabled
-      >Register a Passkey</Button
+      >{{ t('dashboard.register-passkey') }}</Button
     >
 
     <Divider v-if="hasPasskeys" class="mt-4 mb-0" />

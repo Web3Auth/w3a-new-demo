@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { Badge } from '@toruslabs/vue-components/Badge'
 import { Icon } from '@toruslabs/vue-components/Icon'
+import { useI18n } from 'petite-vue-i18n'
+
+const { t } = useI18n()
 
 const handleURL = () => {
   window.open('https://t.me/w3a_tg_mini_app_bot', '_blank')
@@ -21,7 +24,7 @@ const handleURL = () => {
       <p class="uppercase">New</p>
     </Badge>
     <p class="text-sm text-app-gray-900 dark:text-app-white font-medium">
-      Try out our Telegram MiniApp
+      {{ t('login.telegram-banner') }}
     </p>
 
     <Icon name="chevron-right-solid-icon" class="ml-auto text-app-gray-900 dark:text-app-white" />

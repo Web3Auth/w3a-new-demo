@@ -7,6 +7,7 @@ import { Icon } from '@toruslabs/vue-components/Icon'
 import { Link } from '@toruslabs/vue-components/Link'
 import { IProvider } from '@web3auth/base'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { useI18n } from 'petite-vue-i18n'
 import { onMounted, ref, watch } from 'vue'
 
 import Divider from '@/components/Divider'
@@ -17,6 +18,7 @@ const openConsole = ref(false)
 const isCopied = ref(false)
 const account = ref<string | undefined>('')
 const { userInfo, provider } = useWeb3Auth()
+const { t } = useI18n()
 
 onMounted(async () => {
   const address = await getAccounts(provider.value as IProvider)
@@ -78,7 +80,7 @@ const returnAvatarLetter = (name: string) => {
         {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
       </p>
       <button type="button" class="leading-none" @click="handleConsoleBtn">
-        <Link class="text-xs dark:text-app-primary-500">View User Info</Link>
+        <Link class="text-xs dark:text-app-primary-500">{{ t('dashboard.userInfo') }}</Link>
       </button>
     </div>
 
@@ -97,7 +99,7 @@ const returnAvatarLetter = (name: string) => {
             v-if="isCopied"
             class="absolute bottom-[150%] left-1/2 -translate-x-1/2 bg-app-white dark:bg-app-gray-600 py-2 px-4 rounded-lg text-black text-sm text-center w-max shadow-md"
           >
-            Copied
+            {{ t('dashboard.copied') }}
             <div
               class="absolute border-8 border-b-0 border-r-transparent border-t-app-white dark:border-t-app-gray-600 border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
             ></div>
@@ -132,7 +134,7 @@ const returnAvatarLetter = (name: string) => {
     <template #sidebar>
       <div class="p-5 flex flex-col flex-1 h-full">
         <h3 class="text-center text-base text-app-gray-600 dark:text-app-white">
-          User Info Console
+          {{ t('dashboard.userInfo-console') }}
         </h3>
         <div
           class="rounded-2xl p-4 bg-app-gray-100 dark:bg-app-dark-surface2 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
@@ -141,7 +143,7 @@ const returnAvatarLetter = (name: string) => {
             userInfo
           }}</pre>
         </div>
-        <Button block @on-click="openConsole = false">Close</Button>
+        <Button block @on-click="openConsole = false"> {{ t('dashboard.close') }}</Button>
       </div>
     </template>
   </Drawer>

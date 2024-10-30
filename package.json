@@ -11,7 +11,8 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit -p tsconfig.json",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "locale": "node scripts/importLocales.mjs"
   },
   "dependencies": {
     "@gtm-support/vue-gtm": "^3.1.0",
@@ -29,6 +30,7 @@
     "@web3auth/wallet-services-plugin-vue-composables": "^9.3.0",
     "bn.js": "^5.2.1",
     "bowser": "^2.11.0",
+    "petite-vue-i18n": "^10.0.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "vue": "^3.5.12"

@@ -4,14 +4,14 @@ import { Link } from '@toruslabs/vue-components/Link'
 import { TextField } from '@toruslabs/vue-components/TextField'
 import { Toggle } from '@toruslabs/vue-components/Toggle'
 import { applyWhiteLabelTheme, LANGUAGE_TYPE, LANGUAGES } from '@web3auth/auth-adapter'
+import { useI18n } from 'petite-vue-i18n'
 import { InputHTMLAttributes, ref } from 'vue'
 
 import useCustomConfig from '@/composables/use-custom-config'
-import useLocales from '@/composables/use-locales'
+import { loadLanguageAsync } from '@/plugins/i18n-setup'
 
-const locales = useLocales()
 const customConfig = useCustomConfig()
-
+const { t } = useI18n()
 type Panel = 'general' | 'theme'
 
 const languages: { name: string; value: LANGUAGE_TYPE }[] = [
@@ -40,23 +40,30 @@ function setPrimaryTextColor(color: string) {
   const rootElement = document.querySelector('.dapp-login-modal') as HTMLElement
   applyWhiteLabelTheme(rootElement, { onPrimary: color })
 }
+
+function handleSelectLanguage(lang: string) {
+  customConfig.config.value.selectedLanguage = lang as LANGUAGE_TYPE
+  loadLanguageAsync(lang as LANGUAGE_TYPE)
+  localStorage.setItem('selectedLanguage', lang)
+}
 </script>
 
 <template>
   <div>
     <h3 class="font-medium mb-2 text-app-gray-900 dark:text-app-white">
-      Customize your Login Screens
+      {{ t('login.customize-login-screen') }}
     </h3>
     <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
-      Personalize your login screens to reflect your brand's identity. Check our
+      {{ t('login.personalize-subtext-1') }}
       <Link
         class="dark:text-app-primary-500"
         href="https://web3auth.io/docs"
         target="_blank"
         rel="noopener noreferrer"
-        >docs</Link
       >
-      for more customization options.
+        {{ t('login.docs') }}</Link
+      >
+      {{ t('login.personalize-subtext-2') }}
     </p>
   </div>
 
@@ -69,7 +76,7 @@ function setPrimaryTextColor(color: string) {
         class="w-full text-left relative block font-medium text-app-gray-900 dark:text-app-white"
         @click="activeConfigPanel = 'general'"
       >
-        General
+        {{ t('login.general') }}
         <Icon
           class="absolute top-0.5 right-0 transition-all duration-500"
           :class="`absolute top-0.5 right-0 transition-all duration-500 ${activeConfigPanel === 'general' ? 'rotate-180' : ''}`"
@@ -84,7 +91,7 @@ function setPrimaryTextColor(color: string) {
       >
         <div>
           <div class="flex justify-between items-center mb-6">
-            <div class="text-app-gray-900 dark:text-app-white">Add Brand Logo</div>
+            <div class="text-app-gray-900 dark:text-app-white">{{ t('login.add-brand-logo') }}</div>
             <Toggle v-model="customConfig.config.value.addBrandLogo" size="small" />
           </div>
           <div
@@ -92,8 +99,8 @@ function setPrimaryTextColor(color: string) {
             class="flex justify-between items-center mb-6"
           >
             <TextField
-              label="Logo URL"
-              placeholder="Logo URL"
+              :label="t('login.logo-url')"
+              :placeholder="t('login.logo-url')"
               :model-value="customConfig.config.value.logoUrl"
               @change="
                 (e) => {
@@ -106,13 +113,15 @@ function setPrimaryTextColor(color: string) {
             v-if="customConfig.config.value.addBrandLogo"
             class="flex justify-between items-center mb-6"
           >
-            <div class="text-app-gray-900 dark:text-app-white">Use Logo as Loader</div>
+            <div class="text-app-gray-900 dark:text-app-white">
+              {{ t('login.use-logo-as-loader') }}
+            </div>
             <Toggle v-model="customConfig.config.value.useLogoAsLoader" size="small" />
           </div>
           <div class="mb-6">
             <TextField
-              label="Application Name"
-              placeholder="dApp Name"
+              :label="t('login.application-name')"
+              :placeholder="t('login.dapp-name')"
               :model-value="customConfig.config.value.dappName"
               @change="
                 (e) => {
@@ -122,22 +131,25 @@ function setPrimaryTextColor(color: string) {
             />
           </div>
           <div>
-            <label for="countries" class="block mb-2 text-app-gray-900 dark:text-app-white"
-              >Default Language</label
-            >
+            <label for="countries" class="block mb-2 text-app-gray-900 dark:text-app-white">
+              {{ t('login.default-lang') }}
+            </label>
             <select
-              id="countries"
+              id="language"
               class="outline outline-1 outline-app-gray-300 border-r-[20px] border-r-transparent bg-app-gray-50 text-app-gray-900 dark:bg-app-gray-700 dark:outline-app-gray-600 dark:text-app-white px-3 py-3 w-full text-sm font-normal rounded-lg"
               :model-value="customConfig.config.value.selectedLanguage"
               @change="
                 (e) => {
-                  customConfig.config.value.selectedLanguage = (e.target as HTMLSelectElement)
-                    .value as LANGUAGE_TYPE
-                  locales.setActiveLocale(customConfig.config.value.selectedLanguage)
+                  handleSelectLanguage((e.target as HTMLSelectElement).value as LANGUAGE_TYPE)
                 }
               "
             >
-              <option v-for="language in languages" :key="language.value" :value="language.value">
+              <option
+                v-for="language in languages"
+                :key="language.value"
+                :value="language.value"
+                :selected="language.value === customConfig.config.value.selectedLanguage"
+              >
                 {{ language.name }}
               </option>
             </select>
@@ -154,7 +166,7 @@ function setPrimaryTextColor(color: string) {
         class="w-full text-left relative block font-medium text-app-gray-900 dark:text-app-white"
         @click="activeConfigPanel = 'theme'"
       >
-        Theme and Colors
+        {{ t('login.theme-colors') }}
         <Icon
           :class="`absolute top-0.5 right-0 transition-all duration-500 ${activeConfigPanel === 'theme' ? 'rotate-180' : ''}`"
           name="chevron-down-solid-icon"
@@ -169,8 +181,8 @@ function setPrimaryTextColor(color: string) {
         <div>
           <div class="mb-6">
             <TextField
-              label="Primary Color"
-              helper-text="Applies to primary elements like buttons, text links, tabs, focus, spinners, nav tabs"
+              :label="t('login.primary-color')"
+              :helper-text="t('login.primary-color-subtext')"
               :model-value="customConfig.config.value.primaryColor"
               @change="
                 (e) => {
@@ -197,8 +209,8 @@ function setPrimaryTextColor(color: string) {
           </div>
           <div class="mb-6">
             <TextField
-              label="Primary Text Color"
-              helper-text="Applies to text elements set against the primary color background"
+              :label="t('login.primary-text-color')"
+              :helper-text="t('login.primary-text-color-subtext')"
               :model-value="customConfig.config.value.primaryTextColor"
               @change="
                 (e) => {

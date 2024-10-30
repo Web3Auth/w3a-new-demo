@@ -24,18 +24,23 @@ const { config } = useCustomConfig()
 
 const chainConfig = getChainConfig(CHAIN_NAMESPACES.EIP155, '0x1') as CustomChainConfig
 
-const walletPlugin = new WalletServicesPlugin({
-  walletInitOptions: {
-    whiteLabel: {
-      showWidgetButton: true,
-      logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg', // logo used on dark mode
-      logoLight: 'https://images.web3auth.io/web3auth-logo-w.svg'
-    },
-    confirmationStrategy: 'modal'
-  }
+const walletPlugin = computed(() => {
+  const walletService = new WalletServicesPlugin({
+    walletInitOptions: {
+      whiteLabel: {
+        showWidgetButton: true,
+        logoDark: 'https://images.web3auth.io/web3auth-logo-w-light.svg', // logo used on dark mode
+        logoLight: 'https://images.web3auth.io/web3auth-logo-w.svg'
+      },
+      confirmationStrategy: 'modal'
+    }
+  })
+
+  return [walletService]
 })
 
 const options = computed((): Web3AuthOptions => {
+  console.log(config.value.selectedLanguage, 'LANG')
   const uiConfig: Web3AuthOptions['uiConfig'] = {
     appName: config.value.dappName,
     logoLight: config.value.addBrandLogo ? config.value.logoUrl : undefined,
@@ -80,7 +85,7 @@ const configs = computed(() => {
   return {
     adapters: externalAdaptersData.value,
     web3AuthOptions: options.value,
-    plugins: [walletPlugin]
+    plugins: walletPlugin.value
   }
 })
 </script>
