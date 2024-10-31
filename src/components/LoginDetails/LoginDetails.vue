@@ -68,7 +68,7 @@ const returnAvatarLetter = (name: string) => {
         :src="userInfo?.profileImage"
         class="w-full h-full"
       />
-      <span v-else>
+      <span v-else class="text-app-gray-900 dark:text-app-white">
         {{ returnAvatarLetter(userInfo?.name || '') }}
       </span>
     </Avatar>

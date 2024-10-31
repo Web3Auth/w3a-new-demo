@@ -91,7 +91,7 @@ async function signMessage() {
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showWalletUI"
@@ -110,7 +110,7 @@ async function signMessage() {
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showCheckout"
@@ -129,7 +129,7 @@ async function signMessage() {
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showWalletConnectScanner"
@@ -149,7 +149,7 @@ async function signMessage() {
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showSwap"
@@ -160,7 +160,7 @@ async function signMessage() {
       <Button
         v-if="signingState === ''"
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
         variant="secondary"
         @on-click="signMessage"
         >{{ t('dashboard.sign-personal-message') }}</Button

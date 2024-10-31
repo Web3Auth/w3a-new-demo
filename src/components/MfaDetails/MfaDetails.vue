@@ -110,7 +110,7 @@ watch(isMFAEnabled, () => {
       <Button
         v-if="!isMFAEnabled"
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
         :disabled="isDisabled"
         variant="secondary"
         @on-click="addMfa"
