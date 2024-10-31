@@ -97,15 +97,26 @@ watch(isMFAEnabled, () => {
       </p>
     </div>
 
-    <Button
-      v-if="!isMFAEnabled"
-      size="sm"
-      class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
-      :disabled="isDisabled"
-      variant="secondary"
-      @on-click="addMfa"
-      >{{ t('dashboard.add-mfa') }}</Button
-    >
+    <div class="relative group">
+      <div
+        v-if="isDisabled"
+        class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+      >
+        {{ t('dashboard.disabled-btn-text') }}
+        <div
+          class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+        ></div>
+      </div>
+      <Button
+        v-if="!isMFAEnabled"
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+        :disabled="isDisabled"
+        variant="secondary"
+        @on-click="addMfa"
+        >{{ t('dashboard.add-mfa') }}</Button
+      >
+    </div>
 
     <Divider v-if="!isDisabled" />
 

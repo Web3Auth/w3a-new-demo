@@ -79,38 +79,84 @@ async function signMessage() {
     />
 
     <div class="space-y-2">
-      <Button
-        size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
-        variant="secondary"
-        :disabled="isDisabled"
-        @on-click="showWalletUI"
-        >{{ t('dashboard.open-wallet-ui') }}</Button
-      >
-      <Button
-        size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
-        variant="secondary"
-        :disabled="isDisabled"
-        @on-click="showCheckout"
-        >{{ t('dashboard.onramp') }}</Button
-      >
-      <Button
-        size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
-        variant="secondary"
-        :disabled="isDisabled"
-        @on-click="showWalletConnectScanner"
-        >{{ t('dashboard.connect-app') }}</Button
-      >
-      <Button
-        size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
-        variant="secondary"
-        :disabled="isDisabled"
-        @on-click="showSwap"
-        >{{ t('dashboard.swap') }}</Button
-      >
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showWalletUI"
+          >{{ t('dashboard.open-wallet-ui') }}</Button
+        >
+      </div>
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showCheckout"
+          >{{ t('dashboard.onramp') }}</Button
+        >
+      </div>
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showWalletConnectScanner"
+          >{{ t('dashboard.connect-app') }}</Button
+        >
+      </div>
+
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showSwap"
+          >{{ t('dashboard.swap') }}</Button
+        >
+      </div>
+
       <Button
         v-if="signingState === ''"
         size="sm"
