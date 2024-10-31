@@ -82,7 +82,7 @@ async function signMessage() {
       <div class="relative group">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
@@ -101,7 +101,7 @@ async function signMessage() {
       <div class="relative group">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
@@ -120,7 +120,7 @@ async function signMessage() {
       <div class="relative group">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
@@ -140,7 +140,7 @@ async function signMessage() {
       <div class="relative group">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[150px] shadow-md"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
