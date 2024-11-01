@@ -13,7 +13,7 @@ const handleURL = () => {
 <template>
   <button
     type="button"
-    class="appearance-none rounded-[10px] flex gap-x-2 items-center bg-app-white dark:bg-app-gray-800 w-full lg:!w-[368px] p-4 cursor-pointer"
+    class="appearance-none rounded-[10px] flex gap-x-2 items-center bg-app-white dark:bg-app-gray-800 w-full lg:!w-[368px] p-4 cursor-pointer max-sm:z-[1000000]"
     @click="handleURL"
   >
     <Badge variant="info" class="gap-x-1 p-2 sm:px-2.5 sm:py-1 rounded-[10px]">
