@@ -1,30 +1,47 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
-import { useWeb3authStore } from '@/store/web3authStore'
+import { IProvider, WALLET_ADAPTERS } from '@web3auth/base'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { useWalletServicesPlugin } from '@web3auth/wallet-services-plugin-vue-composables'
+import { useI18n } from 'petite-vue-i18n'
+import { computed, ref } from 'vue'
 
-const web3Auth = useWeb3authStore()
+import { signPersonalMessage } from '@/services/ethHandlers'
+
+const { t } = useI18n()
 const signedMessage = ref<string>('')
 const isSigningMessage = ref<boolean>(false)
 const signingState = ref<'success' | 'error' | ''>('')
+const { web3Auth, provider } = useWeb3Auth()
+const {
+  isPluginConnected,
+  showCheckout,
+  showSwap,
+  showWalletConnectScanner,
+  showWalletUI,
+  plugin
+} = useWalletServicesPlugin()
 
-function openWalletServiceUi() {
-  web3Auth.showWalletUi()
-}
-
-function openFiatOnramp() {
-  web3Auth.initiateTopUpPlugin()
-}
-
-function connectToApplications() {
-  web3Auth.initiateWalletConnect()
-}
+const isDisabled = computed(
+  () => web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH || !isPluginConnected
+)
 
 async function signMessage() {
   try {
     isSigningMessage.value = true
-    signedMessage.value = (await web3Auth.signedMessage()) as string
+    const { signedMessage: signedData, error } = await signPersonalMessage(
+      web3Auth.value?.connectedAdapterName === WALLET_ADAPTERS.AUTH
+        ? (plugin.value?.wsEmbedInstance.provider as IProvider)
+        : (provider.value as IProvider)
+    )
+    if (error) {
+      console.error(error)
+      signedMessage.value = error
+      signingState.value = 'error'
+      return
+    }
+    signedMessage.value = signedData
     signingState.value = 'success'
   } catch (error) {
     console.error(error)
@@ -34,7 +51,7 @@ async function signMessage() {
     setTimeout(() => {
       signedMessage.value = ''
       signingState.value = ''
-    }, 3000)
+    }, 5000)
   }
 }
 </script>
@@ -43,8 +60,12 @@ async function signMessage() {
     class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
   >
     <div class="mb-4">
-      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">Wallet Services</h3>
-      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">Production-ready wallet UI</p>
+      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">
+        {{ t('dashboard.wallet-services') }}
+      </h3>
+      <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
+        {{ t('dashboard.wallet-services-subtext') }}
+      </p>
     </div>
     <img
       class="dark:hidden mx-auto mb-6 w-[100px] h-[100px]"
@@ -58,34 +79,91 @@ async function signMessage() {
     />
 
     <div class="space-y-2">
-      <Button
-        size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
-        variant="secondary"
-        @on-click="openWalletServiceUi"
-        >Open Wallet UI</Button
-      >
-      <Button
-        size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
-        variant="secondary"
-        @on-click="openFiatOnramp"
-        >Use Fiat Onramp</Button
-      >
-      <Button
-        size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
-        variant="secondary"
-        @on-click="connectToApplications"
-        >Connect to Applications</Button
-      >
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showWalletUI"
+          >{{ t('dashboard.open-wallet-ui') }}</Button
+        >
+      </div>
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showCheckout"
+          >{{ t('dashboard.onramp') }}</Button
+        >
+      </div>
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showWalletConnectScanner"
+          >{{ t('dashboard.connect-app') }}</Button
+        >
+      </div>
+
+      <div class="relative group">
+        <div
+          v-if="isDisabled"
+          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+        >
+          {{ t('dashboard.disabled-btn-text') }}
+          <div
+            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          ></div>
+        </div>
+        <Button
+          size="sm"
+          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          variant="secondary"
+          :disabled="isDisabled"
+          @on-click="showSwap"
+          >{{ t('dashboard.swap') }}</Button
+        >
+      </div>
+
       <Button
         v-if="signingState === ''"
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
         variant="secondary"
         @on-click="signMessage"
-        >Sign Personal Message</Button
+        >{{ t('dashboard.sign-personal-message') }}</Button
       >
       <div
         v-else
@@ -96,9 +174,13 @@ async function signMessage() {
         }"
       >
         <div>
-          {{ signingState === 'success' ? 'Signature Success!' : 'Signature Failed, Try again' }}
+          {{
+            signingState === 'success' ? t('dashboard.sign-success') : t('dashboard.sign-failed')
+          }}
         </div>
-        <div v-if="signedMessage" class="break-all text-xxs leading-tight mt-1">{{ signedMessage }}</div>
+        <div v-if="signedMessage" class="break-all text-xxs leading-tight mt-1">
+          {{ signedMessage }}
+        </div>
       </div>
     </div>
   </Card>

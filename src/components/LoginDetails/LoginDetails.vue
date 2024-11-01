@@ -1,32 +1,40 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-
-import { Avatar } from '@toruslabs/vue-components/Avatar'
-import { Icon } from '@toruslabs/vue-components/Icon'
-import { Button } from '@toruslabs/vue-components/Button'
-import { Link } from '@toruslabs/vue-components/Link'
-import { Drawer } from '@toruslabs/vue-components/Drawer'
-import { getTruncateString } from '@/utils/common'
-
-import { useWeb3authStore } from '@/store/web3authStore'
 import { Card } from '@toruslabs/vue-components'
-import Divider from '@/components/Divider'
+import { Avatar } from '@toruslabs/vue-components/Avatar'
+import { Button } from '@toruslabs/vue-components/Button'
+import { Drawer } from '@toruslabs/vue-components/Drawer'
+import { Icon } from '@toruslabs/vue-components/Icon'
+import { Link } from '@toruslabs/vue-components/Link'
+import { IProvider } from '@web3auth/base'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { useI18n } from 'petite-vue-i18n'
+import { onMounted, ref, watch } from 'vue'
 
-const web3Auth = useWeb3authStore()
+import Divider from '@/components/Divider'
+import { getAccounts } from '@/services/ethHandlers'
+import { getTruncateString } from '@/utils/common'
 
 const openConsole = ref(false)
 const isCopied = ref(false)
-const userInfo = computed(() => web3Auth.userInfo)
-const account = ref('')
+const account = ref<string | undefined>('')
+const { userInfo, provider } = useWeb3Auth()
+const { t } = useI18n()
 
 onMounted(async () => {
-  account.value = web3Auth.accounts[0]
+  const address = await getAccounts(provider.value as IProvider)
+  account.value = address
 })
 
-const handleConsoleBtn = async () => {
+watch(provider, async (newProvider) => {
+  if (newProvider) {
+    const address = await getAccounts(newProvider as IProvider)
+    account.value = address
+  }
+})
+
+const handleConsoleBtn = () => {
   if (userInfo.value) {
     openConsole.value = true
-    return
   }
 }
 
@@ -42,21 +50,25 @@ const returnAvatarLetter = (name: string) => {
   if (!name) return 'W3A'
   if (name.includes('@')) {
     return `${name.charAt(0).toUpperCase()}${name.charAt(1).toUpperCase()}`
-  } else {
-    return `${name.split(' ')[0].charAt(0).toUpperCase()}${name
-      .split(' ')[1]
-      .charAt(0)
-      .toUpperCase()}`
   }
+  return `${name.split(' ')[0].charAt(0).toUpperCase()}${name
+    .split(' ')[1]
+    .charAt(0)
+    .toUpperCase()}`
 }
 </script>
 <template>
   <Card
     class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
   >
-    <Avatar size="xl" class="text-2xl flex-shrink-0 w-[60px] h-[60px] mb-2">
-      <img v-if="userInfo?.profileImage" :src="userInfo?.profileImage" class="w-full h-full" />
-      <span v-else>
+    <Avatar size="xl" class="text-lg flex-shrink-0 w-[60px] h-[60px] mb-2">
+      <img
+        v-if="userInfo?.profileImage"
+        alt="profile-image"
+        :src="userInfo?.profileImage"
+        class="w-full h-full"
+      />
+      <span v-else class="text-app-gray-900 dark:text-app-white">
         {{ returnAvatarLetter(userInfo?.name || '') }}
       </span>
     </Avatar>
@@ -67,8 +79,8 @@ const returnAvatarLetter = (name: string) => {
       <p class="text-xs text-app-gray-400 mb-1">
         {{ userInfo?.email ? userInfo?.email : userInfo?.name }}
       </p>
-      <button class="leading-none" @click="handleConsoleBtn">
-        <Link class="text-xs dark:text-app-primary-500">View User Info</Link>
+      <button type="button" class="leading-none" @click="handleConsoleBtn">
+        <Link class="text-xs dark:text-app-primary-500">{{ t('dashboard.userInfo') }}</Link>
       </button>
     </div>
 
@@ -87,7 +99,7 @@ const returnAvatarLetter = (name: string) => {
             v-if="isCopied"
             class="absolute bottom-[150%] left-1/2 -translate-x-1/2 bg-app-white dark:bg-app-gray-600 py-2 px-4 rounded-lg text-black text-sm text-center w-max shadow-md"
           >
-            Copied
+            {{ t('dashboard.copied') }}
             <div
               class="absolute border-8 border-b-0 border-r-transparent border-t-app-white dark:border-t-app-gray-600 border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
             ></div>
@@ -121,13 +133,17 @@ const returnAvatarLetter = (name: string) => {
   >
     <template #sidebar>
       <div class="p-5 flex flex-col flex-1 h-full">
-        <h3 class="text-center text-base text-app-gray-600 dark:text-app-white">User Info Console</h3>
+        <h3 class="text-center text-base text-app-gray-600 dark:text-app-white">
+          {{ t('dashboard.userInfo-console') }}
+        </h3>
         <div
           class="rounded-2xl p-4 bg-app-gray-100 dark:bg-app-dark-surface2 flex flex-col flex-1 my-6 h-full w-full overflow-x-auto"
         >
-          <pre class="text-sm break-words leading-relaxed text-wrap dark:text-app-white">{{ userInfo }}</pre>
+          <pre class="text-sm break-words leading-relaxed text-wrap dark:text-app-white">{{
+            userInfo
+          }}</pre>
         </div>
-        <Button block @on-click="openConsole = false">Close</Button>
+        <Button block @on-click="openConsole = false"> {{ t('dashboard.close') }}</Button>
       </div>
     </template>
   </Drawer>

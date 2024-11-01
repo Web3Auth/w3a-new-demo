@@ -1,49 +1,57 @@
 import { type IconSets } from '@toruslabs/vue-components'
 import {
-  ChevronDownSolidIcon,
-  ChevronRightIcon,
-  ChevronLeftIcon,
-  ChevronUpSolidIcon,
   ArrowRightIcon,
-  ChevronLeftSolidIcon
+  ChevronDownSolidIcon,
+  ChevronLeftIcon,
+  ChevronLeftSolidIcon,
+  ChevronRightIcon,
+  ChevronRightSolidIcon,
+  ChevronUpSolidIcon
 } from '@toruslabs/vue-icons/arrows'
 import {
-  GoogleIcon,
-  GithubIcon,
-  TwitterIcon,
+  AppleIcon,
   DiscordIcon,
   FacebookIcon,
+  GithubIcon,
+  GoogleIcon,
+  KakaoIcon,
   LineIcon,
-  RedditIcon,
-  AppleIcon,
-  TwitchIcon,
   LinkedinIcon,
-  WechatIcon,
-  KakaoIcon
+  RedditIcon,
+  TwitchIcon,
+  TwitterIcon,
+  WechatIcon
 } from '@toruslabs/vue-icons/auth'
-import { DocumentDuplicateIcon, ColorSwatchSolidIcon } from '@toruslabs/vue-icons/file'
 import { ChartBarSolidIcon } from '@toruslabs/vue-icons/charts'
-import { ExternalLinkIcon, PaperAirplaneSolidIcon, MailIcon } from '@toruslabs/vue-icons/mail'
-import { SunSolidIcon } from '@toruslabs/vue-icons/others'
+import { RssIcon } from '@toruslabs/vue-icons/connection'
+import { ColorSwatchSolidIcon, DocumentDuplicateIcon } from '@toruslabs/vue-icons/file'
+import { MobileIcon } from '@toruslabs/vue-icons/gadgets'
+import { ExternalLinkIcon, MailIcon, PaperAirplaneSolidIcon } from '@toruslabs/vue-icons/mail'
+import { GlobeAltSolidIcon, MoonSolidIcon } from '@toruslabs/vue-icons/maps'
+import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
 import {
-  XCircleSolidIcon,
-  XIcon,
+  CheckCircleSolidIcon,
   MinusCircleIcon,
-  PlusCircleSolidIcon,
   MinusCircleSolidIcon,
-  CheckCircleSolidIcon
+  PlusCircleSolidIcon,
+  XCircleSolidIcon,
+  XIcon
 } from '@toruslabs/vue-icons/notifications'
 import {
-  ShieldExclamationSolidIcon,
+  CogIcon,
+  ShoppingCartSolidIcon,
+  SparklesSolidIcon,
+  SunSolidIcon
+} from '@toruslabs/vue-icons/others'
+import {
+  FingerPrintIcon,
   KeyIcon,
   KeySolidIcon,
-  LockClosedSolidIcon
+  LockClosedIcon,
+  LockClosedSolidIcon,
+  ShieldCheckIcon,
+  ShieldExclamationSolidIcon
 } from '@toruslabs/vue-icons/security'
-import { MenuAltTwoSolidIcon } from '@toruslabs/vue-icons/menu'
-import { GlobeAltSolidIcon, MoonSolidIcon } from '@toruslabs/vue-icons/maps'
-import { RssIcon } from '@toruslabs/vue-icons/connection'
-import { CogIcon, ShoppingCartSolidIcon } from '@toruslabs/vue-icons/others'
-import { MobileIcon } from '@toruslabs/vue-icons/gadgets'
 
 export default {
   ChevronDownSolidIcon,
@@ -87,5 +95,10 @@ export default {
   SunSolidIcon,
   MoonSolidIcon,
   MobileIcon,
-  CogIcon
+  CogIcon,
+  LockClosedIcon,
+  ShieldCheckIcon,
+  FingerPrintIcon,
+  SparklesSolidIcon,
+  ChevronRightSolidIcon
 } as unknown as IconSets

@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
-import { Card } from '@toruslabs/vue-components/Card'
 import { Button } from '@toruslabs/vue-components/Button'
+import { Card } from '@toruslabs/vue-components/Card'
 import { Link } from '@toruslabs/vue-components/Link'
+import { IProvider } from '@web3auth/base'
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { useI18n } from 'petite-vue-i18n'
+import { computed, onMounted, ref } from 'vue'
 
 import config from '@/config'
-import { useWeb3authStore } from '@/store/web3authStore'
+import { getAccounts } from '@/services/ethHandlers'
 
-const web3Auth = useWeb3authStore()
+const { provider } = useWeb3Auth()
 
 const FREE_MINT_CONTRACT_ID = 'b5b4de3f-0212-11ef-a08f-0242ac190003'
 const PAID_MINT_CONTRACT_ID = 'd1145a8b-98ae-44e0-ab63-2c9c8371caff'
 
 const showNftMinting = ref(false)
+const { t } = useI18n()
+
 const openNftMinting = () => {
   showNftMinting.value = true
 }
@@ -22,16 +27,17 @@ const openNftPurchase = () => {
   showNftPurchase.value = true
 }
 
-onMounted(() => {
-  window.addEventListener('message', function (event: MessageEvent) {
+const receiverAddress = ref<string | undefined>('')
+onMounted(async () => {
+  window.addEventListener('message', (event: MessageEvent) => {
     if (event.origin === config.nftCheckoutHost && event.data === 'close-nft-checkout') {
       showNftMinting.value = false
       showNftPurchase.value = false
     }
   })
+  const address = await getAccounts(provider.value as IProvider)
+  receiverAddress.value = address
 })
-
-const receiverAddress = computed(() => web3Auth.accounts[0])
 
 const demoNftMintingUrl = computed(
   () =>
@@ -44,15 +50,23 @@ const demoNftPurchaseUrl = computed(
 )
 </script>
 <template>
-  <Card class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
+  <Card
+    class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+  >
     <div class="mb-4 text-center">
-      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">NFT Services</h3>
+      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">
+        {{ t('dashboard.nft-services') }}
+      </h3>
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
-        Let your users to claim or buy NFT in seconds
+        {{ t('dashboard.nft-services-subtext') }}
       </p>
     </div>
 
-    <img src="@/assets/images/nft-sample.svg" class="w-full max-w-xs mx-auto h-auto mb-6" />
+    <img
+      alt="nft sample image"
+      src="@/assets/images/nft-sample.svg"
+      class="w-full max-w-xs mx-auto h-auto mb-6"
+    />
 
     <div class="space-y-2 mb-4">
       <Button
@@ -60,14 +74,14 @@ const demoNftPurchaseUrl = computed(
         class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
         variant="secondary"
         @on-click="openNftMinting"
-        >Mint free NFT airdrop</Button
+        >{{ t('dashboard.mint-nft-airdrop') }}</Button
       >
       <Button
         size="sm"
         class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
         variant="secondary"
         @on-click="openNftPurchase"
-        >NFT Checkout</Button
+        >{{ t('dashboard.nft-checkout') }}</Button
       >
     </div>
 
@@ -77,13 +91,14 @@ const demoNftPurchaseUrl = computed(
         href="https://docs.stripe.com/testing#cards"
         target="_blank"
         rel="noopener noreferrer"
-        >Try with our test credit cards</Link
+        >{{ t('dashboard.test-credit-card') }}</Link
       >
     </div>
   </Card>
   <iframe
     v-if="showNftMinting"
     id="nftCheckoutIFrame"
+    title="nftCheckoutIFrame"
     :src="demoNftMintingUrl"
     name="nft_minting"
     style="
@@ -101,6 +116,7 @@ const demoNftPurchaseUrl = computed(
   <iframe
     v-if="showNftPurchase"
     id="nftCheckoutIFrame"
+    title="nftCheckoutIFrame"
     :src="demoNftPurchaseUrl"
     name="nft_purchase"
     style="

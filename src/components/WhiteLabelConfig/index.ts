@@ -1,1 +1,3 @@
-export { default } from './WhiteLabelConfig.vue'
+import WhiteLabelConfig from './WhiteLabelConfig.vue'
+
+export default WhiteLabelConfig

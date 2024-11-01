@@ -1,1 +1,3 @@
-export { default } from './LoginCard.vue'
+import LoginCard from './LoginCard.vue'
+
+export default LoginCard

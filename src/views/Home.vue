@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { Card } from '@toruslabs/vue-components/Card'
 import { Link } from '@toruslabs/vue-components/Link'
-import LoginDetails from '@/components/LoginDetails'
-import WalletServices from '@/components/WalletServices'
+import { useI18n } from 'petite-vue-i18n'
+
 import DocsDetails from '@/components/DocsDetails'
+import LoginDetails from '@/components/LoginDetails'
 import MfaDetails from '@/components/MfaDetails'
 import NftServices from '@/components/NftServices'
 import Passkeys from '@/components/Passkeys'
+import WalletServices from '@/components/WalletServices'
+
+const { t } = useI18n()
 </script>
 
 <template>
@@ -25,16 +29,17 @@ import Passkeys from '@/components/Passkeys'
       </div>
       <div class="break-inside-avoid space-y-4">
         <DocsDetails />
-        <Card class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
-          >Have any questions?
+        <Card
+          class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+          >{{ t('dashboard.have-any-que') }}
           <Link
             class="dark:text-app-primary-500"
             href="https://calendly.com/web3auth/meeting-with-web3auth"
             target="_blank"
             rel="noopener noreferrer"
-            >Schedule a demo call</Link
+            >{{ t('dashboard.demo-call') }}</Link
           >
-          with our team today</Card
+          {{ t('dashboard.schedule-call') }}</Card
         >
       </div>
     </div>

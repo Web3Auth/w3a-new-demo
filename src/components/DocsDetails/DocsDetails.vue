@@ -2,6 +2,9 @@
 import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { Link } from '@toruslabs/vue-components/Link'
+import { useI18n } from 'petite-vue-i18n'
+
+const { t } = useI18n()
 </script>
 <template>
   <Card
@@ -9,17 +12,17 @@ import { Link } from '@toruslabs/vue-components/Link'
   >
     <div class="mb-4">
       <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">
-        Experience Web3Auth, first hand
+        {{ t('dashboard.experience-web3auth') }}
       </h3>
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
-        Browse our full suite of features for your dApp with our docs. Access codes examples for
-        these features by visiting our
+        {{ t('dashboard.web3auth-subtext') }}
         <Link
           href="https://pnp-modal-playground.vercel.app/"
           class="text-xs dark:text-app-primary-500"
           target="_blank"
           rel="noopener noreferrer"
-          >playground</Link
+        >
+          {{ t('dashboard.playground') }}</Link
         >.
       </p>
     </div>
@@ -31,7 +34,8 @@ import { Link } from '@toruslabs/vue-components/Link'
         variant="secondary"
         target="_blank"
         rel="noopener noreferrer"
-        >Read our docs</Button
+      >
+        {{ t('dashboard.read-docs') }}</Button
       >
       <Button
         href="https://web3auth.io/customers"
@@ -40,7 +44,8 @@ import { Link } from '@toruslabs/vue-components/Link'
         variant="secondary"
         target="_blank"
         rel="noopener noreferrer"
-        >View Live Integrations</Button
+      >
+        {{ t('dashboard.view-integrations') }}</Button
       >
     </div>
   </Card>

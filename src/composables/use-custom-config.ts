@@ -1,15 +1,17 @@
-import { reactive, watch } from 'vue'
+import { LANGUAGE_TYPE } from '@web3auth/auth-adapter'
+import { ref } from 'vue'
+
 import { setTheme } from '@/utils/common'
 import { CustomConfig } from '@/utils/interface'
-import { useWeb3authStore } from '../store/web3authStore'
 
-const web3Auth = useWeb3authStore()
-const config = reactive<CustomConfig>({
+const selectedLanguage = localStorage.getItem('selectedLanguage') as LANGUAGE_TYPE
+
+const config = ref<CustomConfig>({
   dappName: '',
   addBrandLogo: false,
   logoUrl: 'https://images.web3auth.io/demo-logo.svg',
   useLogoAsLoader: false,
-  selectedLanguage: 'en',
+  selectedLanguage: selectedLanguage || 'en',
   isDark: false,
   primaryColor: '#0346ff',
   primaryTextColor: '#ffffff'
@@ -17,17 +19,9 @@ const config = reactive<CustomConfig>({
 
 export default () => {
   function setActiveTheme() {
-    config.isDark = !config.isDark
-    setTheme(config.isDark)
+    config.value.isDark = !config.value.isDark
+    setTheme(config.value.isDark)
   }
-
-  watch(
-    () => config,
-    (newValue) => {
-      web3Auth.updateWeb3AuthInstance(newValue)
-    },
-    { deep: true }
-  )
   return {
     config,
     setActiveTheme

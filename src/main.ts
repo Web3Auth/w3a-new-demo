@@ -1,31 +1,26 @@
 import './globals'
 import './assets/main.css'
-import { createIcons } from '@toruslabs/vue-components/icons'
-import VueGtag from 'vue-gtag-next'
+
 import { createGtm } from '@gtm-support/vue-gtm'
-
-import { createPinia } from 'pinia'
-
-import router from './routes'
-import icons from './icons'
-
+import { createIcons } from '@toruslabs/vue-components/icons'
+import { LANGUAGE_TYPE } from '@web3auth/auth-adapter'
 import { createApp } from 'vue'
+
 import App from './App.vue'
+import icons from './icons'
+import i18n, { loadLanguageAsync } from './plugins/i18n-setup'
 
 const app = createApp(App)
 
 app
-  .use(router)
-  .use(createPinia())
+  .use(i18n)
   .use(createIcons(icons))
-  .use(VueGtag, {
-    property: { id: 'G-065WFNK5DW' }
-  })
   .use(
     createGtm({
-      id: 'GTM-NFBSNHL',
-      vueRouter: router
+      id: 'GTM-NFBSNHL'
     })
   )
+
+loadLanguageAsync((localStorage.getItem('selectedLanguage') || 'en') as LANGUAGE_TYPE)
 
 app.mount('#app')

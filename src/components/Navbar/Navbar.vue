@@ -1,31 +1,23 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { Button } from '@toruslabs/vue-components/Button'
-import { ROUTES } from '@/constants/common'
-import { useWeb3authStore } from '@/store/web3authStore'
-
-const router = useRouter()
-const route = useRoute()
+import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { useI18n } from 'petite-vue-i18n'
 
 // Web3Auth
-const web3Auth = useWeb3authStore()
+const { logout, isConnected } = useWeb3Auth()
+const { t } = useI18n()
 
 const handleDocsLink = () => {
   window.open('https://web3auth.io/docs', '_blank')
 }
 
-const logout = async () => {
-  console.log('logout')
+const logoutApp = async () => {
   try {
-    await web3Auth.logoutWeb3Auth()
+    await logout()
   } catch (error) {
-    console.log((error as Error).message)
-  } finally {
-    router.push({ name: 'Login' })
+    console.error((error as Error).message)
   }
 }
-const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
 </script>
 
 <template>
@@ -46,15 +38,14 @@ const isLoginPage = computed(() => route.name === ROUTES.LOGIN)
         class="cursor-pointer h-8 sm:!h-12 w-auto hidden dark:block"
       />
       <Button
-        v-if="isLoginPage"
-        @on-click="handleDocsLink"
+        v-if="!isConnected"
         id="w3a-documentation"
         class="!h-9 sm:!h-10"
+        @on-click="handleDocsLink"
       >
-        Documentation
+        {{ t('login.documentation') }}
       </Button>
-
-      <Button v-if="!isLoginPage" variant="secondary" @on-click="logout">Logout</Button>
+      <Button v-else variant="secondary" @on-click="logoutApp">{{ t('login.logout') }}</Button>
     </div>
   </div>
 </template>

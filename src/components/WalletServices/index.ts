@@ -1,1 +1,3 @@
-export { default } from './WalletServices.vue'
+import WalletServices from './WalletServices.vue'
+
+export default WalletServices

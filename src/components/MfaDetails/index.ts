@@ -1,1 +1,3 @@
-export { default } from './MfaDetails.vue'
+import MfaDetails from './MfaDetails.vue'
+
+export default MfaDetails

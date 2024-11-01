@@ -125,15 +125,15 @@ const locales: Record<string, Record<string, string>> = {
 const activeLocale = ref('en')
 
 export default () => {
-  function setActiveLocale(locales: string) {
-    activeLocale.value = locales
+  function setActiveLocale(locale: string) {
+    activeLocale.value = locale
   }
 
   function t(key: string, template?: Record<string, string>) {
     if (!locales[activeLocale.value][key]) return key
     return locales[activeLocale.value][key].replaceAll(/{{(.*?)}}/g, (match) => {
-      match = match.slice(2, -2)
-      return template?.[match] ?? ''
+      const localMatch = match.slice(2, -2)
+      return template?.[localMatch] ?? ''
     })
   }
 

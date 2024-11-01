@@ -1,1 +1,3 @@
-export { default } from './NftServices.vue'
+import NftServices from './NftServices.vue'
+
+export default NftServices
