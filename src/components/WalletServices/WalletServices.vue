@@ -51,7 +51,7 @@ async function signMessage() {
     setTimeout(() => {
       signedMessage.value = ''
       signingState.value = ''
-    }, 3000)
+    }, 5000)
   }
 }
 </script>
