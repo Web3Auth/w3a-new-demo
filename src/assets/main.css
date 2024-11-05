@@ -37,7 +37,7 @@ html {
   right: 0;
   transform: translate(-100%, -40%) !important;
   position: absolute !important;
-  z-index: 999999;
+  z-index: 999990;
 }
 
 #w3a-modal::before {
@@ -72,11 +72,11 @@ html {
     top: 50% !important;
     left: 50% !important;
     right: 0;
-    transform: translate(-50%, -20%) !important;
+    transform: translate(-55%, -40%) !important;
   }
 }
 
-@media only screen and (max-width: 830px) {
+@media only screen and (max-width: 768px) {
   #w3a-modal {
     width: 100%;
   }
