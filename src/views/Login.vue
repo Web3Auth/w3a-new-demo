@@ -72,7 +72,7 @@ watch(
         </button>
       </div>
       <div class="flex gap-x-4">
-        <div class="hidden w-[340px] md:!flex justify-center items-center">
+        <div class="hidden w-[340px] lg:w-[368px] md:!flex justify-center items-center">
           <Card
             class="!shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
             :classes="{
