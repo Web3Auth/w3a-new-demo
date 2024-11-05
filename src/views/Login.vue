@@ -3,9 +3,8 @@ import { Button } from '@toruslabs/vue-components/Button'
 import { Card } from '@toruslabs/vue-components/Card'
 import { Icon } from '@toruslabs/vue-components/Icon'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
 
-import LoginCard from '@/components/LoginCard'
 import TelegramBanner from '@/components/TelegramBanner/TelegramBanner.vue'
 import WhiteLabelConfig from '@/components/WhiteLabelConfig'
 
@@ -20,6 +19,8 @@ const { connect, web3Auth } = useWeb3Auth()
 locales.setActiveLocale(customConfig.config.value.selectedLanguage)
 
 const configDialogRef = ref<HTMLDialogElement | null>(null)
+
+const config = computed(() => customConfig.config)
 
 function showConfigDialog() {
   showAnimateConfigDialog.value = true
@@ -49,11 +50,29 @@ watch(
 </script>
 
 <template>
-  <div class="flex-1 lg:flex items-center">
+  <div class="flex-1 md:flex items-center relative">
     <div class="flex flex-col gap-4 mx-auto h-full w-full p-4 sm:py-6 sm:px-10">
       <TelegramBanner />
+      <div class="top-4 right-4 md:absolute z-[999999]">
+        <button
+          type="button"
+          class="flex items-center justify-center gap-2 rounded-full pl-2 pr-4 py-2 bg-app-gray-200 dark:bg-app-gray-800"
+          @click="customConfig.setActiveTheme"
+        >
+          <div class="h-8 w-8 bg-app-white rounded-full flex justify-center items-center">
+            <Icon
+              class="text-app-gray-500"
+              :name="config.value.isDark ? 'moon-solid-icon' : 'sun-solid-icon'"
+              size="24"
+            />
+          </div>
+          <div class="leading-none text-left text-sm text-app-gray-500 dark:text-app-gray-400">
+            {{ config.value.isDark ? 'DARK' : 'LIGHT' }}<br />MODE
+          </div>
+        </button>
+      </div>
       <div class="flex gap-x-4">
-        <div class="hidden w-[368px] lg:!flex justify-center items-center">
+        <div class="hidden w-[340px] md:!flex justify-center items-center">
           <Card
             class="!shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
             :classes="{
@@ -62,11 +81,6 @@ watch(
           >
             <WhiteLabelConfig />
           </Card>
-        </div>
-        <div class="flex-1 flex justify-start items-start max-sm:z-[10000000]">
-          <div class="max-w-[392px]">
-            <LoginCard />
-          </div>
         </div>
       </div>
     </div>
