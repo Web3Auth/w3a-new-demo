@@ -128,6 +128,11 @@ watch(isMFAEnabled, () => {
             class="text-app-gray-900 dark:text-app-white w-5 h-5"
             name="mail-icon"
           />
+          <Icon
+            v-else-if="userInfo?.typeOfLogin === 'sms_passwordless'"
+            class="text-app-gray-900 dark:text-app-white w-5 h-5"
+            name="annotation-icon"
+          />
           <img
             v-else
             class="w-5 h-5"
