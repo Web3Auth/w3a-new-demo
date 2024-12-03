@@ -23,6 +23,7 @@ import {
   WechatIcon
 } from '@toruslabs/vue-icons/auth'
 import { ChartBarSolidIcon } from '@toruslabs/vue-icons/charts'
+import { AnnotationIcon } from '@toruslabs/vue-icons/chatting'
 import { RssIcon } from '@toruslabs/vue-icons/connection'
 import { ColorSwatchSolidIcon, DocumentDuplicateIcon } from '@toruslabs/vue-icons/file'
 import { MobileIcon } from '@toruslabs/vue-icons/gadgets'
@@ -100,5 +101,6 @@ export default {
   ShieldCheckIcon,
   FingerPrintIcon,
   SparklesSolidIcon,
-  ChevronRightSolidIcon
+  ChevronRightSolidIcon,
+  AnnotationIcon
 } as unknown as IconSets
