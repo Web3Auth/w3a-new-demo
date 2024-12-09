@@ -4,50 +4,43 @@ import { Card } from '@toruslabs/vue-components/Card'
 import { Link } from '@toruslabs/vue-components/Link'
 import { IProvider } from '@web3auth/base'
 import { useWeb3Auth } from '@web3auth/modal-vue-composables'
+import { NFTCheckoutEmbed } from '@web3auth/nft-checkout-plugin'
 import { useI18n } from 'petite-vue-i18n'
-import { computed, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 
-import config from '@/config'
 import { getAccounts } from '@/services/ethHandlers'
 
 const { provider } = useWeb3Auth()
 
 const FREE_MINT_CONTRACT_ID = 'b5b4de3f-0212-11ef-a08f-0242ac190003'
 const PAID_MINT_CONTRACT_ID = 'd1145a8b-98ae-44e0-ab63-2c9c8371caff'
+const NFT_CHECKOUT_CLIENT_ID =
+  'BHgArYmWwSeq21czpcarYh0EVq2WWOzflX-NTK-tY1-1pauPzHKRRLgpABkmYiIV_og9jAvoIxQ8L3Smrwe04Lw'
 
-const showNftMinting = ref(false)
 const { t } = useI18n()
 
-const openNftMinting = () => {
-  showNftMinting.value = true
-}
-
-const showNftPurchase = ref(false)
-const openNftPurchase = () => {
-  showNftPurchase.value = true
-}
+const nftCheckoutEmbed = new NFTCheckoutEmbed({ clientId: NFT_CHECKOUT_CLIENT_ID })
+nftCheckoutEmbed.init()
 
 const receiverAddress = ref<string | undefined>('')
 onMounted(async () => {
-  window.addEventListener('message', (event: MessageEvent) => {
-    if (event.origin === config.nftCheckoutHost && event.data === 'close-nft-checkout') {
-      showNftMinting.value = false
-      showNftPurchase.value = false
-    }
-  })
   const address = await getAccounts(provider.value as IProvider)
   receiverAddress.value = address
 })
 
-const demoNftMintingUrl = computed(
-  () =>
-    `${config.nftCheckoutHost}/?contract_id=${FREE_MINT_CONTRACT_ID}&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
-)
+const openNftMinting = () => {
+  nftCheckoutEmbed.show({
+    contractId: FREE_MINT_CONTRACT_ID,
+    receiverAddress: receiverAddress.value
+  })
+}
 
-const demoNftPurchaseUrl = computed(
-  () =>
-    `${config.nftCheckoutHost}/?contract_id=${PAID_MINT_CONTRACT_ID}&receiver_address=${receiverAddress.value}&api_key=${config.nftCheckoutApiKey}`
-)
+const openNftPurchase = () => {
+  nftCheckoutEmbed.show({
+    contractId: PAID_MINT_CONTRACT_ID,
+    receiverAddress: receiverAddress.value
+  })
+}
 </script>
 <template>
   <Card
@@ -95,42 +88,6 @@ const demoNftPurchaseUrl = computed(
       >
     </div>
   </Card>
-  <iframe
-    v-if="showNftMinting"
-    id="nftCheckoutIFrame"
-    title="nftCheckoutIFrame"
-    :src="demoNftMintingUrl"
-    name="nft_minting"
-    style="
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 0;
-      z-index: 99999;
-    "
-    allow="clipboard-write"
-  />
-  <iframe
-    v-if="showNftPurchase"
-    id="nftCheckoutIFrame"
-    title="nftCheckoutIFrame"
-    :src="demoNftPurchaseUrl"
-    name="nft_purchase"
-    style="
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-      border-radius: 0;
-      z-index: 99999;
-    "
-    allow="clipboard-write"
-  />
 </template>
 
 <style scoped></style>
