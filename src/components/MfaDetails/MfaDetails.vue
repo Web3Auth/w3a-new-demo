@@ -23,7 +23,7 @@ const FACTOR_MAP: Record<string, { title: string; icon?: string }> = {
 
 type MFASharesType = { title: string; icon?: string; details: string }
 
-const { userInfo, web3Auth, isMFAEnabled, enableMFA } = useWeb3Auth()
+const { userInfo, web3Auth, isMFAEnabled, enableMFA, manageMFA } = useWeb3Auth()
 
 const isDisabled = computed(() => web3Auth.value?.connectedAdapterName !== WALLET_ADAPTERS.AUTH)
 
@@ -115,6 +115,14 @@ watch(isMFAEnabled, () => {
         variant="secondary"
         @on-click="addMfa"
         >{{ t('dashboard.add-mfa') }}</Button
+      >
+      <Button
+        v-else
+        size="sm"
+        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+        variant="secondary"
+        @on-click="manageMFA({} as any)"
+        >Manage MFA</Button
       >
     </div>
 
