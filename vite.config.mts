@@ -1,9 +1,9 @@
-/* eslint-disable no-console */
+import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
 import vue from '@vitejs/plugin-vue'
 import { defineConfig, loadEnv } from 'vite'
 import viteTsconfigPaths from 'vite-tsconfig-paths'
-import { resolve } from 'node:path'
 
 const { VITE_APP_INFURA_PROJECT_KEY } = loadEnv('development', process.cwd())
 console.log('VITE_APP_INFURA_PROJECT_KEY', VITE_APP_INFURA_PROJECT_KEY)

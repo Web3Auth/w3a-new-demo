@@ -14,23 +14,23 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <div class="flex-1 flex py-4 px-4 sm:py-6 sm:px-10">
-    <div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 break-before-avoid">
-      <div class="break-inside-avoid space-y-4 mb-4">
+  <div class="flex flex-1 p-4 sm:px-10 sm:py-6">
+    <div class="columns-1 break-before-avoid sm:columns-2 lg:columns-3 xl:columns-4">
+      <div class="mb-4 break-inside-avoid space-y-4">
         <LoginDetails />
         <Passkeys />
         <MfaDetails />
       </div>
-      <div class="break-inside-avoid lg:break-after-avoid xl:break-after-column mb-4">
+      <div class="mb-4 break-inside-avoid lg:break-after-avoid xl:break-after-column">
         <WalletServices />
       </div>
-      <div class="break-inside-avoid xl:break-after-column mb-4">
+      <div class="mb-4 break-inside-avoid xl:break-after-column">
         <NftServices />
       </div>
       <div class="break-inside-avoid space-y-4">
         <DocsDetails />
         <Card
-          class="px-8 py-6 text-sm text-app-gray-800 dark:text-app-gray-400 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+          class="w-full !rounded-2xl !border-0 px-8 py-6 text-sm text-app-gray-800 !shadow-modal dark:!border-app-gray-800 dark:text-app-gray-400 dark:!shadow-dark"
           >{{ t('dashboard.have-any-que') }}
           <Link
             class="dark:text-app-primary-500"
