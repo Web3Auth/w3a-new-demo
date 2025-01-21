@@ -51,10 +51,10 @@ const demoNftPurchaseUrl = computed(
 </script>
 <template>
   <Card
-    class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+    class="w-full !rounded-2xl !border-0 px-8 py-6 !shadow-modal dark:!border-app-gray-800 dark:!shadow-dark"
   >
     <div class="mb-4 text-center">
-      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">
+      <h3 class="mb-1 font-semibold text-app-gray-900 dark:text-app-white">
         {{ t('dashboard.nft-services') }}
       </h3>
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
@@ -65,20 +65,20 @@ const demoNftPurchaseUrl = computed(
     <img
       alt="nft sample image"
       src="@/assets/images/nft-sample.svg"
-      class="w-full max-w-xs mx-auto h-auto mb-6"
+      class="mx-auto mb-6 h-auto w-full max-w-xs"
     />
 
-    <div class="space-y-2 mb-4">
+    <div class="mb-4 space-y-2">
       <Button
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
         variant="secondary"
         @on-click="openNftMinting"
         >{{ t('dashboard.mint-nft-airdrop') }}</Button
       >
       <Button
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+        class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
         variant="secondary"
         @on-click="openNftPurchase"
         >{{ t('dashboard.nft-checkout') }}</Button

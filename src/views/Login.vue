@@ -50,31 +50,31 @@ watch(
 </script>
 
 <template>
-  <div class="flex-1 md:flex items-center relative">
-    <div class="flex flex-col gap-4 mx-auto h-full w-full p-4 sm:py-6 sm:px-10">
+  <div class="relative flex-1 items-center md:flex">
+    <div class="mx-auto flex size-full flex-col gap-4 p-4 sm:px-10 sm:py-6">
       <TelegramBanner />
-      <div class="top-4 right-4 md:absolute z-[999999]">
+      <div class="right-4 top-4 z-[999999] md:absolute">
         <button
           type="button"
-          class="flex items-center justify-center gap-2 rounded-full pl-2 pr-4 py-2 bg-app-gray-200 dark:bg-app-gray-800"
+          class="flex items-center justify-center gap-2 rounded-full bg-app-gray-200 py-2 pl-2 pr-4 dark:bg-app-gray-800"
           @click="customConfig.setActiveTheme"
         >
-          <div class="h-8 w-8 bg-app-white rounded-full flex justify-center items-center">
+          <div class="flex size-8 items-center justify-center rounded-full bg-app-white">
             <Icon
               class="text-app-gray-500"
               :name="config.value.isDark ? 'moon-solid-icon' : 'sun-solid-icon'"
               size="24"
             />
           </div>
-          <div class="leading-none text-left text-sm text-app-gray-500 dark:text-app-gray-400">
+          <div class="text-left text-sm leading-none text-app-gray-500 dark:text-app-gray-400">
             {{ config.value.isDark ? 'DARK' : 'LIGHT' }}<br />MODE
           </div>
         </button>
       </div>
       <div class="flex gap-x-4">
-        <div class="hidden w-[340px] lg:w-[368px] md:!flex justify-center items-center">
+        <div class="hidden w-[340px] items-center justify-center md:!flex lg:w-[368px]">
           <Card
-            class="!shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+            class="!border-0 !shadow-modal dark:!border-app-gray-800 dark:!shadow-dark"
             :classes="{
               container: `!rounded-xl p-8 bg-app-white`
             }"
@@ -85,7 +85,7 @@ watch(
       </div>
     </div>
   </div>
-  <div class="fixed lg:hidden bottom-2 right-2 max-sm:z-[1000000]">
+  <div class="fixed bottom-2 right-2 max-sm:z-[1000000] lg:hidden">
     <Button icon rounded @on-click="showConfigDialog"><Icon name="cog-icon" /></Button>
   </div>
   <dialog
@@ -104,7 +104,7 @@ watch(
     <WhiteLabelConfig />
     <button
       type="button"
-      class="absolute top-4 right-4 max-sm:z-[1000000]"
+      class="absolute right-4 top-4 max-sm:z-[1000000]"
       @click="closeConfigDialog"
     >
       <Icon class="text-app-gray-900 dark:text-app-gray-100" size="12px" name="x-icon" />

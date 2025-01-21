@@ -1,3 +1,4 @@
 <template>
-  <hr class="h-px my-3 bg-app-gray-200 dark:bg-app-gray-500 border-0" />
+  <hr class="my-3 h-px border-0 bg-app-gray-200 dark:bg-app-gray-500" />
 </template>
+<script setup lang="ts"></script>

@@ -36,15 +36,13 @@ async function signMessage() {
         : (provider.value as IProvider)
     )
     if (error) {
-      console.error(error)
       signedMessage.value = error
       signingState.value = 'error'
       return
     }
     signedMessage.value = signedData
     signingState.value = 'success'
-  } catch (error) {
-    console.error(error)
+  } catch {
     signingState.value = 'error'
   } finally {
     isSigningMessage.value = false
@@ -57,10 +55,10 @@ async function signMessage() {
 </script>
 <template>
   <Card
-    class="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+    class="w-full !rounded-2xl !border-0 px-8 py-6 text-center !shadow-modal dark:!border-app-gray-800 dark:!shadow-dark"
   >
     <div class="mb-4">
-      <h3 class="font-semibold text-app-gray-900 dark:text-app-white mb-1">
+      <h3 class="mb-1 font-semibold text-app-gray-900 dark:text-app-white">
         {{ t('dashboard.wallet-services') }}
       </h3>
       <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
@@ -68,68 +66,68 @@ async function signMessage() {
       </p>
     </div>
     <img
-      class="dark:hidden mx-auto mb-6 w-[100px] h-[100px]"
+      class="mx-auto mb-6 size-[100px] dark:hidden"
       src="@/assets/images/wallet-services.svg"
       alt="Wallet Services"
     />
     <img
-      class="hidden dark:block mx-auto mb-6 w-[100px] h-[100px]"
+      class="mx-auto mb-6 hidden size-[100px] dark:block"
       src="@/assets/images/wallet-services-dark.svg"
       alt="Wallet Services"
     />
 
     <div class="space-y-2">
-      <div class="relative group">
+      <div class="group relative">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+          class="absolute bottom-[130%] left-1/2 hidden w-[180px] -translate-x-1/2 rounded-lg bg-app-light-surface1 px-4 py-2 text-center text-xs text-app-black shadow-md group-hover:block"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
-            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+            class="absolute left-[calc(50%_-_8px)] top-full border-8 border-b-0 border-x-transparent border-t-app-white"
           ></div>
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showWalletUI"
           >{{ t('dashboard.open-wallet-ui') }}</Button
         >
       </div>
-      <div class="relative group">
+      <div class="group relative">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+          class="absolute bottom-[130%] left-1/2 hidden w-[180px] -translate-x-1/2 rounded-lg bg-app-light-surface1 px-4 py-2 text-center text-xs text-app-black shadow-md group-hover:block"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
-            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+            class="absolute left-[calc(50%_-_8px)] top-full border-8 border-b-0 border-x-transparent border-t-app-white"
           ></div>
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showCheckout"
           >{{ t('dashboard.onramp') }}</Button
         >
       </div>
-      <div class="relative group">
+      <div class="group relative">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+          class="absolute bottom-[130%] left-1/2 hidden w-[180px] -translate-x-1/2 rounded-lg bg-app-light-surface1 px-4 py-2 text-center text-xs text-app-black shadow-md group-hover:block"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
-            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+            class="absolute left-[calc(50%_-_8px)] top-full border-8 border-b-0 border-x-transparent border-t-app-white"
           ></div>
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showWalletConnectScanner"
@@ -137,19 +135,19 @@ async function signMessage() {
         >
       </div>
 
-      <div class="relative group">
+      <div class="group relative">
         <div
           v-if="isDisabled"
-          class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+          class="absolute bottom-[130%] left-1/2 hidden w-[180px] -translate-x-1/2 rounded-lg bg-app-light-surface1 px-4 py-2 text-center text-xs text-app-black shadow-md group-hover:block"
         >
           {{ t('dashboard.disabled-btn-text') }}
           <div
-            class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+            class="absolute left-[calc(50%_-_8px)] top-full border-8 border-b-0 border-x-transparent border-t-app-white"
           ></div>
         </div>
         <Button
           size="sm"
-          class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+          class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white dark:disabled:!text-app-gray-500"
           variant="secondary"
           :disabled="isDisabled"
           @on-click="showSwap"
@@ -160,14 +158,14 @@ async function signMessage() {
       <Button
         v-if="signingState === ''"
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+        class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white dark:disabled:!text-app-gray-500"
         variant="secondary"
         @on-click="signMessage"
         >{{ t('dashboard.sign-personal-message') }}</Button
       >
       <div
         v-else
-        class="border p-2 border-app-gray-500 text-app-gray-500 flex flex-col items-center justify-center text-sm rounded-md min-h-9"
+        class="flex min-h-9 flex-col items-center justify-center rounded-md border border-app-gray-500 p-2 text-sm text-app-gray-500"
         :class="{
           'bg-app-green-100 text-app-green-500': signingState === 'success',
           'bg-app-red-100 text-app-red-800': signingState === 'error'
@@ -178,7 +176,7 @@ async function signMessage() {
             signingState === 'success' ? t('dashboard.sign-success') : t('dashboard.sign-failed')
           }}
         </div>
-        <div v-if="signedMessage" class="break-all text-xxs leading-tight mt-1">
+        <div v-if="signedMessage" class="mt-1 break-all text-xxs leading-tight">
           {{ signedMessage }}
         </div>
       </div>

@@ -13,17 +13,17 @@ const handleURL = () => {
 <template>
   <button
     type="button"
-    class="appearance-none rounded-[10px] flex gap-x-2 items-center bg-app-white dark:bg-app-gray-800 w-full md:!w-[340px] lg:!w-[368px] p-4 cursor-pointer max-sm:z-[1000000]"
+    class="flex w-full cursor-pointer appearance-none items-center gap-x-2 rounded-[10px] bg-app-white p-4 dark:bg-app-gray-800 max-sm:z-[1000000] md:!w-[340px] lg:!w-[368px]"
     @click="handleURL"
   >
-    <Badge variant="info" class="gap-x-1 p-2 sm:px-2.5 sm:py-1 rounded-[10px]">
+    <Badge variant="info" class="gap-x-1 rounded-[10px] p-2 sm:px-2.5 sm:py-1">
       <Icon
         name="sparkles-solid-icon"
-        class="text-app-primary-600 dark:text-app-primary-400 !w-4 !h-4"
+        class="!h-4 !w-4 text-app-primary-600 dark:text-app-primary-400"
       />
       <p class="uppercase">New</p>
     </Badge>
-    <p class="text-sm text-app-gray-900 dark:text-app-white font-medium">
+    <p class="text-sm font-medium text-app-gray-900 dark:text-app-white">
       {{ t('login.telegram-banner') }}
     </p>
 

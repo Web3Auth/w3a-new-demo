@@ -82,10 +82,10 @@ watch(isMFAEnabled, () => {
 
 <template>
   <Card
-    class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+    class="w-full !rounded-2xl !border-0 px-8 py-6 !shadow-modal dark:!border-app-gray-800 dark:!shadow-dark"
   >
     <div class="mb-4">
-      <div class="flex justify-between items-center mb-1">
+      <div class="mb-1 flex items-center justify-between">
         <h3 class="font-semibold text-app-gray-900 dark:text-app-white">MFA</h3>
         <Badge :variant="isMFAEnabled ? 'success' : 'default'">{{
           isMFAEnabled ? t('dashboard.enabled') : t('dashboard.disabled')
@@ -97,20 +97,20 @@ watch(isMFAEnabled, () => {
       </p>
     </div>
 
-    <div class="relative group">
+    <div class="group relative">
       <div
         v-if="isDisabled"
-        class="hidden group-hover:block absolute bottom-[130%] left-1/2 -translate-x-1/2 bg-app-light-surface1 py-2 px-4 rounded-lg text-app-black text-xs text-center w-[180px] shadow-md"
+        class="absolute bottom-[130%] left-1/2 hidden w-[180px] -translate-x-1/2 rounded-lg bg-app-light-surface1 px-4 py-2 text-center text-xs text-app-black shadow-md group-hover:block"
       >
         {{ t('dashboard.disabled-btn-text') }}
         <div
-          class="absolute border-8 border-b-0 border-r-transparent border-t-app-white border-l-transparent top-[100%] left-[calc(50%_-_8px)]"
+          class="absolute left-[calc(50%_-_8px)] top-full border-8 border-b-0 border-x-transparent border-t-app-white"
         ></div>
       </div>
       <Button
         v-if="!isMFAEnabled"
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+        class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white dark:disabled:!text-app-gray-500"
         :disabled="isDisabled"
         variant="secondary"
         @on-click="addMfa"
@@ -119,7 +119,7 @@ watch(isMFAEnabled, () => {
       <Button
         v-else
         size="sm"
-        class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
+        class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white dark:disabled:!text-app-gray-500"
         variant="secondary"
         @on-click="manageMFA()"
         >{{ t('dashboard.manage-mfa') }}</Button
@@ -133,24 +133,24 @@ watch(isMFAEnabled, () => {
         <div class="mr-2">
           <Icon
             v-if="['email_passwordless', 'jwt'].includes(userInfo?.typeOfLogin || '')"
-            class="text-app-gray-900 dark:text-app-white w-5 h-5"
+            class="size-5 text-app-gray-900 dark:text-app-white"
             name="mail-icon"
           />
           <Icon
             v-else-if="userInfo?.typeOfLogin === 'sms_passwordless'"
-            class="text-app-gray-900 dark:text-app-white w-5 h-5"
+            class="size-5 text-app-gray-900 dark:text-app-white"
             name="annotation-icon"
           />
           <img
             v-else
-            class="w-5 h-5"
+            class="size-5"
             :src="`https://images.web3auth.io/login-${userInfo?.typeOfLogin}-active.svg`"
             :alt="`${userInfo?.typeOfLogin} icon`"
           />
         </div>
         <div>
           <h4
-            class="text-sm font-semibold text-app-gray-900 dark:text-app-white first-letter:capitalize"
+            class="text-sm font-semibold text-app-gray-900 first-letter:capitalize dark:text-app-white"
           >
             {{ userInfo?.typeOfLogin?.replace('_', ' ') }}
           </h4>
@@ -161,7 +161,7 @@ watch(isMFAEnabled, () => {
         <div class="mr-2">
           <Icon
             :name="shareDetail.icon || 'key-icon'"
-            class="text-app-gray-900 dark:text-app-white w-5 h-5"
+            class="size-5 text-app-gray-900 dark:text-app-white"
           />
         </div>
         <div>

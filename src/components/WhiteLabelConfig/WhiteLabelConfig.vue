@@ -50,7 +50,7 @@ function handleSelectLanguage(lang: string) {
 
 <template>
   <div>
-    <h3 class="font-medium mb-2 text-app-gray-900 dark:text-app-white">
+    <h3 class="mb-2 font-medium text-app-gray-900 dark:text-app-white">
       {{ t('login.customize-login-screen') }}
     </h3>
     <p class="text-xs text-app-gray-500 dark:text-app-gray-400">
@@ -67,18 +67,18 @@ function handleSelectLanguage(lang: string) {
     </p>
   </div>
 
-  <hr class="h-px my-4 bg-app-gray-200 border-0" />
+  <hr class="my-4 h-px border-0 bg-app-gray-200" />
 
   <div class="accordion">
     <div class="accordion-panel">
       <button
         type="button"
-        class="w-full text-left relative block font-medium text-app-gray-900 dark:text-app-white"
+        class="relative block w-full text-left font-medium text-app-gray-900 dark:text-app-white"
         @click="activeConfigPanel = 'general'"
       >
         {{ t('login.general') }}
         <Icon
-          class="absolute top-0.5 right-0 transition-all duration-500"
+          class="absolute right-0 top-0.5 transition-all duration-500"
           :class="`absolute top-0.5 right-0 transition-all duration-500 ${activeConfigPanel === 'general' ? 'rotate-180' : ''}`"
           name="chevron-down-solid-icon"
         />
@@ -90,13 +90,13 @@ function handleSelectLanguage(lang: string) {
         :aria-hidden="activeConfigPanel !== 'general'"
       >
         <div>
-          <div class="flex justify-between items-center mb-6">
+          <div class="mb-6 flex items-center justify-between">
             <div class="text-app-gray-900 dark:text-app-white">{{ t('login.add-brand-logo') }}</div>
             <Toggle v-model="customConfig.config.value.addBrandLogo" size="small" />
           </div>
           <div
             v-if="customConfig.config.value.addBrandLogo"
-            class="flex justify-between items-center mb-6"
+            class="mb-6 flex items-center justify-between"
           >
             <TextField
               :label="t('login.logo-url')"
@@ -111,7 +111,7 @@ function handleSelectLanguage(lang: string) {
           </div>
           <div
             v-if="customConfig.config.value.addBrandLogo"
-            class="flex justify-between items-center mb-6"
+            class="mb-6 flex items-center justify-between"
           >
             <div class="text-app-gray-900 dark:text-app-white">
               {{ t('login.use-logo-as-loader') }}
@@ -131,12 +131,12 @@ function handleSelectLanguage(lang: string) {
             />
           </div>
           <div>
-            <label for="countries" class="block mb-2 text-app-gray-900 dark:text-app-white">
+            <label for="countries" class="mb-2 block text-app-gray-900 dark:text-app-white">
               {{ t('login.default-lang') }}
             </label>
             <select
               id="language"
-              class="outline outline-1 outline-app-gray-300 border-r-[20px] border-r-transparent bg-app-gray-50 text-app-gray-900 dark:bg-app-gray-700 dark:outline-app-gray-600 dark:text-app-white px-3 py-3 w-full text-sm font-normal rounded-lg"
+              class="w-full rounded-lg border-r-[20px] border-r-transparent bg-app-gray-50 p-3 text-sm font-normal text-app-gray-900 outline outline-1 outline-app-gray-300 dark:bg-app-gray-700 dark:text-app-white dark:outline-app-gray-600"
               :model-value="customConfig.config.value.selectedLanguage"
               @change="
                 (e) => {
@@ -158,12 +158,12 @@ function handleSelectLanguage(lang: string) {
       </div>
     </div>
 
-    <hr class="h-px my-4 bg-app-gray-200 border-0" />
+    <hr class="my-4 h-px border-0 bg-app-gray-200" />
 
     <div class="accordion-panel">
       <button
         type="button"
-        class="w-full text-left relative block font-medium text-app-gray-900 dark:text-app-white"
+        class="relative block w-full text-left font-medium text-app-gray-900 dark:text-app-white"
         @click="activeConfigPanel = 'theme'"
       >
         {{ t('login.theme-colors') }}
@@ -174,7 +174,7 @@ function handleSelectLanguage(lang: string) {
       </button>
       <div
         id="panel2-content"
-        class="accordion-content text-sm font-medium pt-6"
+        class="accordion-content pt-6 text-sm font-medium"
         role="region"
         :aria-hidden="activeConfigPanel !== 'theme'"
       >

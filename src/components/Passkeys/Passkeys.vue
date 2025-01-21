@@ -14,16 +14,14 @@ const passkeys = computed((): { id: string; name: string; detail: string }[] => 
 
 const hasPasskeys = computed(() => passkeys.value.length > 0)
 
-function deletePasskey(id: string) {
-  console.log('delete passkey', id)
-}
+function deletePasskey(_id: string) {}
 </script>
 <template>
   <Card
-    class="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark"
+    class="w-full !rounded-2xl !border-0 px-8 py-6 !shadow-modal dark:!border-app-gray-800 dark:!shadow-dark"
   >
     <div class="mb-4">
-      <div class="flex justify-between items-center mb-1">
+      <div class="mb-1 flex items-center justify-between">
         <h3 class="font-semibold text-app-gray-900 dark:text-app-white">
           {{ t('dashboard.passkeys') }}
         </h3>
@@ -40,18 +38,18 @@ function deletePasskey(id: string) {
 
     <Button
       size="sm"
-      class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400"
+      class="w-full gap-2 !border-app-gray-300 !text-app-gray-800 disabled:!text-app-gray-400 dark:!text-app-white"
       variant="secondary"
       disabled
       >{{ t('dashboard.register-passkey') }}</Button
     >
 
-    <Divider v-if="hasPasskeys" class="mt-4 mb-0" />
+    <Divider v-if="hasPasskeys" class="mb-0 mt-4" />
 
     <div v-if="hasPasskeys" class="divide-y divide-app-gray-200 dark:divide-app-gray-500">
       <div v-for="passkey in passkeys" :key="passkey.id" class="flex items-center py-4">
         <div class="mr-2">
-          <Icon name="key-icon" class="text-app-gray-900 dark:text-app-white w-5 h-5" />
+          <Icon name="key-icon" class="size-5 text-app-gray-900 dark:text-app-white" />
         </div>
         <div>
           <h4 class="text-sm font-semibold text-app-gray-900 dark:text-app-white">
@@ -61,7 +59,7 @@ function deletePasskey(id: string) {
         </div>
         <div class="ml-auto">
           <Button icon rounded variant="text" @on-click="deletePasskey(passkey.id)">
-            <Icon name="minus-circle-icon" class="text-app-gray-900 dark:text-app-white w-5 h-5" />
+            <Icon name="minus-circle-icon" class="size-5 text-app-gray-900 dark:text-app-white" />
           </Button>
         </div>
       </div>

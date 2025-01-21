@@ -40,7 +40,6 @@ const walletPlugin = computed(() => {
 })
 
 const options = computed((): Web3AuthOptions => {
-  console.log(config.value.selectedLanguage, 'LANG')
   const uiConfig: Web3AuthOptions['uiConfig'] = {
     appName: config.value.dappName,
     logoLight: config.value.addBrandLogo ? config.value.logoUrl : undefined,
@@ -91,7 +90,7 @@ const configs = computed(() => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col">
+  <div class="flex min-h-screen flex-col">
     <Web3AuthProvider :config="configs">
       <WalletServicesProvider>
         <Navbar />

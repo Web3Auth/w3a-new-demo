@@ -21,21 +21,21 @@ const logoutApp = async () => {
 </script>
 
 <template>
-  <div class="w-full relative">
+  <div class="relative w-full">
     <div
       :class="[
-        'py-4 px-4 sm:py-6 sm:px-8 flex items-center justify-between bg-app-white dark:bg-app-gray-800 w-full'
+        'flex w-full items-center justify-between bg-app-white p-4 dark:bg-app-gray-800 sm:px-8 sm:py-6'
       ]"
     >
       <img
         src="@/assets/images/logo.svg"
         alt="web3auth demo logo"
-        class="cursor-pointer h-8 sm:!h-12 w-auto dark:hidden"
+        class="h-8 w-auto cursor-pointer dark:hidden sm:!h-12"
       />
       <img
         src="@/assets/images/logo-light.svg"
         alt="web3auth demo logo"
-        class="cursor-pointer h-8 sm:!h-12 w-auto hidden dark:block"
+        class="hidden h-8 w-auto cursor-pointer dark:block sm:!h-12"
       />
       <Button
         v-if="!isConnected"
