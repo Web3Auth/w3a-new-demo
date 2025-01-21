@@ -121,8 +121,8 @@ watch(isMFAEnabled, () => {
         size="sm"
         class="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white disabled:!text-app-gray-400 dark:disabled:!text-app-gray-500"
         variant="secondary"
-        @on-click="manageMFA({} as any)"
-        >Manage MFA</Button
+        @on-click="manageMFA()"
+        >{{ t('dashboard.manage-mfa') }}</Button
       >
     </div>
 
