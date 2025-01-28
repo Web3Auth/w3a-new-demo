@@ -64,7 +64,8 @@ const options = computed((): Web3AuthOptions => {
     privateKeyProvider,
     web3AuthNetwork: WEB3AUTH_NETWORK.SAPPHIRE_MAINNET,
     uiConfig,
-    enableLogging: true
+    enableLogging: true,
+    sessionTime: 3600
   }
 })
 
