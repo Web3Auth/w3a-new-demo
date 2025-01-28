@@ -85,7 +85,7 @@ watch(
       </div>
     </div>
   </div>
-  <div class="fixed bottom-2 right-2 max-sm:z-[1000000] lg:hidden">
+  <div class="fixed bottom-2 right-2 max-sm:z-[1000000] md:hidden">
     <Button icon rounded @on-click="showConfigDialog"><Icon name="cog-icon" /></Button>
   </div>
   <dialog
