@@ -22,7 +22,9 @@ import Root from './views/Root.vue'
 
 const { config } = useCustomConfig()
 
-const chainConfig = getChainConfig(CHAIN_NAMESPACES.EIP155, '0x1') as CustomChainConfig
+const clientId = 'BNI_pZZpoH4tqzbDDMKwfLOWujTif_kek4h9QEN271Gu0JheYDPEUHNKMl5Nnw5PGOjK-SOxp1RpUdG9TJufMZk';
+
+const chainConfig = getChainConfig(CHAIN_NAMESPACES.EIP155, '0x1', clientId) as CustomChainConfig
 
 const walletPlugin = computed(() => {
   const walletService = new WalletServicesPlugin({
